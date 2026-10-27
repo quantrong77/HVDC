@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Token màu - sinh từ bảng hex; chỉnh ở đây để đổi toàn bộ giao diện */
+:root {
+  color-scheme: light;
+  --white: 10 29 69;
+  --slate-50: 11 21 48;
+  --slate-100: 19 30 59;
+  --slate-200: 31 42 73;
+  --slate-300: 51 64 95;
+  --slate-400: 76 89 119;
+  --slate-500: 100 113 144;
+  --slate-600: 141 152 177;
+  --slate-700: 195 204 221;
+  --slate-800: 220 226 238;
+  --slate-900: 255 255 255;
+  --slate-950: 243 246 251;
+  --cyan-50: 10 36 89;
+  --cyan-100: 13 46 106;
+  --cyan-200: 15 52 120;
+  --cyan-300: 22 68 153;
+  --cyan-400: 26 79 179;
+  --cyan-500: 22 68 153;
+  --cyan-600: 17 58 133;
+  --cyan-700: 142 169 223;
+  --cyan-800: 184 203 239;
+  --cyan-900: 213 225 247;
+  --cyan-950: 233 240 252;
+  --emerald-100: 6 78 59;
+  --emerald-200: 6 95 70;
+  --emerald-300: 4 120 87;
+  --emerald-400: 4 120 87;
+  --emerald-500: 14 138 95;
+  --amber-100: 120 53 15;
+  --amber-200: 146 64 14;
+  --amber-300: 154 74 10;
+  --amber-400: 180 83 9;
+  --amber-500: 217 119 6;
+  --rose-300: 190 18 60;
+  --rose-400: 200 16 46;
+  --rose-500: 225 29 72;
+  --indigo-300: 67 56 202;
+  --indigo-400: 79 70 229;
+  --indigo-500: 99 102 241;
+  --blue-300: 29 78 216;
+  --blue-400: 29 78 216;
+  --blue-500: 37 99 235;
+  --blue-600: 29 78 216;
+  --violet-400: 109 40 217;
+  --teal-300: 15 118 110;
+}
+
+/* Nền tối navy (người dùng bật) và các vùng luôn tối: màn hình HMI mô phỏng, footer */
+.dark,
+.theme-dark {
+  color-scheme: dark;
+  --white: 255 255 255;
+  --slate-50: 243 246 252;
+  --slate-100: 230 236 247;
+  --slate-200: 211 220 238;
+  --slate-300: 182 195 221;
+  --slate-400: 142 157 190;
+  --slate-500: 102 119 156;
+  --slate-600: 72 90 130;
+  --slate-700: 51 69 110;
+  --slate-800: 30 47 87;
+  --slate-900: 16 32 65;
+  --slate-950: 10 22 51;
+  --cyan-50: 238 243 255;
+  --cyan-100: 220 231 255;
+  --cyan-200: 191 211 255;
+  --cyan-300: 156 188 255;
+  --cyan-400: 111 157 255;
+  --cyan-500: 77 132 255;
+  --cyan-600: 47 106 232;
+  --cyan-700: 36 83 188;
+  --cyan-800: 27 64 143;
+  --cyan-900: 20 48 108;
+  --cyan-950: 13 34 80;
+  --emerald-100: 209 250 229;
+  --emerald-200: 167 243 208;
+  --emerald-300: 110 231 183;
+  --emerald-400: 52 211 153;
+  --emerald-500: 16 185 129;
+  --amber-100: 254 243 199;
+  --amber-200: 253 230 138;
+  --amber-300: 252 211 77;
+  --amber-400: 251 191 36;
+  --amber-500: 245 158 11;
+  --rose-300: 253 164 175;
+  --rose-400: 251 113 133;
+  --rose-500: 244 63 94;
+  --indigo-300: 165 180 252;
+  --indigo-400: 129 140 248;
+  --indigo-500: 99 102 241;
+  --blue-300: 147 197 253;
+  --blue-400: 96 165 250;
+  --blue-500: 59 130 246;
+  --blue-600: 37 99 235;
+  --violet-400: 167 139 250;
+  --teal-300: 94 234 212;
+}
+
+
+body {
+  color: rgb(var(--slate-100));
+  background: rgb(var(--slate-950));
+  overflow-x: hidden;
+}
+
+.theme-dark {
+  color: rgb(var(--slate-100));
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* Không để header sticky che tiêu đề section khi nhảy anchor */
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--cyan-400));
+  outline-offset: 2px;
+}
+
+/* Dòng công suất chạy dọc đường dây trên sơ đồ SLD */
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+.flow-line {
+  stroke-dasharray: 6 8;
+  animation: flow-dash var(--flow-speed, 0.9s) linear infinite;
+}
+
+.flow-line-reverse {
+  stroke-dasharray: 6 8;
+  animation: flow-dash var(--flow-speed, 0.9s) linear infinite reverse;
+}
+
+/* Thanh trượt kỹ thuật */
+input[type="range"].hvdc-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, var(--range-color, #22d3ee) var(--range-fill, 50%), rgb(var(--slate-800)) var(--range-fill, 50%));
+}
+
+input[type="range"].hvdc-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #f8fafc;
+  border: 3px solid var(--range-color, #22d3ee);
+  cursor: grab;
+}
+
+input[type="range"].hvdc-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+  background: #f8fafc;
+  border: 3px solid var(--range-color, #22d3ee);
+  cursor: grab;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .flow-line,
+  .flow-line-reverse {
+    animation: none;
+  }
+}
+
+/* Custom sleek scrollbar for engineering dashboard */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(var(--slate-950));
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--slate-700));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--cyan-500));
+}

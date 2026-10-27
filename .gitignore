@@ -1,0 +1,17 @@
+# Phụ thuộc và bản build
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Biến môi trường (ANTHROPIC_API_KEY...)
+.env*
+
+# Tài liệu tham khảo gốc: tài liệu đào tạo nội bộ và ấn phẩm có bản quyền, không đưa lên repo public
+docs/references/
+
+# Hệ điều hành / editor
+.DS_Store
+Thumbs.db
+desktop.ini
