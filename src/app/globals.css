@@ -124,6 +124,13 @@ html {
   outline-offset: 2px;
 }
 
+/* Sidebar desktop ẩn khi người dùng chọn (data-sidebar đặt bởi script trong <head> và nút ẩn/hiện) */
+@media (min-width: 1024px) {
+  html[data-sidebar="closed"] .app-sidebar {
+    display: none;
+  }
+}
+
 /* Dòng công suất chạy dọc đường dây trên sơ đồ SLD */
 @keyframes flow-dash {
   to {

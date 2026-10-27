@@ -2,52 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
-import { Bot, Menu, Moon, Sun, X } from "lucide-react";
+import { motion } from "framer-motion";
+import { Bot, Moon, Sun } from "lucide-react";
 import { useLearning } from "@/components/providers/LearningProvider";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
-
-export const NAV_LINKS = [
-  { href: "/#curriculum", label: "Lộ trình" },
-  { href: "/learn", label: "Bài học" },
-  { href: "/simulator", label: "Phòng lab" },
-  { href: "/#sld", label: "Sơ đồ SLD" },
-  { href: "/quiz", label: "Kiểm tra" },
-  { href: "/#guide", label: "Hướng dẫn" },
-];
-
-
-/** Mục đang mở: so khớp theo đường dẫn (liên kết neo trên trang chủ không được đánh dấu) */
-function useIsActive() {
-  const pathname = usePathname();
-  return (href: string) => !href.includes("#") && (pathname === href || pathname.startsWith(`${href}/`));
-}
-
-export function HeaderNavLinks() {
-  const isActive = useIsActive();
-  return (
-    <nav aria-label="Điều hướng chính" className="hidden xl:flex items-stretch self-stretch text-sm font-medium">
-      {NAV_LINKS.map(({ href, label }) => {
-        const active = isActive(href);
-        return (
-          <Link
-            key={href}
-            href={href}
-            aria-current={active ? "page" : undefined}
-            className={`relative flex items-center px-3 transition-colors ${
-              active ? "text-white" : "text-slate-400 hover:text-white"
-            }`}
-          >
-            {label}
-            {/* Mục đang mở được gạch chân bằng màu đỏ NPT */}
-            <span className={`absolute left-3 right-3 bottom-0 h-[3px] rounded-t bg-npt transition-opacity ${active ? "opacity-100" : "opacity-0"}`} />
-          </Link>
-        );
-      })}
-    </nav>
-  );
-}
 
 /** Thanh tiến độ chạy dọc mép dưới header */
 export function HeaderProgressBar() {
@@ -104,15 +62,6 @@ export function ThemeToggle() {
 
 export function HeaderActions() {
   const { progressPercent, isHydrated, openAssistant } = useLearning();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const isActive = useIsActive();
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [menuOpen]);
 
   return (
     <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
@@ -134,42 +83,6 @@ export function HeaderActions() {
         <Bot className="w-4 h-4" />
         <span className="hidden sm:inline">Trợ lý AI</span>
       </button>
-
-      <button
-        onClick={() => setMenuOpen((v) => !v)}
-        className="xl:hidden p-2 rounded-lg text-slate-300 hover:bg-slate-800"
-        aria-label={menuOpen ? "Đóng menu" : "Mở menu"}
-        aria-expanded={menuOpen}
-      >
-        {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-      </button>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.nav
-            aria-label="Điều hướng chính"
-            className="xl:hidden absolute left-0 right-0 top-full bg-slate-900 border-b border-slate-800 shadow-lg px-4 py-3 grid grid-cols-2 gap-1"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15 }}
-          >
-            {NAV_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                aria-current={isActive(href) ? "page" : undefined}
-                className={`px-3 py-2.5 rounded-lg text-sm border-l-[3px] ${
-                  isActive(href) ? "border-npt text-white bg-slate-800" : "border-transparent text-slate-300 hover:bg-slate-800"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-          </motion.nav>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

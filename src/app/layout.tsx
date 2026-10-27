@@ -6,7 +6,8 @@ import Link from "next/link";
 import { Be_Vietnam_Pro, JetBrains_Mono } from "next/font/google";
 import { Mail } from "lucide-react";
 import { LearningProvider } from "@/components/providers/LearningProvider";
-import { HeaderActions, HeaderNavLinks, HeaderProgressBar } from "@/components/layout/HeaderNav";
+import { HeaderActions, HeaderProgressBar } from "@/components/layout/HeaderNav";
+import AppSidebar, { SidebarToggle } from "@/components/layout/AppSidebar";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import BrandMark from "@/components/layout/BrandMark";
 import HvdcAssistant from "@/components/ai/HvdcAssistant";
@@ -42,7 +43,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+            <div className="px-4 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <SidebarToggle />
               <Link href="/" className="flex items-center gap-2 sm:gap-3 min-w-0" aria-label="Nghiên cứu HVDC, về trang chủ">
                 <BrandMark />
                 <span className="h-8 w-px bg-slate-700" aria-hidden="true" />
@@ -51,13 +54,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <span className="hidden sm:block text-[11px] text-slate-400">Đào tạo và mô phỏng truyền tải một chiều</span>
                 </span>
               </Link>
+              </div>
 
-              <HeaderNavLinks />
               <HeaderActions />
             </div>
             <HeaderProgressBar />
           </header>
 
+          <div className="flex">
+            <AppSidebar />
+            <div className="flex-1 min-w-0">
           <main>{children}</main>
 
           {/* Footer: nền navy EVN, luôn tối */}
@@ -78,7 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
                 <div>
                   <h2 className="font-semibold text-white mb-3">Tổng hợp và phát triển</h2>
-                  <p className="text-slate-300">Kỹ sư Hoàng Trọng, Công ty Truyền tải điện 3 (PTC3)</p>
+                  <p className="text-slate-300">Hoàng Trọng, Công ty Truyền tải điện 3 (PTC3)</p>
                   <a href="mailto:quantrong77@gmail.com" className="mt-2 inline-flex items-center gap-1.5 text-cyan-300 hover:underline">
                     <Mail className="w-4 h-4" />
                     quantrong77@gmail.com
@@ -105,6 +111,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
           </footer>
+            </div>
+          </div>
           <HvdcAssistant />
         </LearningProvider>
       </body>
