@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { ArrowRight, ArrowUpRight, Bot, Check, CheckCircle2, Circle, Clock, FileText, Sigma } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BookOpenText, Bot, Check, CheckCircle2, Circle, Clock, FileText, Sigma } from "lucide-react";
 import { CURRICULUM_LEVELS } from "@/data/curriculum";
 import { useLearning } from "@/components/providers/LearningProvider";
 import { lessonHref } from "@/lib/lesson-routes";
+import { getSupplements } from "@/data/supplements";
 
 // KaTeX (~90 kB) chỉ tải khi cần hiển thị công thức, không nằm trong gói đầu của trang chủ
 const Formula = dynamic(() => import("@/components/ui/Formula"));
@@ -121,6 +122,12 @@ export default function CurriculumExplorer() {
                 <FileText className="w-3.5 h-3.5" />
                 {lesson.docRef}
               </p>
+              {getSupplements(lesson.id).length > 0 && (
+                <Link href={lessonHref(lesson.id)} className="mt-2 inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-cyan-400 transition">
+                  <BookOpenText className="w-3.5 h-3.5" />
+                  Tài liệu bổ sung: {getSupplements(lesson.id).reduce((n, s) => n + s.sections.length, 0)} mục, xem trong trang bài học
+                </Link>
+              )}
 
               <ul className="mt-4 space-y-2.5">
                 {lesson.keyPoints.map((point, i) => (

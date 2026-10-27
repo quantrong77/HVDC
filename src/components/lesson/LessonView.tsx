@@ -6,6 +6,8 @@ import dynamic from "next/dynamic";
 import { Bot, Check, ChevronLeft, ChevronRight, Clock, FileText } from "lucide-react";
 import { useLearning } from "@/components/providers/LearningProvider";
 import Formula from "@/components/ui/Formula";
+import LessonSupplements from "@/components/lesson/LessonSupplements";
+import { getSupplements } from "@/data/supplements";
 import { findLesson, lessonHref } from "@/lib/lesson-routes";
 
 const loading = () => <div className="h-72 rounded-2xl bg-slate-900 border border-slate-800 animate-pulse" />;
@@ -75,6 +77,8 @@ export default function LessonView({ level, lesson }: { level: string; lesson: s
           </div>
         )}
       </section>
+
+      <LessonSupplements supplements={getSupplements(data.id)} />
 
       {lab && (
         <section className="py-6 border-t border-slate-800" aria-labelledby="lesson-lab">

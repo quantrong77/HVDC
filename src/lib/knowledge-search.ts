@@ -7,6 +7,7 @@
 import { CURRICULUM_LEVELS } from "@/data/curriculum";
 import { HVDC_QUIZ } from "@/data/quiz";
 import { HVDC_EQUIPMENT_DATABASE } from "@/data/equipment";
+import { LESSON_SUPPLEMENTS } from "@/data/supplements";
 
 export interface KnowledgeChunk {
   text: string;
@@ -63,6 +64,13 @@ const CHUNKS: KnowledgeChunk[] = [
     { text: `${eq.vietnameseName} – vai trò: ${eq.roleInSystem}`, source: eq.nptReference },
   ]),
   ...HVDC_QUIZ.map((q) => ({ text: q.explanation, source: q.evnReference })),
+  // Tài liệu bổ sung: mỗi ý là một đoạn, nguồn ghi tên mục và số trang tài liệu gốc
+  ...LESSON_SUPPLEMENTS.flatMap((sup) =>
+    sup.sections.flatMap((section) => [
+      ...section.points.map((text) => ({ text, source: `${section.heading}, ${sup.source}, ${sup.pages}` })),
+      ...(section.note ? [{ text: section.note, source: `Ghi chú biên soạn, ${section.heading}` }] : []),
+    ])
+  ),
 ];
 
 const INDEXED = CHUNKS.map((chunk) => ({ chunk, tokens: new Set(tokenize(chunk.text)) }));

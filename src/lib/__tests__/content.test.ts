@@ -5,6 +5,7 @@ import { HVDC_EQUIPMENT_DATABASE } from "@/data/equipment";
 import { allLessonParams, findLesson, lessonHref } from "@/lib/lesson-routes";
 import { normalize, searchKnowledge } from "@/lib/knowledge-search";
 import { calculateVd } from "@/lib/hvdc-math";
+import { LESSON_SUPPLEMENTS, getSupplements } from "@/data/supplements";
 
 describe("Khung chương trình (spec mục II)", () => {
   it("có 4 cấp độ và 10 bài, id bài duy nhất", () => {
@@ -90,5 +91,37 @@ describe("Tìm kiếm học liệu cho trợ lý", () => {
   it("câu hỏi rỗng hoặc chỉ có từ dừng thì không trả gì", () => {
     expect(searchKnowledge("")).toEqual([]);
     expect(searchKnowledge("là gì")).toEqual([]);
+  });
+});
+
+describe("Tài liệu bổ sung", () => {
+  it("mỗi phần bổ sung gắn với một bài có thật, có nguồn, số trang và nội dung", () => {
+    const ids = new Set(ALL_LESSONS.map((l) => l.id));
+    for (const sup of LESSON_SUPPLEMENTS) {
+      expect(ids.has(sup.lessonId)).toBe(true);
+      expect(sup.source.length).toBeGreaterThan(0);
+      expect(sup.pages).toMatch(/tr\. \d/);
+      for (const section of sup.sections) {
+        expect(section.points.length).toBeGreaterThan(0);
+        for (const row of section.table?.rows ?? []) expect(row).toHaveLength(section.table!.columns.length);
+      }
+    }
+  });
+
+  it("tài liệu PTC3 phủ các bài 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 4.2", () => {
+    for (const id of ["1.1", "1.2", "1.3", "2.1", "2.2", "2.3", "4.2"]) {
+      expect(getSupplements(id).length).toBeGreaterThan(0);
+    }
+  });
+
+  it("Basslink được ghi đúng là LCC (hiệu chỉnh lỗi trong slide gốc)", () => {
+    const table = getSupplements("4.2")[0].sections[0].table!;
+    const basslink = table.rows.find((r) => r[0] === "Basslink")!;
+    expect(basslink[basslink.length - 1]).toBe("LCC");
+  });
+
+  it("trợ lý tìm được nội dung bổ sung", () => {
+    expect(searchKnowledge("hệ đồng cực homopolar").some((h) => /đồng cực/i.test(h.text))).toBe(true);
+    expect(searchKnowledge("Marinus Link").some((h) => /Marinus/i.test(h.text))).toBe(true);
   });
 });
