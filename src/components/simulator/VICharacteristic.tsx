@@ -4,6 +4,7 @@ import React, { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { AlertTriangle, TrendingDown } from "lucide-react";
 import RangeSlider from "@/components/ui/RangeSlider";
+import InfoTip, { HoverTip } from "@/components/ui/InfoTip";
 import { findOperatingPoint, inverterCeaLine, rectifierAlphaMinLine } from "@/lib/hvdc-math";
 import { ViCharacteristicParams, ViControlRegime } from "@/types/hvdc";
 
@@ -134,36 +135,37 @@ export default function VICharacteristic() {
             <p className="text-xs text-slate-300 mt-1.5 leading-relaxed">{regime.body}</p>
             <dl className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-slate-800 text-xs">
               <div>
-                <dt className="text-slate-500">Id</dt>
+                <dt className="text-slate-500">Id<InfoTip text="Dòng DC tại điểm làm việc, đơn vị tương đối so với dòng định mức." /></dt>
                 <dd className="font-mono font-semibold tabular-nums">{op.id.toFixed(2)} pu</dd>
               </div>
               <div>
-                <dt className="text-slate-500">Vd</dt>
+                <dt className="text-slate-500">Vd<InfoTip text="Điện áp DC tại điểm làm việc (pu), là giao điểm đặc tính hai trạm." /></dt>
                 <dd className="font-mono font-semibold tabular-nums">{op.vd.toFixed(2)} pu</dd>
               </div>
               <div>
-                <dt className="text-slate-500">P = Vd·Id</dt>
+                <dt className="text-slate-500">P = Vd·Id<InfoTip text="Công suất DC truyền tải (pu). Giảm khi nghịch lưu chuyển sang giữ dòng hoặc khi điện áp DC sụt." /></dt>
                 <dd className="font-mono font-semibold tabular-nums">{(op.id * op.vd).toFixed(2)} pu</dd>
               </div>
             </dl>
           </div>
 
           <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-4">
-            <RangeSlider label="Điện áp AC phía chỉnh lưu" value={rectifierAcPu} min={0.4} max={1.1} step={0.01} color="#10b981" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ rectifierAcPu: v })} />
-            <RangeSlider label="Điện áp AC phía nghịch lưu" value={inverterAcPu} min={0.7} max={1.1} step={0.01} color="#f59e0b" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ inverterAcPu: v })} />
-            <RangeSlider label="Dòng đặt I_ord" value={iOrd} min={0.4} max={1.2} step={0.01} color="#22d3ee" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ currentOrderPu: v })} />
-            <RangeSlider label="Biên dòng ΔI" value={marginPu} min={0.05} max={0.2} step={0.01} color="#a78bfa" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ marginPu: v })} />
+            <RangeSlider tip="Điện áp lưới AC tại trạm chỉnh lưu. Khi sụt, đường α_min hạ xuống và chỉnh lưu có thể mất khả năng giữ dòng." label="Điện áp AC phía chỉnh lưu" value={rectifierAcPu} min={0.3} max={1.1} step={0.01} color="#10b981" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ rectifierAcPu: v })} />
+            <RangeSlider tip="Điện áp lưới AC tại trạm nghịch lưu. Đặc tính γ_min (CEA) tỷ lệ với điện áp này, nên nó quyết định điện áp DC khi vận hành bình thường." label="Điện áp AC phía nghịch lưu" value={inverterAcPu} min={0.7} max={1.1} step={0.01} color="#f59e0b" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ inverterAcPu: v })} />
+            <RangeSlider tip="Dòng DC mà trạm chỉnh lưu giữ không đổi bằng cách điều chỉnh α. Trạm nghịch lưu nhận cùng lệnh dòng nhưng trừ đi biên ΔI." label="Dòng đặt I_ord" value={iOrd} min={0.4} max={1.2} step={0.01} color="#22d3ee" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ currentOrderPu: v })} />
+            <RangeSlider tip="Độ chênh giữa dòng đặt của hai trạm, thường 0,1 pu. Nhờ biên này chỉ một trạm giữ dòng tại một thời điểm, tránh hai bộ điều khiển dòng tranh nhau." label="Biên dòng ΔI" value={marginPu} min={0.05} max={0.2} step={0.01} color="#a78bfa" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ marginPu: v })} />
           </div>
 
           <div className="flex flex-wrap gap-2">
             {SCENARIOS.map((s) => (
-              <button
-                key={s.label}
-                onClick={() => set(s.params)}
-                className="text-[11px] px-2.5 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 transition"
-              >
-                {s.label}
-              </button>
+              <HoverTip key={s.label} text={`Đặt điện áp AC: chỉnh lưu ${s.params.rectifierAcPu} pu, nghịch lưu ${s.params.inverterAcPu} pu.`}>
+                <button
+                  onClick={() => set(s.params)}
+                  className="text-[11px] px-2.5 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 transition"
+                >
+                  {s.label}
+                </button>
+              </HoverTip>
             ))}
           </div>
         </div>

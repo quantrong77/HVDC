@@ -78,6 +78,12 @@ describe("Tài liệu ĐHBKHN 2026", () => {
     }
   });
 
+  it("tài liệu điều khiển - bảo vệ và điện tử công suất có trong các bài tương ứng", () => {
+    for (const id of ["1.1", "3.1", "3.2"]) expect(getSupplements(id).some((s) => /Nguyễn Xuân Tùng/.test(s.author))).toBe(true);
+    for (const id of ["2.1", "2.2"]) expect(getSupplements(id).some((s) => /Nguyễn Kiên Trung/.test(s.author))).toBe(true);
+    expect(searchKnowledge("sự cố P2P ngắn mạch hai cực VSC").some((h) => /P2P/.test(h.text))).toBe(true);
+  });
+
   it("trợ lý tra cứu được nội dung mới", () => {
     expect(searchKnowledge("Wudongde hybrid").some((h) => /Wudongde/.test(h.text))).toBe(true);
     expect(searchKnowledge("MRTB đường về kim loại").some((h) => /MRTB/.test(h.text))).toBe(true);

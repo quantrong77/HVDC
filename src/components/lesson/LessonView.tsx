@@ -3,26 +3,30 @@
 import React from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Bot, Check, ChevronLeft, ChevronRight, Clock, FileText } from "lucide-react";
+import { Bot, Check, ChevronLeft, ChevronRight, Clock, FileText, FlaskConical } from "lucide-react";
 import { useLearning } from "@/components/providers/LearningProvider";
 import Formula from "@/components/ui/Formula";
 import LessonSupplements from "@/components/lesson/LessonSupplements";
 import { getSupplements } from "@/data/supplements";
 import { findLesson, lessonHref } from "@/lib/lesson-routes";
+import LabGuidePanel from "@/components/simulator/LabGuidePanel";
+import { LabId, labsForLesson } from "@/data/lab-guides";
 
 const loading = () => <div className="h-72 rounded-2xl bg-slate-900 border border-slate-800 animate-pulse" />;
 const WaveformCanvas = dynamic(() => import("@/components/simulator/WaveformCanvas"), { loading });
 const VICharacteristic = dynamic(() => import("@/components/simulator/VICharacteristic"), { loading });
 const SingleLineDiagram = dynamic(() => import("@/components/simulator/SingleLineDiagram"), { loading });
+const VscHvdcLab = dynamic(() => import("@/components/simulator/VscHvdcLab"), { loading });
 
 /** Mô phỏng nhúng theo từng bài (spec mục III.2) */
-const LESSON_LAB: Record<string, { title: string; Component: React.ComponentType }> = {
-  "1.2": { title: "Thực hành: chuyển cấu hình Monopolar, Bipolar, Back-to-Back", Component: SingleLineDiagram },
-  "1.3": { title: "Thực hành: khảo sát thiết bị trên sơ đồ đơn tuyến", Component: SingleLineDiagram },
-  "2.1": { title: "Thực hành: góc kích α, trùng dẫn μ và góc dập γ", Component: WaveformCanvas },
-  "2.3": { title: "Thực hành: so sánh gợn sóng cầu 6 xung và 12 xung", Component: WaveformCanvas },
-  "3.1": { title: "Thực hành: đặc tính V-I và chuyển chế độ điều khiển", Component: VICharacteristic },
-  "4.2": { title: "Thực hành: mô phỏng sụt áp AC trên đặc tính V-I", Component: VICharacteristic },
+const LESSON_LAB: Record<string, { title: string; lab: LabId; Component: React.ComponentType }> = {
+  "1.2": { title: "Thực hành: chuyển cấu hình Monopolar, Bipolar, Back-to-Back", lab: "sld", Component: SingleLineDiagram },
+  "1.3": { title: "Thực hành: khảo sát thiết bị trên sơ đồ đơn tuyến", lab: "sld", Component: SingleLineDiagram },
+  "2.1": { title: "Thực hành: góc kích α, trùng dẫn μ và góc dập γ", lab: "waveform", Component: WaveformCanvas },
+  "2.2": { title: "Thực hành: điều khiển độc lập P, Q và điện áp DC của VSC", lab: "vsc", Component: VscHvdcLab },
+  "2.3": { title: "Thực hành: so sánh gợn sóng cầu 6 xung và 12 xung", lab: "waveform", Component: WaveformCanvas },
+  "3.1": { title: "Thực hành: đặc tính V-I và chuyển chế độ điều khiển", lab: "vi-curve", Component: VICharacteristic },
+  "4.2": { title: "Thực hành: mô phỏng sụt áp AC trên đặc tính V-I", lab: "vi-curve", Component: VICharacteristic },
 };
 
 export default function LessonView({ level, lesson }: { level: string; lesson: string }) {
@@ -31,6 +35,8 @@ export default function LessonView({ level, lesson }: { level: string; lesson: s
   const { completedLessons, toggleLesson, completeLesson, openAssistant, isHydrated } = useLearning();
   const isDone = isHydrated && completedLessons.includes(data.id);
   const lab = LESSON_LAB[data.id];
+  // Phòng lab khác liên quan đến bài (bỏ phòng lab đã nhúng ngay trong bài)
+  const relatedLabs = labsForLesson(data.id).filter((g) => g.id !== lab?.lab);
 
   return (
     <article className="min-w-0 flex-1">
@@ -84,6 +90,26 @@ export default function LessonView({ level, lesson }: { level: string; lesson: s
         <section className="py-6 border-t border-slate-800" aria-labelledby="lesson-lab">
           <h2 id="lesson-lab" className="text-lg font-bold text-white mb-4">{lab.title}</h2>
           <lab.Component />
+          <LabGuidePanel id={lab.lab} defaultOpen={false} />
+        </section>
+      )}
+
+      {relatedLabs.length > 0 && (
+        <section className="py-6 border-t border-slate-800" aria-labelledby="lesson-related-labs">
+          <h2 id="lesson-related-labs" className="text-lg font-bold text-white mb-3">Phòng lab liên quan</h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {relatedLabs.map((g) => (
+              <li key={g.id}>
+                <Link href={`/simulator#${g.id}`} className="flex gap-3 h-full p-4 rounded-xl border border-slate-800 hover:border-cyan-500/60 transition">
+                  <FlaskConical className="w-5 h-5 shrink-0 text-cyan-400 mt-0.5" />
+                  <span>
+                    <span className="block text-sm font-semibold text-white">{g.title}</span>
+                    <span className="block mt-1 text-xs text-slate-400 leading-relaxed">{g.goal}</span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 

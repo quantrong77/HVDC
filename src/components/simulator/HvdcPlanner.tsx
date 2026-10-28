@@ -4,6 +4,7 @@ import React, { useMemo, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Cable, Compass, RadioTower } from "lucide-react";
 import RangeSlider from "@/components/ui/RangeSlider";
+import InfoTip from "@/components/ui/InfoTip";
 import {
   OVERHEAD_LINE_DATA,
   PlanningInput,
@@ -104,10 +105,10 @@ export default function HvdcPlanner() {
             ))}
           </div>
           <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4">
-            <RangeSlider color={BRAND} label="Công suất truyền tải" value={input.powerMW} min={100} max={12000} step={100} format={(v) => `${nf.format(v)} MW`} onChange={(v) => set({ powerMW: v })} />
-            <RangeSlider color={BRAND} label="Cự ly" value={input.distanceKm} min={20} max={3000} step={10} format={(v) => `${nf.format(v)} km`} onChange={(v) => set({ distanceKm: v })} />
-            <RangeSlider color={BRAND} label="SCR lưới phía phát" value={input.scrSend} min={1} max={8} step={0.1} format={(v) => v.toFixed(1)} onChange={(v) => set({ scrSend: v })} />
-            <RangeSlider color={BRAND} label="SCR lưới phía nhận" value={input.scrReceive} min={1} max={8} step={0.1} format={(v) => v.toFixed(1)} onChange={(v) => set({ scrReceive: v })} />
+            <RangeSlider color={BRAND} tip="Công suất định mức của liên kết. Dùng để tra hàng trong bảng cấp điện áp và ước tính tổn thất, bù Q." label="Công suất truyền tải" value={input.powerMW} min={100} max={12000} step={100} format={(v) => `${nf.format(v)} MW`} onChange={(v) => set({ powerMW: v })} />
+            <RangeSlider color={BRAND} tip="Chiều dài tuyến. Dùng để tra cột trong bảng cấp điện áp và so với khoảng cách hòa vốn HVAC." label="Cự ly" value={input.distanceKm} min={20} max={3000} step={10} format={(v) => `${nf.format(v)} km`} onChange={(v) => set({ distanceKm: v })} />
+            <RangeSlider color={BRAND} tip="Tỷ số ngắn mạch tại điểm đấu nối phía phát. LCC cần SCR ≥ 2,5–3,0 để chuyển mạch tin cậy." label="SCR lưới phía phát" value={input.scrSend} min={1} max={8} step={0.1} format={(v) => v.toFixed(1)} onChange={(v) => set({ scrSend: v })} />
+            <RangeSlider color={BRAND} tip="SCR thấp ở phía nhận làm LCC dễ sự cố chuyển mạch; khi đó VSC hoặc Hybrid phù hợp hơn." label="SCR lưới phía nhận" value={input.scrReceive} min={1} max={8} step={0.1} format={(v) => v.toFixed(1)} onChange={(v) => set({ scrReceive: v })} />
           </div>
           <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2.5">
             <Toggle checked={input.multiTerminal} onChange={(v) => set({ multiTerminal: v })} label="Nhiều điểm nhận (đa điểm)" />
@@ -119,12 +120,12 @@ export default function HvdcPlanner() {
         <div className="space-y-4 min-w-0">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" aria-live="polite">
             <motion.div key={`v-${voltage}`} {...pop} className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-              <p className="text-xs text-slate-400">Cấp điện áp DC gợi ý</p>
+              <p className="text-xs text-slate-400">Cấp điện áp DC gợi ý<InfoTip text="Tra từ bảng chọn cấp điện áp theo công suất và cự ly (IEC 63127, CIGRE 684) trong bài giảng HVDC 2026." /></p>
               <p className="mt-1 text-2xl font-extrabold text-white tabular-nums">{voltage ? `±${voltage} kV` : "Ngoài bảng"}</p>
               {!voltage && <p className="mt-1 text-xs text-slate-400">Tổ hợp công suất và cự ly này không có trong bảng tham chiếu.</p>}
             </motion.div>
             <motion.div key={`t-${advice.technology}`} {...pop} className={`rounded-xl border p-4 ${TECH_STYLE[advice.technology]}`}>
-              <p className="text-xs text-slate-400">Công nghệ phù hợp</p>
+              <p className="text-xs text-slate-400">Công nghệ phù hợp<InfoTip text="Quy tắc tóm tắt từ so sánh LCC, VSC, Hybrid trong bài giảng; xem lý do ngay bên dưới." /></p>
               <p className="mt-1 text-2xl font-extrabold">{advice.technology === "Hybrid" ? "Hybrid LCC–VSC" : advice.technology}</p>
             </motion.div>
             <div className="rounded-xl border border-slate-800 bg-slate-950 p-4">
@@ -145,12 +146,12 @@ export default function HvdcPlanner() {
             </ul>
             <dl className="mt-4 pt-3 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
               <div>
-                <dt className="text-xs text-slate-400">Tổn thất hai trạm biến đổi (ước tính)</dt>
+                <dt className="text-xs text-slate-400">Tổn thất hai trạm biến đổi (ước tính)<InfoTip text="Chỉ gồm tổn thất trạm biến đổi, chưa tính tổn thất đường dây vì phụ thuộc dây dẫn cụ thể." /></dt>
                 <dd className="font-mono font-semibold text-white tabular-nums">≈ {nf.format(Math.round(losses))} MW</dd>
                 <dd className="text-[11px] text-slate-500">LCC ≈ 0,7%/trạm; MMC ≈ 0,8–1%/trạm (lấy 0,9%)</dd>
               </div>
               <div>
-                <dt className="text-xs text-slate-400">Bù công suất phản kháng</dt>
+                <dt className="text-xs text-slate-400">Bù công suất phản kháng<InfoTip text="Mỗi trạm LCC tiêu thụ khoảng 50–60% công suất truyền tải, cấp bằng các nhóm lọc AC và tụ bù đóng cắt theo tải." /></dt>
                 <dd className="font-mono font-semibold text-white tabular-nums">
                   {reactive ? `${nf.format(reactive[0])}–${nf.format(reactive[1])} MVAr mỗi trạm LCC` : "Không cần bù lớn"}
                 </dd>

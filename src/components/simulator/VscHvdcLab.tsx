@@ -5,15 +5,16 @@ import { useReducedMotion } from "framer-motion";
 import { CartesianGrid, Legend, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Cpu, Play, RotateCcw } from "lucide-react";
 import RangeSlider from "@/components/ui/RangeSlider";
+import InfoTip, { HoverTip } from "@/components/ui/InfoTip";
 import { VSC_DEFAULT_SCENARIO, VSC_DURATION, VSC_EVENTS, VscSample, VscScenario, simulateVscHvdc } from "@/lib/vsc-hvdc";
 
 const PLAY_MS = 2600;
 
-const PRESETS: { label: string; patch: Partial<VscScenario> }[] = [
-  { label: "Kịch bản chuẩn", patch: {} },
-  { label: "Đảo chiều công suất", patch: { p1Step: -0.8 } },
-  { label: "Lưới nhận yếu (SCR 1,5)", patch: { scr2: 1.5 } },
-  { label: "Chạm giới hạn dòng", patch: { p1Step: 1.1, q2Step: 0.6, scr2: 6 } },
+const PRESETS: { label: string; tip: string; patch: Partial<VscScenario> }[] = [
+  { label: "Kịch bản chuẩn", tip: "Như ví dụ MathWorks: P1 0,5 → 1 pu, Q1 0,1 → −0,1 pu, Q2 0,1 → 0,2 pu.", patch: {} },
+  { label: "Đảo chiều công suất", tip: "P1 đổi từ 0,5 sang −0,8 pu: công suất chạy ngược mà điện áp DC giữ nguyên cực tính.", patch: { p1Step: -0.8 } },
+  { label: "Lưới nhận yếu (SCR 1,5)", tip: "Giảm SCR trạm 2 xuống 1,5 để thấy điện áp AC nhạy hơn với Q.", patch: { scr2: 1.5 } },
+  { label: "Chạm giới hạn dòng", tip: "P1 = 1,1 pu và yêu cầu Q2 = 0,6 pu vượt định mức: Q2 bị cắt bớt.", patch: { p1Step: 1.1, q2Step: 0.6, scr2: 6 } },
 ];
 
 const EVENTS = [
@@ -201,36 +202,38 @@ export default function VscHvdcLab() {
           </div>
 
           <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-4">
-            <RangeSlider label="P1 đặt sau t = 2 s" value={sc.p1Step} min={-1.1} max={1.1} step={0.05} color="#22d3ee" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ p1Step: v })} hint="Âm là đảo chiều: trạm 2 phát vào DC" />
-            <RangeSlider label="Q1 đặt sau t = 3 s" value={sc.q1Step} min={-0.6} max={0.6} step={0.05} color="#a78bfa" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ q1Step: v })} />
-            <RangeSlider label="Q2 đặt sau t = 4 s" value={sc.q2Step} min={-0.6} max={0.6} step={0.05} color="#10b981" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ q2Step: v })} />
-            <RangeSlider label="SCR lưới trạm 2" value={sc.scr2} min={1.2} max={8} step={0.1} color="#f59e0b" format={(v) => v.toFixed(1)} onChange={(v) => set({ scr2: v })} />
-            <RangeSlider label="Giới hạn dòng Smax" value={sc.sMax} min={1} max={1.3} step={0.01} color="#f43f5e" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ sMax: v })} />
+            <RangeSlider tip="Công suất tác dụng trạm 1 lấy từ lưới đưa vào DC. Trạm 2 không đặt P mà tự cân bằng qua điều khiển Vdc." label="P1 đặt sau t = 2 s" value={sc.p1Step} min={-1.1} max={1.1} step={0.05} color="#22d3ee" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ p1Step: v })} hint="Âm là đảo chiều: trạm 2 phát vào DC" />
+            <RangeSlider tip="Công suất phản kháng trạm 1 phát lên lưới (dương) hoặc nhận từ lưới (âm), đặt độc lập với P." label="Q1 đặt sau t = 3 s" value={sc.q1Step} min={-0.6} max={0.6} step={0.05} color="#a78bfa" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ q1Step: v })} />
+            <RangeSlider tip="Công suất phản kháng trạm 2 phát lên lưới. Q dương nâng điện áp AC tại điểm đấu nối." label="Q2 đặt sau t = 4 s" value={sc.q2Step} min={-0.6} max={0.6} step={0.05} color="#10b981" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ q2Step: v })} />
+            <RangeSlider tip="Tỷ số ngắn mạch: công suất ngắn mạch lưới chia công suất định mức trạm. SCR nhỏ là lưới yếu; điện áp AC trong mô phỏng ≈ 1 + Q/SCR." label="SCR lưới trạm 2" value={sc.scr2} min={1.2} max={8} step={0.1} color="#f59e0b" format={(v) => v.toFixed(1)} onChange={(v) => set({ scr2: v })} />
+            <RangeSlider tip="Dòng định mức của van IGBT quy về MVA. Điểm làm việc phải thỏa P² + Q² ≤ (Smax·Vac)², ưu tiên P." label="Giới hạn dòng Smax" value={sc.sMax} min={1} max={1.3} step={0.01} color="#f43f5e" format={(v) => `${v.toFixed(2)} pu`} onChange={(v) => set({ sMax: v })} />
           </div>
 
           <div className="flex flex-wrap gap-2">
             {PRESETS.map((p) => (
-              <button key={p.label} onClick={() => setSc({ ...VSC_DEFAULT_SCENARIO, ...p.patch })} className="text-[11px] px-2.5 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
-                {p.label}
-              </button>
+              <HoverTip key={p.label} text={p.tip}>
+                <button onClick={() => setSc({ ...VSC_DEFAULT_SCENARIO, ...p.patch })} className="text-[11px] px-2.5 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+                  {p.label}
+                </button>
+              </HoverTip>
             ))}
           </div>
 
           <dl className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 grid grid-cols-2 gap-3 text-xs" aria-live="polite">
             <div>
-              <dt className="text-slate-500">Lệch Vdc lớn nhất</dt>
+              <dt className="text-slate-500">Lệch Vdc lớn nhất<InfoTip text="Độ lệch điện áp DC lớn nhất so với giá trị đặt trong suốt 5 s, thường xảy ra ngay sau khi P1 đổi." /></dt>
               <dd className="font-mono font-semibold tabular-nums text-rose-300">{(vdcPeak * 100).toFixed(1)}%</dd>
             </div>
             <div>
-              <dt className="text-slate-500">Tổn thất đường dây</dt>
+              <dt className="text-slate-500">Tổn thất đường dây<InfoTip text="P1 − P2 = R·Idc², với điện trở đường dây 0,01 pu." /></dt>
               <dd className="font-mono font-semibold tabular-nums">{fmt(last.p1 - last.p2)} pu</dd>
             </div>
             <div>
-              <dt className="text-slate-500">Vac trạm 2</dt>
+              <dt className="text-slate-500">Vac trạm 2<InfoTip text="Điện áp AC tại điểm đấu nối trạm 2 ở thời điểm đang hiển thị." /></dt>
               <dd className="font-mono font-semibold tabular-nums">{last.vac2.toFixed(3)} pu</dd>
             </div>
             <div>
-              <dt className="text-slate-500">Q2 cuối</dt>
+              <dt className="text-slate-500">Q2 cuối<InfoTip text="Màu vàng nghĩa là Q2 không đạt giá trị đặt vì bị giới hạn dòng." /></dt>
               <dd className={`font-mono font-semibold tabular-nums ${q2Limited ? "text-amber-300" : ""}`}>
                 {fmt(samples[samples.length - 1].q2)} pu{q2Limited ? " (bị giới hạn)" : ""}
               </dd>

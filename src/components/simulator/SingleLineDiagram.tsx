@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import RangeSlider from "@/components/ui/RangeSlider";
+import { HoverTip } from "@/components/ui/InfoTip";
 import { HVDC_EQUIPMENT_DATABASE } from "@/data/equipment";
 import { HvdcEquipment, SystemTopology } from "@/types/hvdc";
 import {
@@ -20,6 +21,8 @@ export default function SingleLineDiagram() {
   const [topology, setTopology] = useState<SystemTopology>("bipolar");
   const [isPowerFlowing, setIsPowerFlowing] = useState<boolean>(true);
   const [powerFlowMW, setPowerFlowMW] = useState<number>(2000); // 2000 MW
+  // Thiết bị đang được trỏ chuột hoặc focus: hiện tên và vai trò ở dòng trạng thái dưới sơ đồ
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const reduceMotion = useReducedMotion();
   const isB2B = topology === "back-to-back";
   // Tốc độ chạy của vạch dòng điện tỉ lệ với công suất truyền tải
@@ -41,6 +44,10 @@ export default function SingleLineDiagram() {
         setSelectedEquipment(getEquipment(id));
       }
     },
+    onMouseEnter: () => setHoveredId(id),
+    onMouseLeave: () => setHoveredId(null),
+    onFocus: () => setHoveredId(id),
+    onBlur: () => setHoveredId(null),
     role: "button",
     tabIndex: 0,
     "aria-label": label,
@@ -76,46 +83,54 @@ export default function SingleLineDiagram() {
         {/* Topology Selector & Power Switch */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
-            <button
-              onClick={() => setTopology("bipolar")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-                topology === "bipolar"
-                  ? "bg-cyan-500 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              Song cực (Bipolar)
-            </button>
-            <button
-              onClick={() => setTopology("monopolar-ground")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-                topology === "monopolar-ground"
-                  ? "bg-cyan-500 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              Đơn cực (Đất)
-            </button>
-            <button
-              onClick={() => setTopology("monopolar-metallic")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-                topology === "monopolar-metallic"
-                  ? "bg-cyan-500 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              Đơn cực (Kim loại)
-            </button>
-            <button
-              onClick={() => setTopology("back-to-back")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
-                topology === "back-to-back"
-                  ? "bg-cyan-500 text-slate-950 font-bold"
-                  : "text-slate-400 hover:text-white"
-              }`}
-            >
-              Lưng đối Lưng (BtB)
-            </button>
+            <HoverTip align="end" text="Hai cực +/−. Khi một cực sự cố, cực còn lại vẫn truyền được khoảng một nửa công suất; dòng qua đất chỉ là dòng không cân bằng nhỏ.">
+              <button
+                onClick={() => setTopology("bipolar")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                  topology === "bipolar"
+                    ? "bg-cyan-500 text-slate-950 font-bold"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                Song cực (Bipolar)
+              </button>
+            </HoverTip>
+            <HoverTip align="end" text="Một dây dẫn, dòng trở về qua điện cực đất hoặc biển. Rẻ nhưng có dòng DC lớn qua đất; thường là giai đoạn đầu của hệ lưỡng cực.">
+              <button
+                onClick={() => setTopology("monopolar-ground")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                  topology === "monopolar-ground"
+                    ? "bg-cyan-500 text-slate-950 font-bold"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                Đơn cực (Đất)
+              </button>
+            </HoverTip>
+            <HoverTip align="end" text="Một dây cao áp và một dây về trung áp, không có dòng qua đất. Dùng khi xây điện cực không kinh tế hoặc cần tránh ăn mòn.">
+              <button
+                onClick={() => setTopology("monopolar-metallic")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                  topology === "monopolar-metallic"
+                    ? "bg-cyan-500 text-slate-950 font-bold"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                Đơn cực (Kim loại)
+              </button>
+            </HoverTip>
+            <HoverTip align="end" text="Hai bộ biến đổi đặt cùng một trạm, không có đường dây DC. Dùng để nối hai lưới không đồng bộ hoặc khác tần số.">
+              <button
+                onClick={() => setTopology("back-to-back")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
+                  topology === "back-to-back"
+                    ? "bg-cyan-500 text-slate-950 font-bold"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                Lưng đối Lưng (BtB)
+              </button>
+            </HoverTip>
           </div>
 
           <button
@@ -181,8 +196,8 @@ export default function SingleLineDiagram() {
               <text x="60" y="172" fill="#8E9DBE" fontSize="10" textAnchor="middle">500kV AC</text>
             </g>
 
-            {/* AC Bus Line 1 */}
-            <line x1="92" y1="160" x2="140" y2="160" stroke="#38bdf8" strokeWidth="3" />
+            {/* AC Bus Line 1: nối lưới AC tới mép cuộn dây T1 (cx 190 − r 26 = 164) */}
+            <line x1="92" y1="160" x2="164" y2="160" stroke="#38bdf8" strokeWidth="3" />
 
             {/* AC Filter 1 (Shunt) */}
             <g
@@ -494,8 +509,17 @@ export default function SingleLineDiagram() {
               <span className="w-3 h-1 bg-emerald-500 rounded border border-dashed border-emerald-400"></span> Dây về trung tính / đất
             </span>
           </div>
-          <div className="text-cyan-400">
-            Chọn một khối thiết bị (nhấp chuột, hoặc Tab rồi Enter) để xem thông số kỹ thuật theo chuẩn EVNNPT
+          <div className="text-cyan-400 min-h-[2.5em] max-w-xl" aria-live="polite">
+            {hoveredId ? (
+              <>
+                <span className="font-semibold text-white">{getEquipment(hoveredId).vietnameseName}</span>
+                <span className="text-slate-400"> · {getEquipment(hoveredId).location}. </span>
+                <span className="text-slate-300">{getEquipment(hoveredId).roleInSystem}</span>
+                <span className="text-cyan-400"> Nhấp để xem thông số.</span>
+              </>
+            ) : (
+              "Trỏ chuột vào một khối thiết bị để xem vai trò; nhấp (hoặc Tab rồi Enter) để xem thông số kỹ thuật theo chuẩn EVNNPT."
+            )}
           </div>
         </div>
       </div>
@@ -504,6 +528,7 @@ export default function SingleLineDiagram() {
       <div className="mt-4 max-w-md">
         <RangeSlider
           label="Công suất truyền tải đặt"
+          tip="Kéo để đổi công suất và bật truyền tải. Tốc độ vạch dòng điện chạy trên đường dây tỷ lệ với công suất."
           value={powerFlowMW}
           min={100}
           max={3000}

@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import { generateWaveformData, calculateVd, VD0_FACTOR } from "@/lib/hvdc-math";
 import RangeSlider from "@/components/ui/RangeSlider";
+import InfoTip from "@/components/ui/InfoTip";
 import { Activity, Zap, Cpu, Gauge, ArrowRightLeft, Info, AlertTriangle } from "lucide-react";
 
 const V_LL = 210; // Điện áp dây hiệu dụng phía van mỗi cầu (kV rms) - cấu hình ±500 kV điển hình
@@ -151,6 +152,7 @@ export default function WaveformCanvas() {
         <div className="lg:col-span-2 bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-5">
           <RangeSlider
             label="Góc kích α"
+            tip="Góc trễ từ thời điểm van có điện áp thuận đến lúc phát xung kích. α < 90°: chỉnh lưu (Vd > 0); α > 90°: nghịch lưu (Vd < 0)."
             value={alpha}
             min={0}
             max={180}
@@ -167,6 +169,7 @@ export default function WaveformCanvas() {
           />
           <RangeSlider
             label="Góc trùng dẫn μ (do điện kháng chuyển mạch Xc)"
+            tip="Khoảng thời gian hai van cùng dẫn khi chuyển mạch, do điện kháng tản MBA. μ tăng theo dòng tải, làm giảm Vd và giảm góc dập γ."
             value={mu}
             min={0}
             max={30}
@@ -220,23 +223,23 @@ export default function WaveformCanvas() {
         <div className="bg-slate-950/80 p-4 rounded-xl border border-slate-800 flex flex-col justify-between gap-3">
           <dl className="grid grid-cols-2 gap-x-3 gap-y-2 text-xs">
             <div>
-              <dt className="text-slate-400">P = |Vd|·Id</dt>
+              <dt className="text-slate-400">P = |Vd|·Id<InfoTip text="Công suất DC của cầu với dòng Id cố định của mô phỏng." /></dt>
               <dd className="font-mono font-semibold text-slate-100 tabular-nums">{metrics.powerActive} MW</dd>
             </div>
             <div>
-              <dt className="text-slate-400">Q ≈ P·tan φ</dt>
+              <dt className="text-slate-400">Q ≈ P·tan φ<InfoTip text="Công suất phản kháng bộ biến đổi tiêu thụ từ lưới AC. Tăng mạnh khi α tiến về 90°; được cấp bởi bộ lọc AC và tụ bù." /></dt>
               <dd className="font-mono font-semibold text-amber-300 tabular-nums">{metrics.powerReactive} MVAr</dd>
             </div>
             <div>
-              <dt className="text-slate-400">cos φ</dt>
+              <dt className="text-slate-400">cos φ<InfoTip text="Hệ số công suất phía AC, xấp xỉ [cos α + cos(α+μ)]/2." /></dt>
               <dd className="font-mono font-semibold text-cyan-300 tabular-nums">{metrics.powerFactor}</dd>
             </div>
             <div>
-              <dt className="text-slate-400">Gợn sóng</dt>
+              <dt className="text-slate-400">Gợn sóng<InfoTip text="Tần số gợn điện áp DC: 6 lần tần số lưới với cầu 6 xung (300 Hz), 12 lần với cầu 12 xung (600 Hz)." /></dt>
               <dd className="font-mono font-semibold text-blue-300 tabular-nums">{metrics.rippleFrequency} Hz</dd>
             </div>
             <div className="col-span-2">
-              <dt className="text-slate-400">Hệ số gợn đỉnh-đỉnh ΔV/|Vd|</dt>
+              <dt className="text-slate-400">Hệ số gợn đỉnh-đỉnh ΔV/|Vd|<InfoTip text="Biên độ gợn đỉnh-đỉnh so với điện áp DC trung bình. Càng lớn thì cuộn kháng san bằng và bộ lọc DC càng phải lớn." /></dt>
               <dd className="font-mono font-semibold text-blue-300 tabular-nums">
                 {rippleKnown ? `${(metrics.rippleFactor * 100).toFixed(1)} %` : "Không xác định (Vd ≈ 0)"}
               </dd>
@@ -244,7 +247,7 @@ export default function WaveformCanvas() {
           </dl>
 
           <div className="pt-3 border-t border-slate-800/80 flex justify-between items-center text-xs">
-            <span className="text-slate-400">γ = 180° − (α + μ)</span>
+            <span className="text-slate-400">γ = 180° − (α + μ)<InfoTip text="Góc dập ở trạm nghịch lưu: thời gian để van vừa tắt phục hồi khả năng khóa. Dưới khoảng 17° có nguy cơ sự cố chuyển mạch." /></span>
             <span
               className={`font-mono font-semibold tabular-nums ${
                 !isInverter ? "text-slate-500" : gammaUnsafe ? "text-rose-400" : "text-emerald-400"

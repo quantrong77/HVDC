@@ -1,9 +1,12 @@
+import React from "react";
 import type { Metadata } from "next";
 import WaveformCanvas from "@/components/simulator/WaveformCanvas";
 import VICharacteristic from "@/components/simulator/VICharacteristic";
 import SingleLineDiagram from "@/components/simulator/SingleLineDiagram";
 import VscHvdcLab from "@/components/simulator/VscHvdcLab";
 import HvdcPlanner from "@/components/simulator/HvdcPlanner";
+import LabGuidePanel from "@/components/simulator/LabGuidePanel";
+import { LabId } from "@/data/lab-guides";
 import { ExternalLink } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -11,7 +14,7 @@ export const metadata: Metadata = {
   description: "Mô phỏng tương tác: cầu Thyristor LCC, đặc tính V-I, điều khiển VSC-HVDC, sơ đồ đơn tuyến trạm và công cụ thiết kế sơ bộ tuyến HVDC.",
 };
 
-const LABS = [
+const LABS: { id: LabId; title: string; lesson: string; Component: React.ComponentType }[] = [
   { id: "waveform", title: "Cầu Thyristor LCC: dạng sóng và góc kích", lesson: "Bài 2.1 và 2.3", Component: WaveformCanvas },
   { id: "vi-curve", title: "Đặc tính V-I và điểm làm việc", lesson: "Bài 3.1", Component: VICharacteristic },
   { id: "vsc", title: "Điều khiển VSC-HVDC: P, Q và điện áp DC", lesson: "Bài 2.2 và 3.1", Component: VscHvdcLab },
@@ -60,6 +63,7 @@ export default function SimulatorPage() {
           <p className="text-xs text-cyan-400 mb-1">{lesson}</p>
           <h2 id={`${id}-title`} className="text-2xl font-bold text-white mb-5">{title}</h2>
           <Component />
+          <LabGuidePanel id={id} />
         </section>
       ))}
 
