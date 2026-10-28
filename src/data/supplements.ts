@@ -1,3 +1,5 @@
+import { BKHN_SUPPLEMENTS } from "@/data/supplements-bkhn";
+
 /**
  * Nội dung bổ sung cho từng bài, tổng hợp (diễn đạt lại) từ tài liệu tham khảo trong docs/references.
  * Mỗi nguồn ghi rõ tác giả và số trang để người học đối chiếu bản gốc.
@@ -280,6 +282,9 @@ export const LESSON_SUPPLEMENTS: LessonSupplement[] = [
   ]),
 ];
 
+/** Tất cả nguồn: PTC3 trước, sau đó tài liệu khóa đào tạo 2026 của ĐHBKHN */
+export const ALL_SUPPLEMENTS: LessonSupplement[] = [...LESSON_SUPPLEMENTS, ...BKHN_SUPPLEMENTS];
+
 export function getSupplements(lessonId: string): LessonSupplement[] {
-  return LESSON_SUPPLEMENTS.filter((s) => s.lessonId === lessonId);
+  return ALL_SUPPLEMENTS.filter((s) => s.lessonId === lessonId);
 }

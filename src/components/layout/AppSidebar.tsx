@@ -10,6 +10,8 @@ import {
   CheckCircle2,
   ChevronDown,
   Circle,
+  Compass,
+  Cpu,
   FlaskConical,
   GraduationCap,
   HelpCircle,
@@ -54,7 +56,9 @@ const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
       { href: "/simulator", label: "Tất cả phòng lab", icon: FlaskConical, match: "exact" },
       { href: "/simulator#waveform", label: "Cầu Thyristor LCC", icon: Activity, match: "none" },
       { href: "/simulator#vi-curve", label: "Đặc tính V-I", icon: TrendingDown, match: "none" },
+      { href: "/simulator#vsc", label: "Điều khiển VSC-HVDC", icon: Cpu, match: "none" },
       { href: "/simulator#sld", label: "Sơ đồ đơn tuyến", icon: Layers, match: "none" },
+      { href: "/simulator#planner", label: "Thiết kế sơ bộ tuyến", icon: Compass, match: "none" },
     ],
   },
   {

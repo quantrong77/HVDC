@@ -7,7 +7,7 @@
 import { CURRICULUM_LEVELS } from "@/data/curriculum";
 import { HVDC_QUIZ } from "@/data/quiz";
 import { HVDC_EQUIPMENT_DATABASE } from "@/data/equipment";
-import { LESSON_SUPPLEMENTS } from "@/data/supplements";
+import { ALL_SUPPLEMENTS } from "@/data/supplements";
 
 export interface KnowledgeChunk {
   text: string;
@@ -65,7 +65,7 @@ const CHUNKS: KnowledgeChunk[] = [
   ]),
   ...HVDC_QUIZ.map((q) => ({ text: q.explanation, source: q.evnReference })),
   // Tài liệu bổ sung: mỗi ý là một đoạn, nguồn ghi tên mục và số trang tài liệu gốc
-  ...LESSON_SUPPLEMENTS.flatMap((sup) =>
+  ...ALL_SUPPLEMENTS.flatMap((sup) =>
     sup.sections.flatMap((section) => [
       ...section.points.map((text) => ({ text, source: `${section.heading}, ${sup.source}, ${sup.pages}` })),
       ...(section.note ? [{ text: section.note, source: `Ghi chú biên soạn, ${section.heading}` }] : []),
@@ -73,14 +73,20 @@ const CHUNKS: KnowledgeChunk[] = [
   ),
 ];
 
-const INDEXED = CHUNKS.map((chunk) => ({ chunk, tokens: new Set(tokenize(chunk.text)) }));
+// Lập chỉ mục cả nguồn (tên mục, tên bài) để câu hỏi theo tiêu đề cũng tìm được
+const INDEXED = CHUNKS.map((chunk) => ({ chunk, tokens: new Set(tokenize(`${chunk.text} ${chunk.source}`)) }));
+
+// Trọng số IDF: từ hiếm (homopolar, Wudongde) nặng hơn từ phổ biến (cực, điện áp) khi kho tài liệu lớn dần
+const DOC_FREQ = new Map<string, number>();
+for (const { tokens } of INDEXED) for (const t of Array.from(tokens)) DOC_FREQ.set(t, (DOC_FREQ.get(t) ?? 0) + 1);
+const idf = (t: string) => Math.log(1 + INDEXED.length / (DOC_FREQ.get(t) ?? INDEXED.length));
 
 export function searchKnowledge(query: string, limit = 3): KnowledgeHit[] {
   const queryTokens = Array.from(new Set(tokenize(query)));
   if (queryTokens.length === 0) return [];
   return INDEXED.map(({ chunk, tokens }) => ({
     ...chunk,
-    score: queryTokens.reduce((sum, t) => sum + (tokens.has(t) ? 1 : 0), 0) / Math.sqrt(tokens.size + 4),
+    score: queryTokens.reduce((sum, t) => sum + (tokens.has(t) ? idf(t) : 0), 0) / Math.sqrt(tokens.size + 4),
   }))
     .filter((hit) => hit.score > 0)
     .sort((a, b) => b.score - a.score)

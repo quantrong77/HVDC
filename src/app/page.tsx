@@ -58,8 +58,8 @@ export default function HomePage() {
             </h1>
             <p className="mt-5 text-lg text-slate-300 leading-relaxed max-w-2xl">
               Bốn cấp độ từ tổng quan đến vận hành trạm. Mỗi bài đi kèm phòng
-              lab để thử ngay: cầu Thyristor, đặc tính V-I và sơ đồ đơn tuyến
-              trạm biến đổi. Nội dung tổng hợp từ tài liệu các khóa học do
+              lab để thử ngay: cầu Thyristor, đặc tính V-I, điều khiển VSC-HVDC,
+              sơ đồ trạm và thiết kế sơ bộ tuyến. Nội dung tổng hợp từ tài liệu các khóa học do
               EVNNPT tổ chức.
             </p>
 
@@ -356,7 +356,7 @@ export default function HomePage() {
             <div className="mt-6 space-y-4 text-[15px] text-slate-300 leading-relaxed max-w-2xl">
               <p>
                 Dự án <strong className="text-white">Nghiên cứu HVDC</strong> do
-                Hoàng Trọng (PTC3) tổng hợp và xây dựng, sử dụng tài liệu học
+                Hoàng Trọng (PTC3) tổng hợp tài liệu và xây dựng, sử dụng tài liệu học
                 tập từ các khóa đào tạo chuyên đề về công nghệ truyền tải điện
                 HVDC do Tổng công ty Truyền tải điện Quốc gia (EVNNPT) tổ chức.
               </p>

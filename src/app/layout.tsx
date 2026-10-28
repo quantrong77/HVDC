@@ -97,6 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <li>Tài liệu các khóa đào tạo HVDC của EVNNPT</li>
                     <li>Chuyên đề LCC Thyristor và VSC-MMC (HVDC PLUS)</li>
                     <li>Hồ sơ kỹ thuật Trạm 220kV Thái Nguyên</li>
+                    <li>Bài giảng HVDC 2026, Đại học Bách khoa Hà Nội</li>
                   </ul>
                 </div>
               </div>
