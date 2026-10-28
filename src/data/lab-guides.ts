@@ -3,7 +3,7 @@
  * và mục liên quan (bài học, phòng lab khác). Dùng chung cho trang Phòng lab và trang bài học.
  */
 
-export type LabId = "waveform" | "vi-curve" | "vsc" | "sld" | "planner";
+export type LabId = "firing" | "waveform" | "vi-curve" | "vsc" | "sld" | "planner";
 
 export interface LabExperiment {
   task: string;
@@ -21,6 +21,29 @@ export interface LabGuide {
 }
 
 export const LAB_GUIDES: Record<LabId, LabGuide> = {
+  firing: {
+    id: "firing",
+    title: "Góc kích, trùng dẫn và điều chế",
+    goal: "Kiểm chứng trực tiếp công thức của Cấp độ 0: dạng sóng cầu 6/12 xung theo α, μ, γ; đặc tính Vd–Id và đáp ứng động của điều khiển LCC; PWM, SVPWM và điều khiển vector dq của VSC.",
+    steps: [
+      "Chọn một trong sáu tab ở đầu lab. Tab 1 dùng cho bài 0.2, 0.4 và 0.5. Tab 2–3 dùng cho bài 0.6. Tab 4–5 dùng cho bài 0.3 và 0.7. Tab 6 ghép tất cả thành bài toán thiết kế một liên kết LCC (bài 0.8).",
+      "Cột trái là thông số và các nút thiết lập nhanh. Trỏ vào biểu tượng (i) cạnh thanh trượt hoặc ô kết quả để xem công thức và ý nghĩa.",
+      "Khung trạng thái đổi màu theo chế độ: xanh là bình thường, vàng là cảnh báo (γ dưới γmin, quá điều chế…), đỏ là sự cố chuyển mạch.",
+      "Ở tab 1, ô “Vd tích phân dạng sóng” là trung bình số của dạng sóng đang vẽ, dùng để đối chiếu với công thức Vd = Vd0·cos α − (3/π)·Xc·Id.",
+      "Các tab giữ nguyên thông số khi chuyển qua lại; đường dẫn /simulator#firing-pwm (wave, char, dyn, pwm, vec, design) mở thẳng tab tương ứng.",
+    ],
+    experiments: [
+      { task: "Tab 1: tăng α từ 0° đến 175° với Id = 3 kA, V_LL = 210 kV, Xc = 8 Ω.", expect: "Vd đổi dấu tại α ≈ 90°; Vd tích phân trùng công thức; vùng γ trên đồ thị điện áp van xuất hiện khi α > 90°. Ở α = 15°, μ ≈ 21,5° và Vd ≈ 502 kV với cầu 12 xung." },
+      { task: "Tab 1: bấm “Nghịch lưu γ = γmin”, rồi tăng Id từ 3 lên 4,2 kA.", expect: "μ tăng, γ giảm dưới γmin (khung vàng) rồi xảy ra sự cố chuyển mạch (khung đỏ)." },
+      { task: "Tab 2: giảm điện áp AC chỉnh lưu từ 1,0 xuống 0,85 pu; sau đó giảm điện áp nghịch lưu.", expect: "Điểm làm việc chuyển từ CC chỉnh lưu sang CC nghịch lưu, Id giảm đúng bằng ΔId = 0,1 pu." },
+      { task: "Tab 3: sụt áp nghịch lưu 20 %, 100 ms; lặp lại khi bật chống sự cố chuyển mạch và khi tắt VDCOL.", expect: "Không bật chống sự cố thì có sự cố chuyển mạch (vùng đỏ, Id vọt); bật lên thì số lần giảm. So sánh Id đỉnh và thời gian phục hồi." },
+      { task: "Tab 4: so sánh SPWM, bơm bậc 3 và SVPWM ở ma = 1,1; đổi mf.", expect: "SPWM báo quá điều chế (giới hạn 1), hai phương pháp còn lại vẫn tuyến tính tới 1,155; dải sóng hài chính dời theo mf·f1." },
+      { task: "Tab 5: tắt bù tách kênh; đổi τ từ 1 đến 10 ms.", expect: "Bước id làm iq lệch rõ khỏi giá trị đặt (ghép chéo ωL); thời gian tăng id xấp xỉ 2,2·τ. Với τ = 2 ms: Kp ≈ 0,239, Ki = 2,5." },
+      { task: "Tab 6: giữ ví dụ chuẩn ±500 kV, 3000 MW rồi đổi điện áp cực lên ±800 kV.", expect: "Id giảm từ 3 xuống khoảng 1,9 kA, tổn hao đường dây giảm theo bình phương dòng; V_LL phía van và số cấp thyristor mỗi van tăng theo điện áp." },
+    ],
+    lessons: ["0.4", "0.6", "0.7", "0.8", "0.2", "0.5", "0.3", "2.1", "3.1"],
+    relatedLabs: ["waveform", "vi-curve", "vsc"],
+  },
   waveform: {
     id: "waveform",
     title: "Cầu Thyristor LCC: dạng sóng và góc kích",
@@ -38,8 +61,8 @@ export const LAB_GUIDES: Record<LabId, LabGuide> = {
       { task: "Chọn “Sát giới hạn γ” rồi tăng thêm α hoặc μ.", expect: "Khi γ xuống dưới 17°, ô γ báo đỏ: nguy cơ sự cố chuyển mạch ở trạm nghịch lưu." },
       { task: "So sánh 6 xung với 12 xung ở cùng α.", expect: "Tần số gợn tăng từ 300 Hz lên 600 Hz và hệ số gợn đỉnh-đỉnh giảm rõ rệt, nên cuộn kháng và bộ lọc DC nhỏ hơn." },
     ],
-    lessons: ["2.1", "2.3", "1.3"],
-    relatedLabs: ["vi-curve", "sld"],
+    lessons: ["2.1", "2.3", "1.3", "0.5"],
+    relatedLabs: ["firing", "vi-curve", "sld"],
   },
   "vi-curve": {
     id: "vi-curve",
@@ -57,8 +80,8 @@ export const LAB_GUIDES: Record<LabId, LabGuide> = {
       { task: "Bấm “Sự cố gần trạm chỉnh lưu”, rồi kéo điện áp AC chỉnh lưu xuống dưới khoảng 0,38 pu.", expect: "Vd giảm còn khoảng 0,42 pu với dòng 0,9 pu; khi xuống thấp hơn nữa, khung trạng thái báo VDCOL: trong thực tế bộ giới hạn dòng hạ dòng đặt để giảm nhu cầu Q và giúp lưới AC phục hồi." },
       { task: "Đặt ΔI = 0,05 rồi 0,2 trong lúc sụt áp chỉnh lưu.", expect: "ΔI lớn làm công suất sụt nhiều hơn khi chuyển chế độ; ΔI nhỏ dễ làm hai bộ điều khiển dòng tranh nhau." },
     ],
-    lessons: ["3.1", "4.2", "2.1"],
-    relatedLabs: ["waveform", "vsc"],
+    lessons: ["3.1", "4.2", "2.1", "0.6"],
+    relatedLabs: ["firing", "waveform", "vsc"],
   },
   vsc: {
     id: "vsc",
@@ -76,8 +99,8 @@ export const LAB_GUIDES: Record<LabId, LabGuide> = {
       { task: "Bấm “Lưới nhận yếu (SCR 1,5)”.", expect: "Cùng Q2 = 0,2 pu nhưng điện áp AC trạm 2 tăng nhiều hơn so với SCR 3: lưới yếu nhạy với công suất phản kháng." },
       { task: "Bấm “Chạm giới hạn dòng”.", expect: "Q2 không đạt 0,6 pu vì P đã chiếm gần hết dòng định mức; điểm trạm 2 nằm trên vòng Smax." },
     ],
-    lessons: ["2.2", "3.1", "4.2"],
-    relatedLabs: ["vi-curve", "planner"],
+    lessons: ["2.2", "3.1", "4.2", "0.7", "0.3"],
+    relatedLabs: ["firing", "vi-curve", "planner"],
   },
   sld: {
     id: "sld",
@@ -95,7 +118,7 @@ export const LAB_GUIDES: Record<LabId, LabGuide> = {
       { task: "Chọn giáp lưng (Back-to-Back).", expect: "Không còn đường dây DC: hai bộ biến đổi đặt cùng một trạm để nối hai lưới không đồng bộ." },
       { task: "Mở lần lượt bộ lọc AC, MBA đổi nối, nhà van và cuộn kháng san bằng.", expect: "Đối chiếu vai trò của từng thiết bị với mục “Sáu khối chính của trạm” trong bài 1.3." },
     ],
-    lessons: ["1.2", "1.3", "4.1"],
+    lessons: ["1.2", "1.3", "4.1", "0.1"],
     relatedLabs: ["waveform", "planner"],
   },
   planner: {
@@ -119,7 +142,7 @@ export const LAB_GUIDES: Record<LabId, LabGuide> = {
   },
 };
 
-export const LAB_ORDER: LabId[] = ["waveform", "vi-curve", "vsc", "sld", "planner"];
+export const LAB_ORDER: LabId[] = ["firing", "waveform", "vi-curve", "vsc", "sld", "planner"];
 
 /** Các phòng lab có liên quan đến một bài học */
 export function labsForLesson(lessonId: string): LabGuide[] {

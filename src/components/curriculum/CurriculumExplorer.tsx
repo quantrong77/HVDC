@@ -13,6 +13,10 @@ import { getSupplements } from "@/data/supplements";
 // KaTeX (~90 kB) chỉ tải khi cần hiển thị công thức, không nằm trong gói đầu của trang chủ
 const Formula = dynamic(() => import("@/components/ui/Formula"));
 
+function LabAnchor({ href, ...rest }: { href: string; className: string; children: React.ReactNode }) {
+  return href.startsWith("/") ? <Link href={href} {...rest} /> : <a href={href} {...rest} />;
+}
+
 export default function CurriculumExplorer() {
   const { completedLessons, toggleLesson, openAssistant, isHydrated } = useLearning();
   const [levelIndex, setLevelIndex] = useState(0);
@@ -31,7 +35,7 @@ export default function CurriculumExplorer() {
   return (
     <>
       {/* Level Tabs */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6" role="tablist" aria-label="Cấp độ đào tạo">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6" role="tablist" aria-label="Cấp độ đào tạo">
         {CURRICULUM_LEVELS.map((item, idx) => {
           const doneCount = item.topics.filter((t) => done(t.id)).length;
           const active = levelIndex === idx;
@@ -170,13 +174,14 @@ export default function CurriculumExplorer() {
                   {done(lesson.id) ? "Đã học xong" : "Đánh dấu đã học"}
                 </button>
                 {lesson.labLink && (
-                  <a
+                  // Link sang trang khác (Phòng lab) phải qua next/link để giữ basePath; neo trong trang chủ giữ thẻ a
+                  <LabAnchor
                     href={lesson.labLink.href}
                     className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm text-slate-200 border border-slate-700 hover:border-cyan-500/60 transition"
                   >
                     {lesson.labLink.label}
                     <ArrowUpRight className="w-4 h-4 text-cyan-400" />
-                  </a>
+                  </LabAnchor>
                 )}
                 <button
                   onClick={() => openAssistant(lesson.title.replace(/^Bài [\d.]+: /, ""))}

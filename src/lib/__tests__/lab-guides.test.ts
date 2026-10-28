@@ -21,5 +21,7 @@ describe("Hướng dẫn phòng lab", () => {
   it("tra ngược phòng lab theo bài học", () => {
     expect(labsForLesson("2.2").map((g) => g.id)).toEqual(["vsc", "planner"]);
     expect(labsForLesson("3.2")).toHaveLength(0);
+    expect(labsForLesson("0.4").map((g) => g.id)).toEqual(["firing"]);
+    expect(labsForLesson("2.1").map((g) => g.id)).toEqual(["firing", "waveform", "vi-curve"]);
   });
 });

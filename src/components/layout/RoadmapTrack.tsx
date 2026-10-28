@@ -69,7 +69,7 @@ export default function RoadmapTrack({
     <nav aria-label="Lộ trình nghiên cứu" className={className}>
       <ol className="flex items-start">
         {stages.map((stage, i) => {
-          const label = `${stage.title}: ${stage.done}/${stage.total}${stage.level ? " bài" : ""}, ${STATUS_TEXT[stage.status]}`;
+          const label = `${stage.title}: ${stage.done}/${stage.total}${stage.level !== undefined ? " bài" : ""}, ${STATUS_TEXT[stage.status]}`;
           const link = (
             <Link
               href={stage.href}
@@ -102,7 +102,7 @@ export default function RoadmapTrack({
                 )}
                 {!compact && (
                   <span className="mt-2 text-center text-[11px] leading-snug text-slate-400">
-                    <span className="block font-semibold text-slate-200">{stage.level ? `Cấp độ ${stage.level}` : "Kiểm tra"}</span>
+                    <span className="block font-semibold text-slate-200">{stage.level !== undefined ? `Cấp độ ${stage.level}` : "Kiểm tra"}</span>
                     {stage.done}/{stage.total}
                   </span>
                 )}

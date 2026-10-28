@@ -1,4 +1,5 @@
 import { BKHN_SUPPLEMENTS } from "@/data/supplements-bkhn";
+import { GIAOTRINH_SUPPLEMENTS } from "@/data/supplements-giaotrinh";
 
 /**
  * Nội dung bổ sung cho từng bài, tổng hợp (diễn đạt lại) từ tài liệu tham khảo trong docs/references.
@@ -15,6 +16,7 @@ export interface SupplementSection {
   heading: string;
   points: string[];
   table?: SupplementTable;
+  formulas?: string[]; // Công thức LaTeX, render bằng KaTeX dưới các ý
   note?: string; // Ghi chú biên soạn: chỗ tài liệu gốc cần lưu ý hoặc đã được hiệu chỉnh
 }
 
@@ -283,7 +285,7 @@ export const LESSON_SUPPLEMENTS: LessonSupplement[] = [
 ];
 
 /** Tất cả nguồn: PTC3 trước, sau đó tài liệu khóa đào tạo 2026 của ĐHBKHN */
-export const ALL_SUPPLEMENTS: LessonSupplement[] = [...LESSON_SUPPLEMENTS, ...BKHN_SUPPLEMENTS];
+export const ALL_SUPPLEMENTS: LessonSupplement[] = [...GIAOTRINH_SUPPLEMENTS, ...LESSON_SUPPLEMENTS, ...BKHN_SUPPLEMENTS];
 
 export function getSupplements(lessonId: string): LessonSupplement[] {
   return ALL_SUPPLEMENTS.filter((s) => s.lessonId === lessonId);

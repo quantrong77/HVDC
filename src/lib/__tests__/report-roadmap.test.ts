@@ -24,7 +24,7 @@ const input: ReportInput = {
 describe("Báo cáo kết quả học tập", () => {
   it("toàn khóa: tổng hợp tiến độ, ghi chú theo bài, tên file không dấu", () => {
     const m = buildReportModel(input);
-    expect(m.lessons).toHaveLength(10);
+    expect(m.lessons).toHaveLength(18);
     expect(m.completedCount).toBe(3);
     const l21 = m.lessons.find((l) => l.id === "2.1")!;
     expect(l21.done).toBe(true);
@@ -51,21 +51,24 @@ describe("Báo cáo kết quả học tập", () => {
 });
 
 describe("Lộ trình nghiên cứu", () => {
-  it("5 giai đoạn, node dẫn tới bài chưa học đầu tiên, đánh dấu giai đoạn nên học tiếp", () => {
-    const stages = buildRoadmap(["1.1", "1.2", "1.3", "2.1"], false);
-    expect(stages.map((s) => s.id)).toEqual(["level-1", "level-2", "level-3", "level-4", "quiz"]);
-    expect(stages[0].status).toBe("done");
-    expect(stages[0].href).toBe("/learn/1/1-1");
-    expect(stages[1]).toMatchObject({ status: "next", done: 1, total: 3, href: "/learn/2/2-2" });
-    expect(stages[2].status).toBe("todo");
-    expect(stages[4]).toMatchObject({ href: "/quiz", status: "todo" });
+  it("6 giai đoạn (Cấp độ 0–4 và kiểm tra), node dẫn tới bài chưa học đầu tiên, đánh dấu giai đoạn nên học tiếp", () => {
+    const level0 = ["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8"];
+    const stages = buildRoadmap([...level0, "1.1", "1.2", "1.3", "2.1"], false);
+    expect(stages.map((s) => s.id)).toEqual(["level-0", "level-1", "level-2", "level-3", "level-4", "quiz"]);
+    expect(stages[0]).toMatchObject({ status: "done", short: "0", href: "/learn/0/0-1" });
+    expect(stages[1].href).toBe("/learn/1/1-1");
+    expect(stages[2]).toMatchObject({ status: "next", done: 1, total: 3, href: "/learn/2/2-2" });
+    expect(stages[3].status).toBe("todo");
+    expect(stages[5]).toMatchObject({ href: "/quiz", status: "todo" });
+    // Chưa học Cấp độ 0 thì node Cấp độ 0 là bước nên học tiếp, dẫn tới bài 0.3
+    expect(buildRoadmap(["0.1", "0.2", "1.1"], false)[0]).toMatchObject({ status: "next", href: "/learn/0/0-3" });
   });
 
   it("học xong hết thì giai đoạn kiểm tra là bước tiếp theo", () => {
-    const all = ["1.1", "1.2", "1.3", "2.1", "2.2", "2.3", "3.1", "3.2", "4.1", "4.2"];
+    const all = ["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "1.1", "1.2", "1.3", "2.1", "2.2", "2.3", "3.1", "3.2", "4.1", "4.2"];
     const stages = buildRoadmap(all, false);
-    expect(stages.slice(0, 4).every((s) => s.status === "done")).toBe(true);
-    expect(stages[4].status).toBe("next");
+    expect(stages.slice(0, 5).every((s) => s.status === "done")).toBe(true);
+    expect(stages[5].status).toBe("next");
     expect(buildRoadmap(all, true).every((s) => s.status === "done")).toBe(true);
   });
 });

@@ -99,6 +99,13 @@ export interface LessonDetail {
   formula?: string;       // Công thức trọng tâm dạng văn bản thuần (dùng cho tìm kiếm, trợ lý)
   formulaTex?: string;    // Cùng công thức dạng LaTeX, render bằng KaTeX
   labLink?: { href: string; label: string };
+  practice?: LessonPractice[]; // Bài thực hành trong phòng lab, có link sang đúng tab
+}
+
+export interface LessonPractice {
+  href: string; // Ví dụ "/simulator#firing-wave"
+  title: string;
+  task: string;
 }
 
 export interface LearningLevel {

@@ -95,7 +95,7 @@ export const useProgressStore = create<ProgressState>()(
   )
 );
 
-/** % hoàn thành: 10 bài học + 1 bài kiểm tra đạt yêu cầu */
+/** % hoàn thành: toàn bộ bài học + 1 bài kiểm tra đạt yêu cầu */
 export function selectProgressPercent(s: Pick<ProgressState, "completedLessons" | "quizPassed">): number {
   const total = ALL_LESSONS.length + 1;
   const done = s.completedLessons.filter((id) => ALL_LESSONS.some((l) => l.id === id)).length + (s.quizPassed ? 1 : 0);

@@ -14,6 +14,7 @@ import {
   Cpu,
   FileText,
   FlaskConical,
+  Gauge,
   GraduationCap,
   HelpCircle,
   Home,
@@ -47,7 +48,7 @@ const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
     title: "Học tập",
     items: [
       { href: "/", label: "Trang chủ", icon: Home, match: "exact" },
-      { href: "/#curriculum", label: "Lộ trình 4 cấp độ", icon: Route, match: "none" },
+      { href: "/#curriculum", label: "Lộ trình 5 cấp độ", icon: Route, match: "none" },
       { href: "/learn", label: "Bài học", icon: GraduationCap, match: "prefix", lessons: true },
       { href: "/quiz", label: "Kiểm tra", icon: Award, match: "prefix" },
       { href: "/ket-qua", label: "Kết quả học tập", icon: FileText, match: "prefix" },
@@ -57,6 +58,7 @@ const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
     title: "Phòng lab",
     items: [
       { href: "/simulator", label: "Tất cả phòng lab", icon: FlaskConical, match: "exact" },
+      { href: "/simulator#firing", label: "Góc kích và điều chế", icon: Gauge, match: "none" },
       { href: "/simulator#waveform", label: "Cầu Thyristor LCC", icon: Activity, match: "none" },
       { href: "/simulator#vi-curve", label: "Đặc tính V-I", icon: TrendingDown, match: "none" },
       { href: "/simulator#vsc", label: "Điều khiển VSC-HVDC", icon: Cpu, match: "none" },

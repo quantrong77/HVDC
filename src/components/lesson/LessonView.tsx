@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Bot, Check, ChevronLeft, ChevronRight, Clock, FileText, FlaskConical } from "lucide-react";
+import { ArrowUpRight, Bot, Check, Layers, ChevronLeft, ChevronRight, Clock, FileText, FlaskConical } from "lucide-react";
 import { useLearning } from "@/components/providers/LearningProvider";
 import Formula from "@/components/ui/Formula";
 import LessonSupplements from "@/components/lesson/LessonSupplements";
@@ -12,6 +12,7 @@ import { getSupplements } from "@/data/supplements";
 import { findLesson, lessonHref } from "@/lib/lesson-routes";
 import LabGuidePanel from "@/components/simulator/LabGuidePanel";
 import { LabId, labsForLesson } from "@/data/lab-guides";
+import { SYSTEM_LINKS, foundationsFor } from "@/data/system-links";
 
 const loading = () => <div className="h-72 rounded-2xl bg-slate-900 border border-slate-800 animate-pulse" />;
 const WaveformCanvas = dynamic(() => import("@/components/simulator/WaveformCanvas"), { loading });
@@ -36,8 +37,14 @@ export default function LessonView({ level, lesson }: { level: string; lesson: s
   const { completedLessons, toggleLesson, completeLesson, openAssistant, isHydrated } = useLearning();
   const isDone = isHydrated && completedLessons.includes(data.id);
   const lab = LESSON_LAB[data.id];
-  // Phòng lab khác liên quan đến bài (bỏ phòng lab đã nhúng ngay trong bài)
-  const relatedLabs = labsForLesson(data.id).filter((g) => g.id !== lab?.lab);
+  const practice = data.practice ?? [];
+  // "/simulator#firing-wave" → phòng lab "firing"
+  const practiceLabs = practice.map((p) => p.href.split("#")[1]?.replace(/-(wave|char|dyn|pwm|vec|design)$/, ""));
+  // Phòng lab khác liên quan đến bài (bỏ phòng lab đã nhúng hoặc đã có trong phần thực hành)
+  const relatedLabs = labsForLesson(data.id).filter((g) => g.id !== lab?.lab && !practiceLabs.includes(g.id));
+  // Cấp độ 0: khái niệm → hệ thống HVDC; Cấp độ 1–4: trỏ ngược về kiến thức nền
+  const systemLinks = SYSTEM_LINKS[data.id] ?? [];
+  const foundations = levelData.level === 0 ? [] : foundationsFor(data.id);
 
   return (
     <article className="min-w-0 flex-1">
@@ -85,6 +92,57 @@ export default function LessonView({ level, lesson }: { level: string; lesson: s
         )}
       </section>
 
+      {systemLinks.length > 0 && (
+        <section className="py-6 border-t border-slate-800 max-w-4xl" aria-labelledby="lesson-system-links">
+          <h2 id="lesson-system-links" className="flex items-center gap-2 text-lg font-bold text-white">
+            <Layers className="w-5 h-5 text-cyan-400" />
+            Liên hệ ứng dụng trong hệ thống HVDC
+          </h2>
+          <p className="mt-1 mb-4 text-sm text-slate-400">Mỗi khái niệm của bài xuất hiện ở đâu trong trạm và đường dây, gắn với công việc nào, và học tiếp ở bài nào.</p>
+          <ul className="space-y-3">
+            {systemLinks.map((s) => (
+              <li key={s.concept} className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+                <p className="text-[15px] font-semibold text-white">{s.concept}</p>
+                <dl className="mt-2 grid grid-cols-1 sm:grid-cols-[140px_minmax(0,1fr)] gap-x-3 gap-y-1.5 text-sm">
+                  <dt className="text-slate-400">Trong hệ thống</dt>
+                  <dd className="text-slate-200 leading-relaxed">{s.inSystem}</dd>
+                  <dt className="text-slate-400">Công việc liên quan</dt>
+                  <dd className="text-slate-200 leading-relaxed">{s.work}</dd>
+                  <dt className="text-slate-400">Học tiếp</dt>
+                  <dd className="flex flex-wrap gap-1.5">
+                    {s.next.map((id) => (
+                      <Link key={id} href={lessonHref(id)} className="text-xs px-2 py-0.5 rounded-md border border-slate-700 text-cyan-300 hover:border-cyan-500">
+                        Bài {id}
+                      </Link>
+                    ))}
+                  </dd>
+                </dl>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {foundations.length > 0 && (
+        <section className="py-6 border-t border-slate-800 max-w-3xl" aria-labelledby="lesson-foundations">
+          <h2 id="lesson-foundations" className="flex items-center gap-2 text-lg font-bold text-white">
+            <Layers className="w-5 h-5 text-cyan-400" />
+            Kiến thức nền từ Cấp độ 0
+          </h2>
+          <p className="mt-1 mb-3 text-sm text-slate-400">Ôn lại các khái niệm cơ sở mà bài này dựa vào.</p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            {foundations.map((f) => (
+              <li key={f.lessonId}>
+                <Link href={lessonHref(f.lessonId)} className="block h-full rounded-xl border border-slate-800 p-3 hover:border-cyan-500/60 transition">
+                  <span className="block text-sm font-semibold text-white">{f.title}</span>
+                  <span className="block mt-1 text-xs text-slate-400 leading-relaxed">{f.concepts.join(" · ")}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <LessonSupplements supplements={getSupplements(data.id)} />
 
       {lab && (
@@ -92,6 +150,32 @@ export default function LessonView({ level, lesson }: { level: string; lesson: s
           <h2 id="lesson-lab" className="text-lg font-bold text-white mb-4">{lab.title}</h2>
           <lab.Component />
           <LabGuidePanel id={lab.lab} defaultOpen={false} />
+        </section>
+      )}
+
+      {practice.length > 0 && (
+        <section className="py-6 border-t border-slate-800" aria-labelledby="lesson-practice">
+          <h2 id="lesson-practice" className="text-lg font-bold text-white">Thực hành trong phòng lab</h2>
+          <p className="mt-1 mb-4 text-sm text-slate-400">Mỗi thẻ mở đúng tab mô phỏng. Làm xong, ghi kết quả quan sát vào mục ghi chú bên dưới.</p>
+          <ol className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {practice.map((p, i) => (
+              <li key={p.title + i}>
+                <Link href={p.href} className="group flex gap-3 h-full p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5 hover:border-cyan-400 transition">
+                  <FlaskConical className="w-5 h-5 shrink-0 text-cyan-400 mt-0.5" />
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold text-white">
+                      {i + 1}. {p.title}
+                    </span>
+                    <span className="block mt-1 text-[13px] text-slate-300 leading-relaxed">{p.task}</span>
+                    <span className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-cyan-400">
+                      Mở phòng lab
+                      <ArrowUpRight className="w-3.5 h-3.5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ol>
         </section>
       )}
 

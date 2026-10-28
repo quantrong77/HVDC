@@ -1,6 +1,7 @@
 import React from "react";
 import { ChevronDown, FileText, Info } from "lucide-react";
 import { LessonSupplement, SupplementTable } from "@/data/supplements";
+import Formula from "@/components/ui/Formula";
 
 function Table({ table }: { table: SupplementTable }) {
   return (
@@ -70,6 +71,15 @@ export default function LessonSupplements({ supplements }: { supplements: Lesson
                       </li>
                     ))}
                   </ul>
+                  {section.formulas && (
+                    <div className="mt-4 space-y-2">
+                      {section.formulas.map((tex) => (
+                        <div key={tex} className="px-4 py-3 rounded-lg bg-slate-950 border border-slate-800 overflow-x-auto">
+                          <Formula tex={tex} display className="text-amber-100" />
+                        </div>
+                      ))}
+                    </div>
+                  )}
                   {section.table && <Table table={section.table} />}
                   {section.note && (
                     <p className="mt-4 flex gap-2 text-sm text-amber-200 bg-amber-500/10 border border-amber-500/30 rounded-lg px-3 py-2.5 leading-relaxed">

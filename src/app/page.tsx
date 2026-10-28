@@ -104,9 +104,9 @@ export default function HomePage() {
         id="curriculum"
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
-        <SectionHeading title="Lộ trình đào tạo 4 cấp độ">
-          Biên soạn theo khung bài giảng EVNNPT, từ so sánh kinh tế HVAC và HVDC
-          đến vận hành trạm biến đổi.
+        <SectionHeading title="Lộ trình đào tạo 5 cấp độ">
+          Biên soạn theo khung bài giảng EVNNPT, từ nền tảng điện tử công suất,
+          so sánh kinh tế HVAC và HVDC đến vận hành trạm biến đổi.
         </SectionHeading>
         <CurriculumExplorer />
       </section>
@@ -172,16 +172,17 @@ export default function HomePage() {
                   01
                 </span>
                 <h3 className="text-base font-bold text-white">
-                  Khai Thác Lộ Trình Đào Tạo 4 Cấp Độ
+                  Khai Thác Lộ Trình Đào Tạo 5 Cấp Độ
                 </h3>
               </div>
               <ul className="space-y-2 text-xs text-slate-300 leading-relaxed">
                 <li className="flex items-start gap-2">
                   <Check className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                   <span>
-                    <strong>Chọn thẻ Cấp độ 1 đến 4:</strong> Mỗi cấp độ tương
-                    ứng với một chuyên đề chuẩn của EVNNPT (từ cơ sở bối cảnh
-                    HVAC vs HVDC đến vận hành trạm thực tế).
+                    <strong>Chọn thẻ Cấp độ 0 đến 4:</strong> Cấp độ 0 là nền tảng
+                    điện tử công suất; Cấp độ 1 đến 4 tương ứng các chuyên đề
+                    chuẩn của EVNNPT (từ bối cảnh HVAC vs HVDC đến vận hành trạm
+                    thực tế).
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
@@ -196,8 +197,8 @@ export default function HomePage() {
               </ul>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-cyan-400">
-              Mẹo: Nên học theo tuần tự từ Cấp độ 1 để nắm chắc định nghĩa trước
-              khi sang phần điều khiển van.
+              Mẹo: Bắt đầu từ Cấp độ 0 để nắm linh kiện và góc kích trước khi sang
+              cấu hình hệ thống và điều khiển trạm.
             </div>
           </div>
 

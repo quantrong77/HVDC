@@ -8,10 +8,18 @@ import { calculateVd } from "@/lib/hvdc-math";
 import { LESSON_SUPPLEMENTS, getSupplements } from "@/data/supplements";
 
 describe("Khung chương trình (spec mục II)", () => {
-  it("có 4 cấp độ và 10 bài, id bài duy nhất", () => {
-    expect(CURRICULUM_LEVELS).toHaveLength(4);
-    expect(ALL_LESSONS).toHaveLength(10);
-    expect(new Set(ALL_LESSONS.map((l) => l.id)).size).toBe(10);
+  it("có 5 cấp độ (0–4) và 18 bài, id bài duy nhất", () => {
+    expect(CURRICULUM_LEVELS.map((l) => l.level)).toEqual([0, 1, 2, 3, 4]);
+    expect(ALL_LESSONS).toHaveLength(18);
+    expect(new Set(ALL_LESSONS.map((l) => l.id)).size).toBe(18);
+  });
+
+  it("bài Cấp độ 0 có thực hành dẫn tới đúng tab phòng lab", () => {
+    const tabs = /^\/simulator#(firing-(wave|char|dyn|pwm|vec|design)|waveform|vsc|sld|planner)$/;
+    for (const l of ALL_LESSONS.filter((x) => x.level === 0)) {
+      expect(l.practice?.length).toBeGreaterThan(0);
+      for (const p of l.practice!) expect(p.href).toMatch(tabs);
+    }
   });
 
   it("lessonsCount của từng cấp khớp số bài thực tế", () => {
@@ -26,7 +34,7 @@ describe("Khung chương trình (spec mục II)", () => {
 describe("Route bài học", () => {
   it("mỗi bài có đúng một URL và tìm lại được từ params", () => {
     const params = allLessonParams();
-    expect(params).toHaveLength(10);
+    expect(params).toHaveLength(18);
     for (const { level, lesson } of params) {
       const found = findLesson(level, lesson);
       expect(found).not.toBeNull();
@@ -35,7 +43,9 @@ describe("Route bài học", () => {
   });
 
   it("bài trước/sau nối liền thành chuỗi", () => {
-    expect(findLesson("1", "1-1")!.prev).toBeNull();
+    expect(findLesson("0", "0-1")!.prev).toBeNull();
+    expect(findLesson("0", "0-8")!.next!.id).toBe("1.1");
+    expect(findLesson("1", "1-1")!.prev!.id).toBe("0.8");
     expect(findLesson("1", "1-1")!.next!.id).toBe("1.2");
     expect(findLesson("4", "4-2")!.next).toBeNull();
   });
