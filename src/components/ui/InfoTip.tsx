@@ -4,7 +4,7 @@ import React, { useEffect, useId, useLayoutEffect, useRef, useState } from "reac
 import { Info } from "lucide-react";
 
 /** Hộp gợi ý: hiện khi trỏ chuột, khi focus bằng bàn phím, hoặc khi chạm (mobile); Esc để đóng */
-function useTip(align: "start" | "end" = "start") {
+function useTip(align: "start" | "end" = "start", side: "top" | "bottom" = "bottom") {
   const [open, setOpen] = useState(false);
   const [shift, setShift] = useState(0);
   const boxRef = useRef<HTMLSpanElement>(null);
@@ -33,7 +33,7 @@ function useTip(align: "start" | "end" = "start") {
         id={id}
         role="tooltip"
         style={{ transform: `translateX(${shift}px)` }}
-        className={`absolute ${align === "end" ? "right-0" : "left-0"} top-full mt-1.5 z-40 w-64 max-w-[80vw] rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-xs font-normal normal-case leading-relaxed text-slate-200 shadow-xl text-left whitespace-normal`}
+        className={`absolute ${align === "end" ? "right-0" : "left-0"} ${side === "top" ? "bottom-full mb-1.5" : "top-full mt-1.5"} z-40 w-64 max-w-[80vw] rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-xs font-normal normal-case leading-relaxed text-slate-200 shadow-xl text-left whitespace-normal`}
       >
         {text}
       </span>
@@ -78,13 +78,15 @@ export function HoverTip({
   children,
   className = "",
   align = "start",
+  side = "bottom",
 }: {
   text: React.ReactNode;
   children: React.ReactElement;
   className?: string;
   align?: "start" | "end"; // "end": hộp canh theo mép phải, dùng cho nút nằm sát mép phải khung có overflow-hidden
+  side?: "top" | "bottom"; // "top": hiện phía trên, dùng cho phần tử sát đáy màn hình
 }) {
-  const tip = useTip(align);
+  const tip = useTip(align, side);
   return (
     <span className={`relative inline-flex ${className}`} {...tip.handlers}>
       {React.cloneElement(children, { "aria-describedby": tip.open ? tip.id : undefined })}

@@ -7,6 +7,7 @@ import { Bot, Check, ChevronLeft, ChevronRight, Clock, FileText, FlaskConical } 
 import { useLearning } from "@/components/providers/LearningProvider";
 import Formula from "@/components/ui/Formula";
 import LessonSupplements from "@/components/lesson/LessonSupplements";
+import LessonNotes from "@/components/lesson/LessonNotes";
 import { getSupplements } from "@/data/supplements";
 import { findLesson, lessonHref } from "@/lib/lesson-routes";
 import LabGuidePanel from "@/components/simulator/LabGuidePanel";
@@ -112,6 +113,8 @@ export default function LessonView({ level, lesson }: { level: string; lesson: s
           </ul>
         </section>
       )}
+
+      <LessonNotes lessonId={data.id} />
 
       <footer className="pt-6 mt-2 border-t border-slate-800 space-y-5">
         <div className="flex flex-wrap items-center gap-2">

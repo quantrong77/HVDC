@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Bot, Moon, Sun } from "lucide-react";
 import { useLearning } from "@/components/providers/LearningProvider";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
+import RoadmapTrack from "@/components/layout/RoadmapTrack";
 
 /** Thanh tiến độ chạy dọc mép dưới header */
 export function HeaderProgressBar() {
@@ -65,6 +66,8 @@ export function HeaderActions() {
 
   return (
     <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+      {/* Lộ trình nghiên cứu: node từng giai đoạn, đặt trước số % */}
+      <RoadmapTrack className="hidden lg:block mr-1" />
       <Link
         href="/learn"
         className="hidden md:flex items-baseline gap-1.5 px-2.5 py-1.5 rounded-lg text-xs text-slate-400 hover:bg-slate-800 transition"

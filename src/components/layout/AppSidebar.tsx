@@ -12,6 +12,7 @@ import {
   Circle,
   Compass,
   Cpu,
+  FileText,
   FlaskConical,
   GraduationCap,
   HelpCircle,
@@ -29,6 +30,7 @@ import { CURRICULUM_LEVELS } from "@/data/curriculum";
 import { useLearning } from "@/components/providers/LearningProvider";
 import { lessonHref } from "@/lib/lesson-routes";
 import { useUiStore } from "@/store/ui";
+import RoadmapTrack from "@/components/layout/RoadmapTrack";
 
 type Match = "exact" | "prefix" | "none";
 
@@ -48,6 +50,7 @@ const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
       { href: "/#curriculum", label: "Lộ trình 4 cấp độ", icon: Route, match: "none" },
       { href: "/learn", label: "Bài học", icon: GraduationCap, match: "prefix", lessons: true },
       { href: "/quiz", label: "Kiểm tra", icon: Award, match: "prefix" },
+      { href: "/ket-qua", label: "Kết quả học tập", icon: FileText, match: "prefix" },
     ],
   },
   {
@@ -188,6 +191,7 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 
       {/* Tiến độ học tập */}
       <div className="sticky bottom-0 px-6 py-4 border-t border-slate-800 bg-slate-900">
+        <RoadmapTrack className="mb-3" tipSide="top" />
         <div className="flex items-baseline justify-between text-xs">
           <span className="text-slate-400">Tiến độ khóa học</span>
           <span className="font-semibold text-white tabular-nums">{isHydrated ? progressPercent : 0}%</span>
