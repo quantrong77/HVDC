@@ -59,8 +59,14 @@ describe("Video và liên kết tham khảo", () => {
     }
   });
 
-  it("đủ 5 video trong slide PTC3", () => {
-    const videos = new Set(all.flatMap(([, l]) => l).filter((r) => r.kind === "video").map((r) => r.url));
-    expect(videos.size).toBe(5);
+  it("đủ 5 video trong slide PTC3 và 21 video mới của bảng thống kê (video thứ 22 trùng TranspowerNZ)", () => {
+    const videos = all.flatMap(([, l]) => l).filter((r) => r.kind === "video");
+    expect(new Set(videos.map((r) => r.url)).size).toBe(26);
+    const stats = videos.filter((r) => /Thống kê video/.test(r.from));
+    expect(new Set(stats.map((r) => r.url)).size).toBe(21);
+    for (const r of stats) {
+      expect(r.level, r.title).toBeDefined();
+      expect(r.date).toMatch(/^(0[1-9]|1[0-2])\/20\d\d$/);
+    }
   });
 });
