@@ -5,7 +5,7 @@ import type { LessonSupplement, SupplementSection } from "@/data/supplements";
  * (docs/giao-trinh-dien-tu-cong-suat-hvdc.md). Giáo trình viết Ud, ULL theo IEC 60633; app thống nhất ký hiệu Vd, V_LL.
  */
 
-const GT_SOURCE = "Giáo trình Điện tử công suất ứng dụng trong HVDC (v1.0, 28/10/2026)";
+const GT_SOURCE = "Giáo trình Điện tử công suất ứng dụng trong HVDC (v1.1, 28/10/2026)";
 const GT_AUTHOR =
   "Tài liệu biên soạn cho khóa học. Nguồn chính: Mohan–Undeland–Robbins, Rashid, Arrillaga, Kundur, Kim–Sood, Baliga, Kimbark, Yazdani–Iravani; IEC 60633, IEC 60700-1, IEEE Std 1204";
 

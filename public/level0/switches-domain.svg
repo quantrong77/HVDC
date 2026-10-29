@@ -1,0 +1,586 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="588.31403pt" height="421.95952pt" viewBox="-226.437 -186.56015 588.31403 421.95952 "> 
+<g transform="translate(0,235.39937 ) scale(1,-1) translate(0,186.56015 )"> 
+                                                 <g> 
+ <g stroke="rgb(0.0%,0.0%,0.0%)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <g stroke-width="0.4pt"> 
+ <g> 
+ <g> 
+ <g stroke-width="0.8pt"> 
+ <path d=" M  0.0 0.0 L  340.72292 0.0  " style="fill:none"/> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,340.72292,0.0)"> 
+ <g> 
+ <g stroke-width="0.64pt"> 
+ <g stroke-dasharray="none" stroke-dashoffset="0.0pt"> 
+ <g stroke-linecap="round"> 
+ <g stroke-linejoin="round"> 
+ <path d=" M  -1.55997 2.07996 C  -1.42996 1.29997 0.0 0.12999 0.38998 0.0 C  0.0 -0.12999 -1.42996 -1.29997 -1.55997 -2.07996  " style="fill:none"/> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,324.3218,3.73297)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(17.11113,0)" text-anchor="middle"  font-size="10"> 
+Current</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  0.0 0.0 L  0.0 226.91194  " style="fill:none"/> 
+ <g> 
+ <g transform="matrix(0.0,1.0,-1.0,0.0,0.0,226.91194)"> 
+ <g> 
+ <g stroke-width="0.64pt"> 
+ <g stroke-dasharray="none" stroke-dashoffset="0.0pt"> 
+ <g stroke-linecap="round"> 
+ <g stroke-linejoin="round"> 
+ <path d=" M  -1.55997 2.07996 C  -1.42996 1.29997 0.0 0.12999 0.38998 0.0 C  0.0 -0.12999 -1.42996 -1.29997 -1.55997 -2.07996  " style="fill:none"/> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,3.73297,225.12195)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(16.38892,0)" text-anchor="middle"  font-size="10"> 
+Voltage</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  0.0 0.0 L  -170.2144 -170.21442  " style="fill:none"/> 
+ <g> 
+ <g transform="matrix(-0.7071,-0.7071,0.7071,-0.7071,-170.2144,-170.21442)"> 
+ <g> 
+ <g stroke-width="0.64pt"> 
+ <g stroke-dasharray="none" stroke-dashoffset="0.0pt"> 
+ <g stroke-linecap="round"> 
+ <g stroke-linejoin="round"> 
+ <path d=" M  -1.55997 2.07996 C  -1.42996 1.29997 0.0 0.12999 0.38998 0.0 C  0.0 -0.12999 -1.42996 -1.29997 -1.55997 -2.07996  " style="fill:none"/> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-166.98349,-181.28275)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(22.30559,0)" text-anchor="middle"  font-size="10"> 
+Frequency</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -147.95418 -142.26372  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-156.68715,-145.48593)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(2.5,0)" text-anchor="middle"  font-size="10"> 
+0</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -142.26372 -142.26372 L  -147.95418 -142.26372  " style="fill:none"/> 
+ <path d=" M  -147.95418 -113.81097  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-174.74278,-117.28319)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(11.52782,0)" text-anchor="middle"  font-size="10"> 
+1&#x00A0;kV</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -142.26372 -113.81097 L  -147.95418 -113.81097  " style="fill:none"/> 
+ <path d=" M  -147.95418 -85.35823  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-174.74278,-88.83044)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(11.52782,0)" text-anchor="middle"  font-size="10"> 
+2&#x00A0;kV</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -142.26372 -85.35823 L  -147.95418 -85.35823  " style="fill:none"/> 
+ <path d=" M  -147.95418 -56.90549  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-174.74278,-60.3777)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(11.52782,0)" text-anchor="middle"  font-size="10"> 
+3&#x00A0;kV</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -142.26372 -56.90549 L  -147.95418 -56.90549  " style="fill:none"/> 
+ <path d=" M  -147.95418 -28.45274  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-174.74278,-31.92496)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(11.52782,0)" text-anchor="middle"  font-size="10"> 
+4&#x00A0;kV</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -142.26372 -28.45274 L  -147.95418 -28.45274  " style="fill:none"/> 
+ <path d=" M  -147.95418 0.0  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-174.74278,-3.47221)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(11.52782,0)" text-anchor="middle"  font-size="10"> 
+5&#x00A0;kV</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -142.26372 0.0 L  -147.95418 0.0  " style="fill:none"/> 
+ <path d=" M  -147.95418 28.45274  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-174.74278,24.98053)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(11.52782,0)" text-anchor="middle"  font-size="10"> 
+6&#x00A0;kV</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -142.26372 28.45274 L  -147.95418 28.45274  " style="fill:none"/> 
+ <path d=" M  -147.95418 56.90549  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-223.10402,53.43327)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(35.70844,0)" text-anchor="middle"  font-size="10"> 
+7&#x00A0;kV&#x00A0;and&#x00A0;more</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -142.26372 56.90549 L  -147.95418 56.90549  " style="fill:none"/> 
+ <path d=" M  -142.26372 -147.95418  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-144.76372,-158.13158)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(2.5,0)" text-anchor="middle"  font-size="10"> 
+0</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -142.26372 -142.26372 L  -142.26372 -147.95418  " style="fill:none"/> 
+ <path d=" M  -113.81097 -147.95418  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-127.6999,-158.52046)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(13.88893,0)" text-anchor="middle"  font-size="10"> 
+200&#x00A0;A</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  -113.81097 -142.26372 L  -113.81097 -147.95418  " style="fill:none"/> 
+ <path d=" M  0.0 -147.95418  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-11.52782,-158.63158)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(11.52782,0)" text-anchor="middle"  font-size="10"> 
+1&#x00A0;kA</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  0.0 -142.26372 L  0.0 -147.95418  " style="fill:none"/> 
+ <path d=" M  142.26372 -147.95418  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,130.7359,-158.63158)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(11.52782,0)" text-anchor="middle"  font-size="10"> 
+2&#x00A0;kA</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  142.26372 -142.26372 L  142.26372 -147.95418  " style="fill:none"/> 
+ <path d=" M  170.71646 -147.95418  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,155.29974,-158.63158)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(15.41672,0)" text-anchor="middle"  font-size="10"> 
+2.2&#x00A0;kA</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  170.71646 -142.26372 L  170.71646 -147.95418  " style="fill:none"/> 
+ <path d=" M  284.52744 -28.45274 L  290.2179 -28.45274  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,293.95087,-31.8694)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(16.11115,0)" text-anchor="middle"  font-size="10"> 
+100&#x00A0;Hz</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  256.07469 -56.90549 L  261.76515 -56.90549  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,265.49812,-60.3777)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(13.75003,0)" text-anchor="middle"  font-size="10"> 
+1&#x00A0;kHz</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  227.62195 -85.35823 L  233.31241 -85.35823  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,237.04538,-88.83044)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(16.25005,0)" text-anchor="middle"  font-size="10"> 
+10&#x00A0;kHz</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  199.1692 -113.81097 L  204.85966 -113.81097  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,208.59264,-117.28319)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(18.75005,0)" text-anchor="middle"  font-size="10"> 
+100&#x00A0;kHz</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  170.71646 -142.26372 L  176.40692 -142.26372  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,180.1399,-145.73593)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(37.93063,0)" text-anchor="middle"  font-size="10"> 
+1&#x00A0;MHz and more</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <path d=" M  170.71646 -162.18054  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,150.14697,-172.85794)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(20.56949,0)" text-anchor="middle"  font-size="10"> 
+and more</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g stroke-width="0.4pt"> 
+ <path d=" M  0.0 28.45274 L  -142.26372 -113.81097  " style="fill:none"/> 
+ <path d=" M  0.0 28.45274 L  312.98018 28.45274  " style="fill:none"/> 
+ <path d=" M  0.0 56.90549 L  -142.26372 -85.35823  " style="fill:none"/> 
+ <path d=" M  0.0 56.90549 L  312.98018 56.90549  " style="fill:none"/> 
+ <path d=" M  0.0 85.35823 L  -142.26372 -56.90549  " style="fill:none"/> 
+ <path d=" M  0.0 85.35823 L  312.98018 85.35823  " style="fill:none"/> 
+ <path d=" M  0.0 113.81097 L  -142.26372 -28.45274  " style="fill:none"/> 
+ <path d=" M  0.0 113.81097 L  312.98018 113.81097  " style="fill:none"/> 
+ <path d=" M  0.0 142.26372 L  -142.26372 0.0  " style="fill:none"/> 
+ <path d=" M  0.0 142.26372 L  312.98018 142.26372  " style="fill:none"/> 
+ <path d=" M  0.0 170.71646 L  -142.26372 28.45274  " style="fill:none"/> 
+ <path d=" M  0.0 170.71646 L  312.98018 170.71646  " style="fill:none"/> 
+ <path d=" M  0.0 199.1692 L  -142.26372 56.90549  " style="fill:none"/> 
+ <path d=" M  0.0 199.1692 L  312.98018 199.1692  " style="fill:none"/> 
+ <path d=" M  28.45274 0.0 L  -113.81097 -142.26372  " style="fill:none"/> 
+ <path d=" M  28.45274 0.0 L  28.45274 199.1692  " style="fill:none"/> 
+ <path d=" M  56.90549 0.0 L  -85.35823 -142.26372  " style="fill:none"/> 
+ <path d=" M  56.90549 0.0 L  56.90549 199.1692  " style="fill:none"/> 
+ <path d=" M  85.35823 0.0 L  -56.90549 -142.26372  " style="fill:none"/> 
+ <path d=" M  85.35823 0.0 L  85.35823 199.1692  " style="fill:none"/> 
+ <path d=" M  113.81097 0.0 L  -28.45274 -142.26372  " style="fill:none"/> 
+ <path d=" M  113.81097 0.0 L  113.81097 199.1692  " style="fill:none"/> 
+ <path d=" M  142.26372 0.0 L  0.0 -142.26372  " style="fill:none"/> 
+ <path d=" M  142.26372 0.0 L  142.26372 199.1692  " style="fill:none"/> 
+ <path d=" M  170.71646 0.0 L  28.45274 -142.26372  " style="fill:none"/> 
+ <path d=" M  170.71646 0.0 L  170.71646 199.1692  " style="fill:none"/> 
+ <path d=" M  199.1692 0.0 L  56.90549 -142.26372  " style="fill:none"/> 
+ <path d=" M  199.1692 0.0 L  199.1692 199.1692  " style="fill:none"/> 
+ <path d=" M  227.62195 0.0 L  85.35823 -142.26372  " style="fill:none"/> 
+ <path d=" M  227.62195 0.0 L  227.62195 199.1692  " style="fill:none"/> 
+ <path d=" M  256.07469 0.0 L  113.81097 -142.26372  " style="fill:none"/> 
+ <path d=" M  256.07469 0.0 L  256.07469 199.1692  " style="fill:none"/> 
+ <path d=" M  284.52744 0.0 L  142.26372 -142.26372  " style="fill:none"/> 
+ <path d=" M  284.52744 0.0 L  284.52744 199.1692  " style="fill:none"/> 
+ <path d=" M  312.98018 0.0 L  170.71646 -142.26372  " style="fill:none"/> 
+ <path d=" M  312.98018 0.0 L  312.98018 199.1692  " style="fill:none"/> 
+ <path d=" M  -142.26372 -142.26372 L  -142.26372 56.90549  " style="fill:none"/> 
+ <path d=" M  -142.26372 -142.26372 L  170.71646 -142.26372  " style="fill:none"/> 
+ <path d=" M  -128.03734 -128.03734 L  -128.03734 71.13187  " style="fill:none"/> 
+ <path d=" M  -128.03734 -128.03734 L  184.94284 -128.03734  " style="fill:none"/> 
+ <path d=" M  -113.81097 -113.81097 L  -113.81097 85.35823  " style="fill:none"/> 
+ <path d=" M  -113.81097 -113.81097 L  199.1692 -113.81097  " style="fill:none"/> 
+ <path d=" M  -99.5846 -99.5846 L  -99.5846 99.58461  " style="fill:none"/> 
+ <path d=" M  -99.5846 -99.5846 L  213.39558 -99.5846  " style="fill:none"/> 
+ <path d=" M  -85.35823 -85.35823 L  -85.35823 113.81097  " style="fill:none"/> 
+ <path d=" M  -85.35823 -85.35823 L  227.62195 -85.35823  " style="fill:none"/> 
+ <path d=" M  -71.13185 -71.13185 L  -71.13185 128.03735  " style="fill:none"/> 
+ <path d=" M  -71.13185 -71.13185 L  241.84833 -71.13185  " style="fill:none"/> 
+ <path d=" M  -56.90549 -56.90549 L  -56.90549 142.26372  " style="fill:none"/> 
+ <path d=" M  -56.90549 -56.90549 L  256.07469 -56.90549  " style="fill:none"/> 
+ <path d=" M  -42.67911 -42.67911 L  -42.67911 156.4901  " style="fill:none"/> 
+ <path d=" M  -42.67911 -42.67911 L  270.30107 -42.67911  " style="fill:none"/> 
+ <path d=" M  -28.45274 -28.45274 L  -28.45274 170.71646  " style="fill:none"/> 
+ <path d=" M  -28.45274 -28.45274 L  284.52744 -28.45274  " style="fill:none"/> 
+ <path d=" M  -14.22636 -14.22636 L  -14.22636 184.94284  " style="fill:none"/> 
+ <path d=" M  -14.22636 -14.22636 L  298.75381 -14.22636  " style="fill:none"/> 
+ <path d=" M  0.0 0.0 L  0.0 199.1692  " style="fill:none"/> 
+ <path d=" M  0.0 0.0 L  312.98018 0.0  " style="fill:none"/> 
+ </g> 
+ </g> 
+ <g> 
+ <g stroke-width="0.8pt"> 
+ <g stroke="rgb(0.0%,0.0%,0.0%)"> 
+ <g> 
+ <g fill="rgb(100.0%,60.00061%,60.00061%)"> 
+ <path d=" M  -28.45274 -28.45274 L  -28.45274 170.71646 L  284.52744 170.71646 L  284.52744 -28.45274 Z  " /> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-28.45274,170.71646)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(0.0,0)" text-anchor="middle"  font-size="10"> 
+</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,284.52744,-28.45274)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(0.0,0)" text-anchor="middle"  font-size="10"> 
+</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(100.0%,60.00061%,60.00061%)"> 
+ <path d=" M  284.52744 -28.45274 L  312.98018 0.0 L  312.98018 199.1692 L  284.52744 170.71646 Z  " /> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(100.0%,60.00061%,60.00061%)"> 
+ <path d=" M  -28.45274 170.71646 L  0.0 199.1692 L  312.98018 199.1692 L  284.52744 170.71646 Z  " /> 
+ </g> 
+ </g> 
+ <path d=" M  128.03734 142.26372  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,107.4262,147.94113)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(20.61115,0)" text-anchor="middle"  font-size="10"> 
+Thyristor</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(60.00061%,100.0%,60.00061%)"> 
+ <path d=" M  -56.90549 -56.90549 L  -56.90549 113.81097 L  227.62195 113.81097 L  227.62195 -56.90549 Z  " /> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-56.90549,113.81097)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(0.0,0)" text-anchor="middle"  font-size="10"> 
+</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,227.62195,-56.90549)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(0.0,0)" text-anchor="middle"  font-size="10"> 
+</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(60.00061%,100.0%,60.00061%)"> 
+ <path d=" M  227.62195 -56.90549 L  256.07469 -28.45274 L  256.07469 142.26372 L  227.62195 113.81097 Z  " /> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(60.00061%,100.0%,60.00061%)"> 
+ <path d=" M  -56.90549 113.81097 L  -28.45274 142.26372 L  256.07469 142.26372 L  227.62195 113.81097 Z  " /> 
+ </g> 
+ </g> 
+ <path d=" M  85.35823 85.35823  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,73.9346,89.0912)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(11.42363,0)" text-anchor="middle"  font-size="10"> 
+GTO</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(60.00061%,60.00061%,100.0%)"> 
+ <path d=" M  -113.81097 -113.81097 L  -113.81097 -28.45274 L  28.45274 -28.45274 L  28.45274 -113.81097 Z  " /> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-113.81097,-28.45274)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(0.0,0)" text-anchor="middle"  font-size="10"> 
+</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,28.45274,-113.81097)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(0.0,0)" text-anchor="middle"  font-size="10"> 
+</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(60.00061%,60.00061%,100.0%)"> 
+ <path d=" M  28.45274 -113.81097 L  85.35823 -56.90549 L  85.35823 28.45274 L  28.45274 -28.45274 Z  " /> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(60.00061%,60.00061%,100.0%)"> 
+ <path d=" M  -113.81097 -28.45274 L  -56.90549 28.45274 L  85.35823 28.45274 L  28.45274 -28.45274 Z  " /> 
+ </g> 
+ </g> 
+ <path d=" M  -42.67911 -56.90549  " style="fill:none"/> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-55.56107,-53.17252)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(12.88196,0)" text-anchor="middle"  font-size="10"> 
+IGBT</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(100.0%,80.0003%,60.00061%)"> 
+ <path d=" M  -142.26372 -142.26372 L  -142.26372 -113.81097 L  -128.03735 -113.81097 L  -128.03735 -142.26372 Z  " /> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-142.26372,-113.81097)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(0.0,0)" text-anchor="middle"  font-size="10"> 
+</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-128.03735,-142.26372)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(0.0,0)" text-anchor="middle"  font-size="10"> 
+</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(100.0%,80.0003%,60.00061%)"> 
+ <path d=" M  -128.03735 -142.26372 L  -99.58461 -113.81097 L  -99.58461 -85.35823 L  -128.03735 -113.81097 Z  " /> 
+ </g> 
+ </g> 
+ <g> 
+ <g fill="rgb(100.0%,80.0003%,60.00061%)"> 
+ <path d=" M  -142.26372 -113.81097 L  -113.81097 -85.35823 L  -99.58461 -85.35823 L  -128.03735 -113.81097 Z  " /> 
+ </g> 
+ </g> 
+ <path d=" M  -85.35823 -119.50143 L  -113.10097 -119.50143  " style="fill:none"/> 
+ <g> 
+ <g transform="matrix(-1.0,0.0,0.0,-1.0,-113.10097,-119.50143)"> 
+ <g> 
+ <g stroke-width="0.64pt"> 
+ <g stroke-dasharray="none" stroke-dashoffset="0.0pt"> 
+ <g stroke-linecap="round"> 
+ <g stroke-linejoin="round"> 
+ <path d=" M  -1.55997 2.07996 C  -1.42996 1.29997 0.0 0.12999 0.38998 0.0 C  0.0 -0.12999 -1.42996 -1.29997 -1.55997 -2.07996  " style="fill:none"/> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ <g> 
+ <g> 
+ <g transform="matrix(1.0,0.0,0.0,1.0,-81.62526,-122.91809)"> 
+ <g fill="rgb(0.0%,0.0%,0.0%)"> 
+ <text style="stroke:none" transform="scale(1,-1) translate(21.52783,0)" text-anchor="middle"  font-size="10"> 
+MOSFET</text> 
+</g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ </g> 
+ 
+                                                                                                                </g> 
+</svg> 
