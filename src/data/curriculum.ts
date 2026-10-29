@@ -426,8 +426,8 @@ export const CURRICULUM_LEVELS: LearningLevel[] = [
       "Áp dụng vào thực tiễn lưới truyền tải điện Việt Nam: quy trình vận hành chuyển nấc MBA đổi nối (OLTC), xử lý sự cố trong vận hành và phân tích dự án thực tế.",
     badge: "Chuyên gia (Specialist)",
     iconName: "Award",
-    lessonsCount: 2,
-    durationHours: 18,
+    lessonsCount: 3,
+    durationHours: 24,
     topics: [
       {
         id: "4.1",
@@ -455,6 +455,40 @@ export const CURRICULUM_LEVELS: LearningLevel[] = [
           "Tài liệu Trạm 220kV Thái Nguyên dùng để tham chiếu quy trình thao tác và tổ chức vận hành trạm. Các kịch bản sự cố HVDC trong bài là tình huống mô phỏng phục vụ đào tạo.",
         ],
         labLink: { href: "#vi-curve", label: "Mô phỏng sụt áp AC trên đặc tính V-I" },
+      },
+      {
+        id: "4.3",
+        title: "Bài 4.3: Case study Basslink: thông số định mức, chế độ điều khiển và kinh nghiệm vận hành",
+        description:
+          "Đọc bộ thông số thiết kế của một liên kết LCC đang vận hành (Basslink, Victoria–Tasmania, 500 MW, 400 kV), tự kiểm chứng điểm làm việc định mức bằng công thức Cấp độ 0, rồi phân tích các chế độ điều khiển đặc biệt và bài học vận hành ghi nhận trong chuyến khảo sát thực tế tại Australia năm 2025.",
+        docRef: "Tóm tắt hệ thống Basslink (bản dịch sơ bộ) và Báo cáo chuyến công tác Australia 2025, Nguyễn Hải Hà, PTC3",
+        keyPoints: [
+          "Basslink là hệ đơn cực LCC 400 kV, 1.250 A, 500 MW, dây hồi lưu kim loại, dài 374,7 km (290 km cáp biển). Mỗi trạm là một nhóm van 12 xung gồm 720 thyristor kích bằng ánh sáng, nối lưới 220 kV (George Town) và 500 kV (Loy Yang).",
+          "Điểm định mức chỉnh lưu: Udi0 = 222,3 kV mỗi cầu 6 xung, α = 15,7°, dx = 0,06, dr = 0,003. Hai cầu nối tiếp cho Vd = 2·Udi0·(cos α − dx − dr) ≈ 400 kV, μ ≈ 16,9° và Q ≈ 235 Mvar, khớp bảng thông số của nhà sản xuất.",
+          "Điện trở mạch DC 11,8 Ω làm điện áp đầu nghịch lưu thấp hơn 1,25 kA × 11,8 Ω ≈ 14,7 kV (385,3 kV) và tổn thất đường truyền ≈ 18,4 MW: 500 MW đầu chỉnh lưu còn 481,6 MW đầu nghịch lưu.",
+          "OLTC giữ α trong dải 12,7–17,3° và γ trong dải 18–21°. Chế độ “Gamma tăng cường” (21–24°) dùng khi lưới Tasmania yếu, đổi lấy nhiều Q hơn để giảm nguy cơ sự cố chuyển mạch.",
+          "Đảo chiều công suất của LCC là đảo cực tính điện áp, không đảo dòng: giảm về Pmin, khóa van khi Id = 0, xả cáp theo dốc, chờ khử ion 2 phút rồi mới tăng công suất theo chiều ngược lại. Cáp ngâm dầu không cho phép đảo chiều nhanh.",
+          "Kinh nghiệm vận hành: 7 trên 720 thyristor phải thay sau gần 20 năm, 15 thyristor dự phòng tại chỗ; mất 2 thyristor trong một van vẫn chạy được tối đa 24 giờ, mất 3 thì cắt. Nước làm mát van giữ khoảng 42 °C, vượt 45 °C thì dừng.",
+        ],
+        formula: "Vd = 2·Udi0·(cos α − dx − dr) ; cos(α+μ) = cos α − 2·dx ; Vd,nl = Vd,cl − Id·R",
+        formulaTex: String.raw`V_d = 2U_{di0}\,(\cos\alpha - d_x - d_r),\qquad \cos(\alpha+\mu) = \cos\alpha - 2d_x,\qquad V_{d,\mathrm{nl}} = V_{d,\mathrm{cl}} - I_d R`,
+        practice: [
+          {
+            href: "/simulator#firing-wave",
+            title: "Tab 1: tái hiện điểm định mức Basslink",
+            task: "Chọn cầu 12 xung, V_LL = 165 kV (Udi0/1,35), Id = 1,25 kA, Xc = 11,2 Ω, α = 15,5°. Đọc μ, Vd và Q rồi so với bảng định mức (μ = 16,9°, Vd ≈ 400 kV, Q = 234,7 Mvar). Tăng α lên 30° để thấy chế độ điện áp giảm 0,8 pu tiêu thụ thêm bao nhiêu Q.",
+          },
+          {
+            href: "/simulator#firing-char",
+            title: "Tab 2: dải γ bình thường và Gamma tăng cường",
+            task: "Đặt γ nghịch lưu lần lượt 19° và 23°, hạ dần điện áp AC phía nghịch lưu. So sánh điện áp DC và khoảng sụt áp còn chịu được trước khi chuyển chế độ điều khiển.",
+          },
+          {
+            href: "/simulator#firing-dyn",
+            title: "Tab 3: vì sao Basslink cần Gamma tăng cường",
+            task: "Mô phỏng sụt áp 15 % phía nghịch lưu, giữ bật VDCOL, lần lượt tắt rồi bật “chống sự cố chuyển mạch” (tạm nâng γ, cùng ý tưởng với Gamma tăng cường). Ghi lại γ nhỏ nhất và số lần sự cố chuyển mạch, liên hệ với điều kiện lưới Tasmania khi nhà máy Bell Bay ngừng.",
+          },
+        ],
       },
     ],
   },

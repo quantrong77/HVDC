@@ -85,19 +85,19 @@ export const SYSTEM_LINKS: Record<string, SystemLink[]> = {
       concept: "Vd = Vd0·cos α",
       inSystem: "Bộ CC chỉnh lưu chỉnh α để giữ Id; OLTC chuyển nấc để đưa α về 12,5–17,5°.",
       work: "Theo dõi α trên HMI. α lệch khỏi dải danh định kéo dài là dấu hiệu nấc MBA chưa phù hợp.",
-      next: ["2.1", "4.1"],
+      next: ["2.1", "4.1", "4.3"],
     },
     {
       concept: "Góc tắt γ và sự cố chuyển mạch",
       inSystem: "Đây là nguyên nhân gián đoạn công suất phổ biến nhất khi có sự cố lưới AC gần trạm nghịch lưu.",
       work: "Phân tích sự cố; phối hợp thời gian cắt sự cố của bảo vệ lưới AC lân cận với khả năng phục hồi của liên kết HVDC.",
-      next: ["2.1", "3.1", "4.2"],
+      next: ["2.1", "3.1", "4.2", "4.3"],
     },
     {
       concept: "Trùng dẫn μ và điện kháng Xc",
       inSystem: "Xc chủ yếu là điện kháng tản của MBA chuyển đổi, một thông số được chốt ngay từ khi đặt hàng MBA.",
       work: "Đọc biên bản thí nghiệm điện áp ngắn mạch của MBA chuyển đổi và hiểu ảnh hưởng của nó tới Vd, μ, γ.",
-      next: ["1.3", "2.1"],
+      next: ["1.3", "2.1", "4.3"],
     },
   ],
   "0.5": [
@@ -111,7 +111,7 @@ export const SYSTEM_LINKS: Record<string, SystemLink[]> = {
       concept: "Q ≈ P·tan φ",
       inSystem: "Các nhóm bộ lọc và tụ bù được đóng, cắt theo bậc công suất truyền tải.",
       work: "Thao tác đóng bộ lọc trước khi tăng công suất; phối hợp với điều độ về điện áp nút đấu nối.",
-      next: ["4.1", "2.3"],
+      next: ["4.1", "2.3", "4.3"],
     },
     {
       concept: "SCR và ESCR",
@@ -125,7 +125,7 @@ export const SYSTEM_LINKS: Record<string, SystemLink[]> = {
       concept: "CC, CEA và biên dòng ΔId",
       inSystem: "Đặc tính V-I của hai trạm và việc tự chuyển chế độ khi sụt áp lưới AC.",
       work: "Đọc chế độ điều khiển trên HMI; giải thích công suất giảm đúng bằng ΔId khi lưới phía phát sụt áp.",
-      next: ["3.1"],
+      next: ["3.1", "4.3"],
     },
     {
       concept: "VDCOL",
@@ -143,7 +143,7 @@ export const SYSTEM_LINKS: Record<string, SystemLink[]> = {
       concept: "Thử nghiệm van theo IEC 60700-1, điều khiển OLTC",
       inSystem: "Van được thử nghiệm điển hình và xuất xưởng; OLTC là vòng điều khiển chậm của trạm.",
       work: "Nghiệm thu van, lập quy trình thí nghiệm định kỳ; vận hành chuyển nấc MBA chuyển đổi.",
-      next: ["4.1"],
+      next: ["4.1", "4.3"],
     },
   ],
   "0.7": [

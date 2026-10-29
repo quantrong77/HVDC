@@ -40,6 +40,22 @@ const haiHa = (lessonId: string, pages: string, sections: SupplementSection[]): 
   sections,
 });
 
+const basslink = (lessonId: string, pages: string, sections: SupplementSection[]): LessonSupplement => ({
+  lessonId,
+  source: "Tóm tắt hệ thống Basslink (bản dịch sơ bộ từ tài liệu kỹ thuật của trạm)",
+  author: "Nguyễn Hải Hà, Phòng Kỹ thuật PTC3",
+  pages,
+  sections,
+});
+
+const australiaTrip = (lessonId: string, pages: string, sections: SupplementSection[]): LessonSupplement => ({
+  lessonId,
+  source: "Báo cáo kết quả chuyến công tác khóa đào tạo “Phát triển và Vận hành hệ thống HVDC” tại Australia (22/2–5/3/2025)",
+  author: "Phòng Kỹ thuật PTC3, người tham dự: Nguyễn Hải Hà",
+  pages,
+  sections,
+});
+
 export const LESSON_SUPPLEMENTS: LessonSupplement[] = [
   haiHa("1.1", "tr. 5–12, 61–75", [
     {
@@ -280,6 +296,168 @@ export const LESSON_SUPPLEMENTS: LessonSupplement[] = [
         ],
       },
       note: "Slide tr. 85 ghi Basslink dùng VSC. Thực tế Basslink là hệ đơn cực LCC Thyristor 400 kV có dây hồi lưu kim loại, khớp với mô tả cáp ngâm dầu 400 kVDC kèm cáp hồi lưu ở tr. 40, nên bảng trên ghi LCC. Phần chi phí dự án trong slide không được đưa vào vì chưa rõ đơn vị tiền tệ.",
+    },
+  ]),
+
+  basslink("1.3", "mục 1.3", [
+    {
+      heading: "Cấu tạo van và thiết bị chính của trạm Basslink",
+      points: [
+        "Mỗi trạm là một nhóm van 12 xung: hai cầu 6 xung nối tiếp, cấp từ hai cuộn thứ cấp Y và Δ lệch nhau 30°. Bốn van nối cùng một pha MBA đặt chung một khối gọi là van bốn (quadrivalve); ba van bốn treo từ trần nhà van.",
+        "Mỗi van gồm hai mô-đun, mỗi mô-đun 30 thyristor nối tiếp kèm 8 cuộn kháng bão hòa, song song với tụ phân áp; mỗi van có một hoặc hai chống sét. Tổng cộng 30 × 2 × 12 = 720 thyristor kích bằng ánh sáng (Siemens).",
+        "Cuộn kháng san bằng 250 mH ±5 %, 1.250 A DC, có vỏ giảm tiếng ồn, đặt trong khu rào chắn của sân DC cùng bộ lọc DC. Nhiệm vụ: hạn chế di/dt khi sự cố chuyển mạch và giảm gợn dòng DC.",
+        "MBA chuyển đổi gồm ba máy một pha ba cuộn dây đặt ngoài nhà van, làm mát ODAF, có bộ điều áp dưới tải để giữ điện áp không tải của bộ biến đổi khi lưới AC dao động.",
+        "Trạm chuyển tiếp nối đường dây trên không 400/20 kV DC với cáp: có chống sét cho cả dây và cáp, dao tiếp đất, thiết bị đo dòng DC và RTU. Dao cách ly ở đây bắt buộc thao tác từ xa khi thí nghiệm cao áp đường dây và cáp.",
+      ],
+      table: {
+        caption: "MBA chuyển đổi của Basslink (mỗi máy một pha, ba cuộn dây)",
+        columns: ["Thông số", "George Town (Tasmania)", "Loy Yang (Victoria)"],
+        rows: [
+          ["Công suất H / Y / Δ", "194 / 97 / 97 MVA", "196 / 98 / 98 MVA"],
+          ["Điện áp cuộn lưới", "220/√3 kV", "500/√3 kV"],
+          ["Điện áp cuộn van Y / Δ", "164,6/√3 kV / 164,6 kV", "166,3/√3 kV / 166,3 kV"],
+          ["Tổ đấu dây", "Yd11", "Yd1"],
+          ["Điện áp ngắn mạch", "12 %", "14 %"],
+        ],
+      },
+    },
+  ]),
+
+  basslink("2.3", "mục 1.6", [
+    {
+      heading: "Bộ lọc AC và DC của Basslink",
+      points: [
+        "George Town (220 kV) có 6 bộ lọc AC: 2 bộ điều hưởng ba tần 3/12/24, 1 bộ 5/12/24 và 2 bộ 7/12/24, mỗi bộ 43 Mvar, cùng 1 bộ đơn tần bậc 5 dung lượng 98 Mvar. Các bộ lọc vừa khử sóng hài vừa bù công suất phản kháng cho bộ biến đổi.",
+        "Loy Yang (500 kV) có 5 bộ lọc 105 Mvar: 3 bộ 7/12/24 và 2 bộ 5/12/24, tổng 525 Mvar; khác George Town, trạm này không có bộ lọc điều hưởng bậc 3.",
+        "Mỗi trạm có một bộ lọc DC ba tần (12/24/36 ở George Town) với tụ cao áp 1,25 µF. Bộ lọc DC giảm sóng hài trên đường dây để tránh nhiễu viễn thông, vô tuyến trong khu vực.",
+        "Khi có đường dây AC chạy gần đường dây DC, phải tính toán chỉnh định lại bộ lọc DC để hai hệ thống không gây ảnh hưởng lẫn nhau.",
+      ],
+      table: {
+        caption: "Bộ lọc AC tại hai trạm (TT: điều hưởng ba tần, ST: đơn tần)",
+        columns: ["Trạm", "Loại", "Số bộ", "Dung lượng mỗi bộ"],
+        rows: [
+          ["George Town", "TT 3/12/24", "2", "43 Mvar"],
+          ["George Town", "TT 5/12/24", "1", "43 Mvar"],
+          ["George Town", "TT 7/12/24", "2", "43 Mvar"],
+          ["George Town", "ST 5", "1", "98 Mvar"],
+          ["Loy Yang", "TT 7/12/24", "3", "105 Mvar"],
+          ["Loy Yang", "TT 5/12/24", "2", "105 Mvar"],
+        ],
+      },
+      note: "Bảng thông số bộ lọc trong bản dịch bị lệch cột khi chuyển từ bản gốc. Số bộ ở George Town được đối chiếu với mô tả trong báo cáo chuyến công tác Australia (2025).",
+    },
+  ]),
+
+  australiaTrip("4.2", "mục II, ngày 27/2–4/3/2025", [
+    {
+      heading: "Kinh nghiệm vận hành Directlink và tổ chức của Powerlink",
+      points: [
+        "Directlink gồm 3 hệ VSC độc lập, mỗi hệ 60 MW, ±80 kV, dùng IGBT thế hệ đầu của nhà thầu, nối lưới 132 kV (NSW) với 110 kV (Queensland) qua khoảng 60 km cáp, phần lớn chôn ngầm. Lý do chọn HVDC: môi trường, tác động tới cộng đồng và khả năng điều khiển của VSC.",
+        "Suất sự cố cáp cao: đến nay đã có 201 sự cố, giai đoạn đầu khoảng 1 lần mỗi tháng, hiện 3–4 tháng một lần. Phần lớn xảy ra ở các đoạn cáp đi trên mặt đất, nơi nhiệt độ bề mặt cao hơn trong lòng đất khoảng 20 °C.",
+        "Trạm vận hành tự động hoàn toàn nhưng vẫn có một nhân viên theo dõi thiết bị đã chạy khoảng 25 năm. Ba hệ có thể tách riêng để bảo dưỡng mà không dừng cả liên kết.",
+        "Powerlink (Queensland) quản lý 15.358 km đường dây và 148 trạm 330/275/132 kV, dự kiến đưa lưới 500 kV vào giữa thập kỷ 2030. Chỉ có một đội vận hành cơ động xử lý sự cố nhờ tự động hóa và điều khiển xa; phần lớn sửa chữa, bảo dưỡng thuê nhà thầu.",
+        "Giá truyền tải do cơ quan điều tiết AER quyết định theo chu kỳ 5 năm, dựa trên giá trị tài sản, dự báo nhu cầu, chi phí đầu tư, vận hành và các chỉ tiêu hiệu quả.",
+      ],
+    },
+    {
+      heading: "Marinus Link: liên kết thứ hai Victoria–Tasmania",
+      points: [
+        "Hai giai đoạn, mỗi giai đoạn 750 MW, ±320 kV, xây cách nhau vài năm và có thể dùng công nghệ của các hãng khác nhau. Giai đoạn 1 có vốn khoảng 3,86 tỷ AUD, dự kiến khởi công 2026 và hoàn thành 2030.",
+        "Chủ đầu tư là Marinus Link Pty Ltd, do Chính phủ liên bang (49 %), bang Victoria (33,3 %) và bang Tasmania (17,7 %) góp vốn. Dự án gồm cả tuyến cáp quang viễn thông.",
+        "Dùng VSC với yêu cầu bộ biến đổi tạo lưới (grid-forming) để giữ ổn định lưới Tasmania. Mỗi giai đoạn là một hệ đơn cực đối xứng. Cáp biển của hai giai đoạn đặt cách nhau trên 1 km để giảm tác động sinh thái và được chôn sâu 1–1,5 m dưới đáy biển.",
+        "Các gói EPC chính: cáp biển (Prysmian, tàu rải cáp Leonardo da Vinci), trạm chuyển đổi hai đầu (Hitachi Energy), xây dựng trạm và đường dây trên bờ.",
+      ],
+      note: "Báo cáo ghi Directlink vận hành từ năm 1999; bảng ở trên ghi năm 2000 theo slide. Tỷ lệ vốn của bang Tasmania trong báo cáo là 17,3 %, đã sửa thành 17,7 % để tổng bằng 100 %.",
+    },
+  ]),
+
+  {
+    lessonId: "4.2",
+    source: "North-East Agra: liên kết UHVDC nhiều đầu cực đầu tiên trên thế giới (trang giới thiệu dự án)",
+    author: "Hitachi Energy, tham khảo kèm video giới thiệu trạm Agra trong bộ tài liệu khóa học",
+    pages: "trang web dự án, truy cập 10/2026",
+    sections: [
+      {
+        heading: "Case study nhiều đầu cực: North-East – Agra (Ấn Độ)",
+        points: [
+          "Liên kết lưỡng cực LCC ±800 kV dài 1.728 km, truyền 6.000 MW thủy điện từ vùng Đông Bắc Ấn Độ về Agra cho Power Grid Corporation of India. Hoàn thành năm 2017.",
+          "Bốn đầu cực trong ba trạm: Assam, Tây Bengal và Agra. Tại Agra hai bộ biến đổi lưỡng cực đấu song song. Tổng dung lượng biến đổi 8.000 MW, trong đó 2.000 MW là dự phòng; khả năng quá tải liên tục 33 %.",
+          "Sân phân phối 800 kV ở Agra lần đầu tiên được đặt trong nhà. Tuyến phải đi qua “cổ chai” ở Tây Bengal rộng 22 km kẹp giữa Nepal và Bangladesh, nên một liên kết DC nhiều đầu cực thay được nhiều tuyến AC.",
+          "Liên hệ bài 1.2: đây là cấu hình nhiều trạm xuyên tâm (radial multi-terminal) với LCC. Muốn đảo chiều ở một đầu cực LCC phải đảo cực tính điện áp, nên lưới nhiều đầu cực LCC thường chỉ truyền theo một chiều định trước.",
+        ],
+      },
+    ],
+  },
+
+  basslink("4.3", "mục 1.4", [
+    {
+      heading: "Thông số định mức hai chiều truyền tải",
+      points: [
+        "Công suất liên tục 500 MW tại đầu DC của trạm chỉnh lưu (400 kV, 1.250 A), đơn cực hồi lưu kim loại, truyền được cả hai chiều. Công suất tối thiểu 50 MW mỗi chiều.",
+        "Với điện trở mạch DC danh định 11,8 Ω, điện áp đầu nghịch lưu là 400 − 1,25 × 11,8 ≈ 385,3 kV và công suất nhận được 481,6 MW. Tổn thất 18,4 MW tương đương 3,7 %.",
+        "Kiểm chứng bằng công thức Cấp độ 0 với Udi0 = 222,3 kV, α = 15,7°, dx = 0,06, dr = 0,003: Vd = 2 × 222,3 × (0,9627 − 0,063) ≈ 400,0 kV; cos(α + μ) = 0,9627 − 0,12 = 0,8427 nên α + μ = 32,6° và μ ≈ 16,9°, đúng bảng thông số.",
+        "Mô hình cầu của phòng lab (công thức Kimbark có xét trùng dẫn) cho Q = 234,7 Mvar ở chỉnh lưu, trùng giá trị thiết kế, và Vd ≈ 384,7 kV, Q ≈ 264 Mvar ở nghịch lưu Loy Yang (thiết kế: 385,3 kV và 265,5 Mvar).",
+        "Q của mỗi trạm vào khoảng 47–55 % công suất truyền tải, đúng dải 40–60 % đã học ở bài 2.3, và đó là lý do George Town cần 313 Mvar bộ lọc AC.",
+      ],
+      formulas: [
+        String.raw`V_d = 2\,U_{di0}\,(\cos\alpha - d_x - d_r) = 2 \times 222{,}3 \times (0{,}9627 - 0{,}063) \approx 400\ \text{kV}`,
+        String.raw`\cos(\alpha+\mu) = \cos\alpha - 2d_x \;\Rightarrow\; \mu = 32{,}6^\circ - 15{,}7^\circ \approx 16{,}9^\circ`,
+        String.raw`V_{d,\mathrm{nl}} = V_{d,\mathrm{cl}} - I_d R = 400 - 1{,}25 \times 11{,}8 \approx 385{,}3\ \text{kV}`,
+      ],
+      table: {
+        caption: "Điểm làm việc định mức (CL: chỉnh lưu, NL: nghịch lưu)",
+        columns: ["Thông số", "Tas→Vic: George Town (CL)", "Loy Yang (NL)", "Vic→Tas: Loy Yang (CL)", "George Town (NL)"],
+        rows: [
+          ["Công suất DC (MW)", "500", "481,6", "500", "481,6"],
+          ["Điện áp DC (kV)", "400", "385,3", "400", "385,3"],
+          ["Góc kích α / góc tắt γ", "α = 15,7°", "γ = 19,4°", "α = 15,5°", "γ = 19,6°"],
+          ["Góc trùng dẫn μ", "16,9°", "17,4°", "19,0°", "15,3°"],
+          ["Tổng sụt áp tương đối (pu)", "0,063", "0,067", "0,073", "0,057"],
+          ["Điện áp thứ cấp MBA (kV)", "164,61", "163,05", "166,31", "161,38"],
+          ["Q bộ biến đổi tiêu thụ (Mvar)", "234,7", "265,5", "246,7", "254,7"],
+        ],
+      },
+    },
+    {
+      heading: "Dải góc vận hành và quá tải theo chu kỳ",
+      points: [
+        "Góc kích danh định 15,5–15,7°, dải vận hành 12,7–17,3°, αmin động 5°. Góc tắt danh định 19,4–19,6°, dải vận hành 18–21°, γmin 17°. OLTC đổi nấc để kéo hai góc này về dải định mức.",
+        "Chiều Tasmania → Victoria có khả năng quá tải theo chu kỳ 24 giờ (khi chạy đủ hệ thống làm mát dự phòng, nhiệt độ môi trường tối đa 30 °C ở George Town và 40 °C ở Loy Yang): 604 MW trong 10 giờ, hoặc 630 MW trong hai khoảng 4 giờ cách nhau ít nhất 2 giờ, hoặc 630 MW liên tục 6 giờ.",
+        "630 MW tương ứng dòng thiết kế 1.565 A ở 400 kV (tính cả 4 MW tổn thất trạm chỉnh lưu): quá tải chủ yếu là quá tải dòng, giới hạn bởi nhiệt van, MBA và cáp.",
+      ],
+      note: "Bản dịch ghi các giờ còn lại của chu kỳ có “công suất tối thiểu 312 MW”. Về mặt nhiệt, đây nhiều khả năng là mức công suất giới hạn để thiết bị nguội lại; nên đối chiếu bản gốc tiếng Anh trước khi dùng con số này.",
+    },
+    {
+      heading: "Chế độ Gamma tăng cường và vận hành điện áp giảm",
+      points: [
+        "Gamma tăng cường (chỉ ở George Town): OLTC giữ γ trong dải 21–24° thay vì 18–21°. Người vận hành bật chế độ này khi lưới Tasmania yếu, ví dụ nhiều đường dây bị cắt hoặc nhà máy Bell Bay ngừng, chấp nhận tiêu thụ thêm Q để tăng dự trữ chống sự cố chuyển mạch.",
+        "Vận hành điện áp DC giảm (0,8 pu = 320 kV, công suất 400 MW): OLTC đưa lên nấc có điện áp thứ cấp thấp nhất, phần còn lại do tăng α. Khi đó α ≈ 30°, γ ≈ 35° và mỗi trạm tiêu thụ 301–339 Mvar, nhiều hơn chế độ định mức khoảng 30 %.",
+        "Van Siemens chạy được ở α lớn nhờ điện trở giảm chấn làm mát trực tiếp bằng nước. Dòng ở chế độ này vẫn giới hạn 1.250 A để không quá tải van, MBA và không phải lắp thêm thiết bị bù.",
+        "Nếu điện áp AC vượt mức vận hành bình thường (George Town 1,06 pu, Loy Yang 1,1 pu) hoặc mất liên lạc giữa hai trạm, điện áp đặt phía chỉnh lưu tự nâng từ 0,8 lên 0,9 pu.",
+      ],
+    },
+    {
+      heading: "Đảo chiều công suất và chức năng ổn định",
+      points: [
+        "Trình tự đảo chiều theo lịch: (a) giảm về Pmin ở Udn và Idmin; (b) cưỡng bức chậm kích chỉnh lưu, khóa van khi Id = 0; (c) xả cáp có kiểm soát bằng nghịch lưu, Ud đặt giảm theo dốc từ 1 về 0 pu; (d) chờ khử ion 2 phút rồi mới mở khóa và truyền theo chiều ngược lại.",
+        "Đảo cực tính chậm và có dốc để giảm ứng suất lên cách điện cáp ngâm dầu. Khuyến nghị cách nhau ít nhất 2 giờ giữa hai lần đảo chiều; đảo chiều nhanh không được phép. Tránh bước nhảy +50 → −50 MW vì tương đương thay đổi 100 MW ở lưới Tasmania.",
+        "Điều khiển tần số: liên kết truyền dịch vụ điều tần giữa hai bang. Khi chênh lệch giữa tần số Tasmania và giá trị tính theo hàm mục tiêu BOF (phụ thuộc tần số Victoria) vượt ±0,01 Hz, bộ điều khiển ở trạm chỉnh lưu thay đổi công suất để kéo tần số về 50 Hz.",
+        "Bộ giảm chấn cộng hưởng dưới đồng bộ (SSDC) ở Loy Yang: đo góc pha điện áp AC để phát hiện dao động xoắn trục tuabin, rồi điều chế công suất DC để dập dao động. Chỉ bật khi Loy Yang là chỉnh lưu. Run-up/run-back và giảm chấn dao động công suất có sẵn nhưng không kích hoạt.",
+      ],
+    },
+  ]),
+
+  australiaTrip("4.3", "mục II, ngày 03/3/2025", [
+    {
+      heading: "Ghi nhận khảo sát tại trạm George Town",
+      points: [
+        "Hai trạm vận hành tự động hoàn toàn theo chế độ Master–Slave. Victoria đặt làm Master vì nhân viên tới trạm Loy Yang ngoài giờ chỉ mất khoảng 20 phút, so với 40 phút ở Tasmania. Nhân viên có mặt trong ngày làm việc để giám sát và làm công tác kỹ thuật.",
+        "Công suất tăng giảm tự động theo dốc tới giá trị đặt. Người vận hành có thể tăng α đột ngột (từ khoảng 12–17° lên 24°) khi cần, nhưng không mong muốn vì bất lợi cho thiết bị.",
+        "Thực tế công suất chiều Victoria → Tasmania thường chỉ khoảng 480 MW do lưới Tasmania hạn chế khả năng hấp thụ. Chiều ngược lại có thể đạt 630 MW trong thời gian ngắn (đến 4 giờ).",
+        "Từ năm 2006 chỉ có 7 trong 720 thyristor phải thay (4 ở Tasmania, 3 ở Victoria). Thyristor ít hỏng hơn IGBT vì dòng qua van có điểm về 0, ứng suất chủ yếu là điện áp.",
+        "Dự phòng: 15 thyristor tại chỗ cho hai trạm, tăng từ 8 sau khi tham khảo một sự cố HVDC ở Na Uy. Mất 1 thyristor trong van vẫn vận hành bình thường; mất 2 được duy trì tối đa 24 giờ; mất 3 thì hệ thống tự cắt.",
+        "Nước làm mát van phải khử ion, sạch tạp chất và giữ nhiệt độ ổn định, bình thường khoảng 42 °C; vượt 45 °C thì phải dừng. Vì sự cố HVDC phức tạp và chuỗi cung ứng linh kiện hạn chế, phải lập kế hoạch thiết bị dự phòng có sẵn tại hiện trường.",
+      ],
     },
   ]),
 ];

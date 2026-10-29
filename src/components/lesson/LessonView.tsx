@@ -15,6 +15,8 @@ import { LabId, labsForLesson } from "@/data/lab-guides";
 import { SYSTEM_LINKS, foundationsFor } from "@/data/system-links";
 import { figuresFor } from "@/data/lesson-figures";
 import LessonFigures from "@/components/lesson/LessonFigures";
+import LessonResources from "@/components/lesson/LessonResources";
+import { resourcesFor } from "@/data/lesson-resources";
 
 const loading = () => <div className="h-72 rounded-2xl bg-slate-900 border border-slate-800 animate-pulse" />;
 const WaveformCanvas = dynamic(() => import("@/components/simulator/WaveformCanvas"), { loading });
@@ -152,6 +154,8 @@ export default function LessonView({ level, lesson }: { level: string; lesson: s
           )}
 
           <LessonSupplements supplements={getSupplements(data.id)} />
+
+          <LessonResources resources={resourcesFor(data.id)} />
 
           {lab && (
             <section className="py-6 border-t border-slate-800" aria-labelledby="lesson-lab">

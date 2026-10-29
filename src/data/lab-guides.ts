@@ -41,7 +41,7 @@ export const LAB_GUIDES: Record<LabId, LabGuide> = {
       { task: "Tab 5: tắt bù tách kênh; đổi τ từ 1 đến 10 ms.", expect: "Bước id làm iq lệch rõ khỏi giá trị đặt (ghép chéo ωL); thời gian tăng id xấp xỉ 2,2·τ. Với τ = 2 ms: Kp ≈ 0,239, Ki = 2,5." },
       { task: "Tab 6: giữ ví dụ chuẩn ±500 kV, 3000 MW rồi đổi điện áp cực lên ±800 kV.", expect: "Id giảm từ 3 xuống khoảng 1,9 kA, tổn hao đường dây giảm theo bình phương dòng; V_LL phía van và số cấp thyristor mỗi van tăng theo điện áp." },
     ],
-    lessons: ["0.4", "0.6", "0.7", "0.8", "0.2", "0.5", "0.3", "2.1", "3.1"],
+    lessons: ["0.4", "0.6", "0.7", "0.8", "0.2", "0.5", "0.3", "2.1", "3.1", "4.3"],
     relatedLabs: ["waveform", "vi-curve", "vsc"],
   },
   waveform: {
@@ -80,7 +80,7 @@ export const LAB_GUIDES: Record<LabId, LabGuide> = {
       { task: "Bấm “Sự cố gần trạm chỉnh lưu”, rồi kéo điện áp AC chỉnh lưu xuống dưới khoảng 0,38 pu.", expect: "Vd giảm còn khoảng 0,42 pu với dòng 0,9 pu; khi xuống thấp hơn nữa, khung trạng thái báo VDCOL: trong thực tế bộ giới hạn dòng hạ dòng đặt để giảm nhu cầu Q và giúp lưới AC phục hồi." },
       { task: "Đặt ΔI = 0,05 rồi 0,2 trong lúc sụt áp chỉnh lưu.", expect: "ΔI lớn làm công suất sụt nhiều hơn khi chuyển chế độ; ΔI nhỏ dễ làm hai bộ điều khiển dòng tranh nhau." },
     ],
-    lessons: ["3.1", "4.2", "2.1", "0.6"],
+    lessons: ["3.1", "4.2", "2.1", "0.6", "4.3"],
     relatedLabs: ["firing", "waveform", "vsc"],
   },
   vsc: {

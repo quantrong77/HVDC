@@ -24,7 +24,7 @@ const input: ReportInput = {
 describe("Báo cáo kết quả học tập", () => {
   it("toàn khóa: tổng hợp tiến độ, ghi chú theo bài, tên file không dấu", () => {
     const m = buildReportModel(input);
-    expect(m.lessons).toHaveLength(18);
+    expect(m.lessons).toHaveLength(19);
     expect(m.completedCount).toBe(3);
     const l21 = m.lessons.find((l) => l.id === "2.1")!;
     expect(l21.done).toBe(true);
@@ -65,7 +65,7 @@ describe("Lộ trình nghiên cứu", () => {
   });
 
   it("học xong hết thì giai đoạn kiểm tra là bước tiếp theo", () => {
-    const all = ["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "1.1", "1.2", "1.3", "2.1", "2.2", "2.3", "3.1", "3.2", "4.1", "4.2"];
+    const all = ["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "1.1", "1.2", "1.3", "2.1", "2.2", "2.3", "3.1", "3.2", "4.1", "4.2", "4.3"];
     const stages = buildRoadmap(all, false);
     expect(stages.slice(0, 5).every((s) => s.status === "done")).toBe(true);
     expect(stages[5].status).toBe("next");
