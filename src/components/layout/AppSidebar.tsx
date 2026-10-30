@@ -7,6 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   Activity,
   Award,
+  BookOpen,
   CheckCircle2,
   ChevronDown,
   Circle,
@@ -50,6 +51,7 @@ const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
       { href: "/", label: "Trang chủ", icon: Home, match: "exact" },
       { href: "/#curriculum", label: "Lộ trình 5 cấp độ", icon: Route, match: "none" },
       { href: "/learn", label: "Bài học", icon: GraduationCap, match: "prefix", lessons: true },
+      { href: "/so-tay", label: "Sổ tay HVDC", icon: BookOpen, match: "prefix" },
       { href: "/quiz", label: "Kiểm tra", icon: Award, match: "prefix" },
       { href: "/ket-qua", label: "Kết quả học tập", icon: FileText, match: "prefix" },
     ],
