@@ -8,6 +8,8 @@ import type { LessonSupplement, SupplementSection } from "@/data/supplements";
 const SON_SOURCE = "Bài giảng HVDC, phiên bản 3 (Hà Nội, 2026)";
 const SON_AUTHOR = "TS. Nguyễn Trung Sơn, Đại học Bách khoa Hà Nội";
 const PHUONG_AUTHOR = "TS. Phạm Quang Phương, Khoa Điện, Trường Điện - Điện tử, Đại học Bách khoa Hà Nội (NPT Training 2026)";
+const SIM_SOURCE = "Các bài toán tính toán và mô phỏng HVDC (NPT Training 2026)";
+const PSSE_SOURCE = "Tính toán HVDC bằng PSS/E 36.6: mô hình, thông số và case thực hành 7 nút (NPT Training 2026)";
 
 const son = (lessonId: string, pages: string, sections: SupplementSection[]): LessonSupplement => ({
   lessonId,
@@ -464,7 +466,7 @@ export const BKHN_SUPPLEMENTS: LessonSupplement[] = [
     },
   ]),
 
-  phuong("2.2", "Tổng quan về FACTS", "tr. 4–16", [
+  phuong("2.2", "Tổng quan về FACTS", "tr. 4–23", [
     {
       heading: "FACTS và liên hệ với VSC",
       points: [
@@ -472,6 +474,41 @@ export const BKHN_SUPPLEMENTS: LessonSupplement[] = [
         "Các giới hạn truyền tải mà FACTS giúp nới rộng: giới hạn tải xác lập, ổn định điện áp tĩnh và động, ổn định quá độ, giới hạn nhiệt, giới hạn dòng ngắn mạch, giới hạn cản dao động công suất và dòng vòng không mong muốn.",
         "SVC gồm các nhánh TCR (cuộn kháng điều khiển bằng thyristor), TSC (tụ đóng cắt bằng thyristor) và FC (tụ cố định).",
         "STATCOM dùng bộ biến đổi nguồn áp như trạm VSC: đáp ứng nhanh hơn SVC, giữ được công suất phản kháng khi điện áp thấp, gọn hơn, ít sóng hài, nhưng chi phí đầu tư cao hơn. Đây là lý do một trạm VSC-HVDC có thể chạy ở chế độ STATCOM.",
+      ],
+    },
+    {
+      heading: "FACTS nối tiếp và kết hợp: TCSC, SSSC, UPFC, IPFC",
+      points: [
+        "TCSC (tụ bù dọc điều khiển bằng thyristor): tụ nối tiếp mắc song song với một TCR, thực chất là điện kháng nối tiếp thay đổi được. Giảm X đường dây để tăng Pmax, phân bố công suất giữa các đường dây song song, dập dao động công suất và cộng hưởng dưới đồng bộ (SSR).",
+        "SSSC (bộ bù nối tiếp tĩnh): một VSC bơm vào đường dây qua MBA nối tiếp một điện áp có biên độ và pha điều khiển được. Khác TCSC, SSSC là nguồn áp, không phụ thuộc trở kháng đường dây, và là phần nối tiếp của UPFC, IPFC.",
+        "UPFC: một VSC song song (như STATCOM) và một VSC nối tiếp (như SSSC) dùng chung một khâu DC, điều khiển đồng thời và độc lập điện áp nút cùng P, Q trên đường dây. Cấu trúc này chính là một trạm back-to-back VSC thu nhỏ.",
+        "IPFC: nhiều VSC nối tiếp trên các đường dây khác nhau chung một thanh cái DC, chuyển công suất từ đường quá tải sang đường non tải trong cùng hành lang.",
+      ],
+      table: {
+        caption: "Tổng hợp các thiết bị FACTS (tr. 23)",
+        columns: ["Thiết bị", "Kiểu đấu", "Công nghệ", "Chức năng chính"],
+        rows: [
+          ["SVC", "Song song", "Thyristor", "Bù Q, điều áp nút"],
+          ["STATCOM", "Song song", "VSC", "Bù Q nhanh, tốt ở điện áp thấp"],
+          ["TCSC", "Nối tiếp", "Thyristor", "Thay đổi X đường dây, tăng khả năng tải, dập SSR"],
+          ["SSSC", "Nối tiếp", "VSC", "Bơm áp nối tiếp, điều khiển P"],
+          ["UPFC", "Kết hợp", "VSC", "Điều khiển đồng thời V, P, Q"],
+          ["IPFC", "Kết hợp nhiều đường dây", "VSC", "San công suất giữa các đường dây"],
+          ["TCPST", "Nối tiếp", "Thyristor", "Dịch pha điều khiển được"],
+        ],
+      },
+    },
+  ]),
+
+  phuong("2.2", "Tổng quan về truyền tải điện một chiều HVDC", "tr. 27–31", [
+    {
+      heading: "HVDC lai: bổ sung từ bài giảng TS. Phạm Quang Phương",
+      points: [
+        "Tổn thất trạm: LCC khoảng 0,7 %/trạm, VSC khoảng 1 %/trạm. VSC đổi lại được điều khiển P, Q độc lập, khởi động đen, nối lưới yếu và đảo chiều công suất mà không đổi cực tính điện áp.",
+        "Lai theo đầu cực: LCC ở đầu phát (công suất lớn, rẻ), VSC ở đầu thu cấp cho lưới yếu hoặc đô thị, tránh sự cố chuyển mạch vốn hay xảy ra ở nghịch lưu LCC. Có thể lai nối tiếp hay song song trên cùng một cực, hoặc nâng cấp một hệ LCC cũ bằng cách thêm đầu VSC.",
+        "MMC lai: submodule nửa cầu rẻ và ít tổn thất nhưng không chặn được dòng sự cố DC; submodule cầu đủ tạo được điện áp âm để dập dòng sự cố nhưng gấp đôi số van. Trộn khoảng 50–70 % submodule cầu đủ là đủ để vượt qua sự cố DC mà vẫn tối ưu giá thành, nên dùng được cho đường dây trên không.",
+        "Dự án tham khảo thêm: Skagerrak 4 (Na Uy – Đan Mạch) là cực VSC chạy song song với các cực LCC cũ, tạo thành lưỡng cực lai; Nan'ao và Zhoushan (Trung Quốc) là các hệ MMC nhiều đầu cực, nền tảng cho lưới DC.",
+        "Thách thức: phối hợp điều khiển nguồn dòng (LCC) với nguồn áp (VSC), bảo vệ và dập sự cố DC phức tạp hơn, mô hình hóa và chỉnh định khó hơn, kinh nghiệm vận hành còn ít.",
       ],
     },
   ]),
@@ -537,14 +574,181 @@ export const BKHN_SUPPLEMENTS: LessonSupplement[] = [
     },
   ]),
 
-  phuong("4.2", "Tính toán trào lưu công suất HVDC sử dụng PSS/E", "tr. 3–13", [
+  phuong("4.2", SIM_SOURCE, "tr. 2–4, 14–15", [
     {
-      heading: "Mô hình HVDC hai đầu trong PSS/E",
+      heading: "Các bài toán tính toán HVDC theo thang thời gian",
       points: [
-        "PSS/E (Siemens PTI) tính trào lưu công suất, ngắn mạch, ổn định quá độ, ổn định điện áp và dao động nhỏ, phân tích sự cố và khả năng tải, có mô hình FACTS và HVDC cùng công cụ lập trình tự động hóa.",
-        "Ví dụ thực hành dùng lưới mẫu “savnw” và các liên kết HVDC thực tế như TNB–EGAT (Malaysia – Thái Lan) và Ấn Độ – Bangladesh.",
-        "Dữ liệu đường dây DC: tên, chế độ điều khiển (khóa, theo công suất, theo dòng), giá trị đặt (MW hoặc A), điện trở đường dây Rdc, điện áp DC đặt Vschedule, điện trở bù Rcmp (thường 0), biên dòng Delti (thường 0), điện áp DC nhỏ nhất Dcvmin, số vòng lặp và hệ số tăng tốc của thuật toán.",
-        "Dữ liệu trạm chỉnh lưu: nút đấu nối, điện áp sơ cấp định mức phía bộ biến đổi, điện trở và điện kháng chuyển mạch của máy biến áp mỗi cầu, tỷ số biến, nấc đặt cùng giới hạn nấc lớn nhất, nhỏ nhất và bước nấc.",
+        "HVDC là hệ điện tử công suất ghép vào lưới AC, nên hiện tượng trải từ micro giây đến nhiều giờ. Mỗi thang thời gian cần một loại mô hình và công cụ riêng; quy trình nghiên cứu điển hình đi từ xác lập, sang quá độ, rồi kiểm chứng bằng phần cứng thật.",
+        "Trong trào lưu công suất, LCC được mô hình như nút điều khiển công suất hoặc dòng DC qua α (chỉnh lưu) và γ (nghịch lưu), hệ số công suất nhỏ hơn 1 nên hút nhiều Q. VSC hành xử như nguồn PQ hoặc PV tại điểm đấu nối, bị giới hạn bởi Smax và Imax của van.",
+        "Hệ số công suất của LCC xấp xỉ cos α trừ đi sụt áp chuyển mạch tương đối, nên α càng lớn thì Vd càng giảm và Q hút càng tăng. Đây là lý do LCC luôn cần bù công suất phản kháng.",
+      ],
+      formulas: [
+        String.raw`V_d = \frac{3\sqrt{2}}{\pi}V_{LL}\cos\alpha - \frac{3}{\pi}X_c I_d,\qquad \cos\varphi \approx \cos\alpha - \frac{X_c I_d}{\sqrt{2}\,V_{LL}},\qquad Q \approx P\tan\varphi`,
+      ],
+      table: {
+        caption: "Chọn công cụ theo bài toán (tr. 14–15)",
+        columns: ["Bài toán", "Trả lời câu hỏi", "Thang thời gian", "Công cụ tiêu biểu"],
+        rows: [
+          ["Trào lưu công suất", "Điểm làm việc, P/Q, điện áp có đạt yêu cầu?", "Xác lập", "PSS/E, PowerFactory, PSS/SINCAL"],
+          ["Ngắn mạch", "Dòng sự cố, chọn thiết bị, chỉnh định bảo vệ?", "Xác lập", "PSS/E (ASCC, IEC 60909), PowerFactory"],
+          ["Ổn định RMS", "Hệ có ổn định sau sự cố? HVDC hỗ trợ ra sao?", "ms – s", "PSS/E, PowerFactory"],
+          ["Quá độ điện từ (EMT)", "Quá độ nhanh, điều khiển, sự cố DC?", "µs – ms", "PSCAD/EMTDC, EMTP-RV, Simulink"],
+          ["Sóng hài, trở kháng", "Phổ hài, cộng hưởng, ổn định theo trở kháng?", "Miền tần số", "PSCAD, MATLAB, PowerFactory"],
+          ["Thời gian thực, HIL", "Tủ điều khiển và bảo vệ thật có làm đúng?", "Thời gian thực, bước µs", "RTDS, OPAL-RT, Typhoon HIL"],
+        ],
+      },
+    },
+    {
+      heading: "Ổn định RMS và mô phỏng EMT",
+      points: [
+        "Mô phỏng RMS dạng phasor, bước ms – s: đánh giá ổn định quá độ sau sự cố, dao động liên vùng (HVDC có thể bơm thêm cản dịu POD), hỗ trợ tần số và điện áp, khởi động đen của VSC và khả năng vượt sự cố (FRT). Trong PSS/E, LCC hai đầu dùng các mô hình như CDC4T, CDC6T với bước tích phân khoảng nửa chu kỳ.",
+        "EMT tính giá trị tức thời với bước micro giây, cần khi nghiên cứu đóng cắt van, phát xung và PWM, quá điện áp và phối hợp cách điện, sự cố phía DC và máy cắt DC, lưới rất yếu, cộng hưởng dưới đồng bộ, và chi tiết của sự cố chuyển mạch mà RMS không thấy được.",
+        "Mô hình EMT gồm van chi tiết (thyristor với trùng dẫn μ; IGBT và điốt; MMC hàng trăm đến hàng nghìn submodule) cùng vòng điều khiển, bảo vệ thật. Vì khối lượng tính rất lớn, MMC thường dùng mô hình tương đương rút gọn để chạy được hệ thống lớn.",
+      ],
+    },
+  ]),
+
+  phuong("4.2", PSSE_SOURCE, "tr. 3–34", [
+    {
+      heading: "PSS/E: quy trình, bộ giải và ba mô hình HVDC",
+      points: [
+        "Mọi bài toán đi theo cùng khung: dựng hoặc đọc case (.sav nhị phân, .raw/.rawx văn bản), nhập thông số, giải, khai thác kết quả, rồi tự động hóa bằng Python (PSSPY). Các tệp khác: .sld sơ đồ một sợi, .dyr mô hình động, .rop dữ liệu OPF.",
+        "Loại nút IDE: 1 là nút tải PQ, 2 là nút PV có máy phát, 3 là nút cân bằng, 4 là nút tách lưới. Bộ giải mặc định FNSL (Newton–Raphson đầy đủ); FDNS, NSOL và SOLV (Gauss–Seidel) dùng cho lưới lớn hoặc để khởi tạo.",
+        "HVDC khai báo riêng trong ba mục: Two-Terminal DC (LCC hai đầu), VSC DC Line (VSC hai đầu) và Multi-Terminal DC (nhiều đầu, LCC hoặc VSC, dùng cho dự án như Côn Liễu Long ba đầu). Các case mẫu như savnw không có sẵn HVDC, phải tự thêm.",
+        "Ở mỗi bước Newton của lưới AC, PSS/E giải một vòng lặp con cho đường dây DC để tìm Vdc, Id, α hoặc γ và nấc MBA (tỉ số a trong công thức dưới) thỏa giá trị đặt, rồi bơm P và Q của trạm vào nút AC như tải hoặc nguồn tương đương.",
+        "Dự án thực tế làm ví dụ: Bheramara 2 × 500 MW back-to-back (Ấn Độ – Bangladesh), nghiên cứu giới hạn công suất run-back trong PSS/E; bản slide trào lưu công suất trước đó dùng thêm liên kết TNB–EGAT (Malaysia – Thái Lan).",
+      ],
+      formulas: [String.raw`V_{d,\mathrm{rect}} = \frac{3\sqrt{2}}{\pi}\,a\,V_{LL}\cos\alpha - \frac{3}{\pi}X_c I_d`],
+    },
+    {
+      heading: "Thông số LCC (Two-Terminal DC) và giá trị trong case 7 nút",
+      points: [
+        "Mỗi đường LCC có ba bản ghi: điều khiển chung, trạm chỉnh lưu và trạm nghịch lưu (cùng các trường, hậu tố R và I).",
+        "Xc là thông số then chốt: nó quyết định góc trùng dẫn μ, sụt áp chuyển mạch và lượng Q rất lớn mà LCC buộc phải hút, nên trạm phải đặt tụ bù và bộ lọc.",
+        "ANMN không được đặt bằng 0. Ở nghịch lưu, γ = 0 bị mô hình coi là sự cố chuyển mạch và bài toán không hội tụ.",
+      ],
+      table: {
+        caption: "Các trường chính của LCC (tr. 18–22, 57)",
+        columns: ["Thông số", "Ý nghĩa", "Case 7 nút / khuyến nghị"],
+        rows: [
+          ["MDC", "Chế độ: 0 khóa, 1 điều khiển công suất (MW), 2 điều khiển dòng (A)", "1"],
+          ["SETVL / VSCHD", "Giá trị đặt (MW hoặc A) / điện áp DC danh định", "500 MW / 500 kV"],
+          ["RDC", "Tổng điện trở đường dây DC", "10 Ω (thường 5–10 Ω)"],
+          ["METER", "Công suất đặt tính tại chỉnh lưu (R) hay nghịch lưu (I)", "R"],
+          ["RCOMP", "Điện trở bù tạo đặc tính droop khi nhiều đường DC song song", "0 với một đường"],
+          ["DELTI", "Biên dòng giữa chỉnh lưu và nghịch lưu (pu)", "0,01 trong case; khuyến nghị 0,05–0,1"],
+          ["VCMOD / DCVMIN", "Ngưỡng chuyển Power → Current / điện áp DC tối thiểu", "0 / 450 kV (70–80 % VSCHD)"],
+          ["ANMX / ANMN", "Giới hạn góc α (chỉnh lưu) hoặc γ (nghịch lưu)", "90° / 7° (α 5–10°, γ 7–10°)"],
+          ["NB", "Số cầu 6 xung nối tiếp", "1"],
+          ["Tap / Min / Max / Step", "Nấc MBA chuyển đổi", "1,0 / 0,9 / 1,1 / 0,00625 (33 nấc)"],
+          ["Xc / Rc", "Điện kháng và điện trở chuyển mạch mỗi cầu", "1 Ω / 1 Ω"],
+          ["Xcap", "Tụ nối tiếp của bộ CCC (capacitor-commutated)", "0"],
+        ],
+      },
+      note: "Slide khuyến nghị DELTI 0,05–0,1 nhưng case mẫu (cả slide và file .raw) dùng 0,01. Xc = 1 Ω là giá trị lý tưởng hóa để case dễ hội tụ: với Id = 1 kA, sụt áp chuyển mạch chỉ khoảng 1 kV, trong khi trạm thật có hàng chục kV (Basslink khoảng 13 kV mỗi cầu, bài 4.3). Muốn thấy rõ Q hút và μ, nên thử tăng Xc.",
+    },
+    {
+      heading: "Thông số VSC (VSC DC Line)",
+      points: [
+        "Quy tắc: một đầu điều khiển điện áp DC, đầu kia điều khiển công suất. Hai đầu cùng loại điều khiển thì PSS/E báo lỗi dữ liệu.",
+        "Khi điều khiển P, dấu của DCSET quyết định chiều: dương là bơm công suất vào nút AC, âm là hút từ nút AC. Đảo chiều chỉ cần đổi dấu, không đổi cực tính điện áp DC như LCC.",
+        "Tổn thất bộ biến đổi mô hình bậc hai theo dòng: thành phần A ứng với tổn hao đồng, B với tổn hao đóng cắt IGBT, cộng thêm tổn thất không tải tối thiểu.",
+      ],
+      formulas: [String.raw`P_{loss} = A_{loss} I^2 + B_{loss} I + P_{loss,\min}`],
+      table: {
+        caption: "Các trường chính của VSC (tr. 25–29, 58)",
+        columns: ["Thông số", "Ý nghĩa", "Nút 7", "Nút 4"],
+        rows: [
+          ["TYPE", "Điều khiển phía DC: 1 điện áp DC (kV), 2 công suất (MW)", "1 (giữ Vdc)", "2 (đặt P)"],
+          ["DCSET", "Giá trị đặt: Vdc, hoặc ±P", "500 kV", "100 MW"],
+          ["MODE / ACSET", "Phía AC: 1 điều khiển điện áp AC, 2 hệ số công suất", "1 / 1,0 pu", "2 / PF = 1 (Q ≈ 0)"],
+          ["SMAX / IMAX", "Giới hạn MVA / dòng AC (0 thì tự tính theo SMAX)", "500 MVA / 0", "500 MVA / 0"],
+          ["MAXQ / MINQ", "Giới hạn phát và hút Q", "±9999 Mvar", "±9999 Mvar"],
+          ["PWF", "Trọng số ưu tiên P so với Q khi chạm IMAX", "0,02", "0,02"],
+          ["REMOT / RMPCT", "Nút điều áp từ xa / % tham gia điều khiển Q (OPF)", "7 / 100 %", "4 / 100 %"],
+        ],
+      },
+      note: "Slide ghi RDC của VSC “thường 1–5 Ω” nhưng case đặt 10 Ω, bằng RDC của đường LCC. Các hệ số tổn thất A, B và tổn thất tối thiểu trong case đều bằng 0, tức bộ biến đổi VSC được coi là không tổn thất.",
+    },
+  ]),
+
+  phuong("4.2", PSSE_SOURCE, "tr. 15–16, 36–59", [
+    {
+      heading: "Case thực hành 7 nút LCC + VSC và các kịch bản",
+      points: [
+        "Lưới 7 nút 500 kV, 50 Hz: nút 1 cân bằng; máy phát ở nút 2, 6, 7; tải 100 + j50 MVA ở nút 3 và 4, 500 + j200 MVA ở nút 5; tụ bù cố định +300 Mvar ở nút 2, 4, 5, 7. LCC chỉnh lưu ở nút 2, nghịch lưu ở nút 5 (500 MW, 500 kV); VSC nút 7 giữ Vdc = 500 kV, nút 4 đặt P = 100 MW.",
+        "Kết quả cơ sở: điện áp các nút 0,953–0,965 pu nhờ tụ bù; nút 2 thấp nhất vì trạm chỉnh lưu hút Q. Id = 500 MW / 500 kV ≈ 1 kA, tổn thất trên RDC = Id²·RDC = 10 MW, nên nghịch lưu nhận khoảng 490 MW.",
+        "Ví dụ 2, tăng SETVL của LCC 500 → 600 → 700 MW: Id tăng làm Q hút tăng và điện áp nút 2 giảm nếu không thêm bù; sụt áp DC tăng nên phải tăng nấc hoặc giảm α; có thể chạm giới hạn góc hoặc DCVMIN và PSS/E tự giảm SETVL.",
+        "Ví dụ 3, đổi đầu VSC nút 4 từ điều khiển PF sang điều khiển điện áp AC: VSC phát hoặc hút Q để giữ điện áp, chỉ bị kẹp bởi MAXQ, MINQ và SMAX. Ví dụ 4, đổi DCSET +100 → −100 MW: công suất đảo chiều mà cực tính DC giữ nguyên.",
+        "Ví dụ 5, giảm điện áp AC phía nghịch lưu LCC (cắt một nguồn gần nút 5): γ không đủ, nguy cơ sự cố chuyển mạch; nếu Vdc dưới VCMOD hoặc DCVMIN thì PSS/E chuyển chế độ hoặc giảm SETVL. VSC không có sự cố chuyển mạch, nên thực tế hay đặt VSC ở đầu nhận là lưới yếu.",
+        "OPF (NOPF, tệp .rop): ràng buộc điện áp 0,95–1,05 pu, giới hạn 300 MVA trên nhánh 2–4 và 4–5, chi phí phát tuyến tính từng đoạn, cùng ràng buộc của đường LCC. Bộ giải hội tụ “Optimal Solution Found” sau khoảng 16 vòng lặp, hai nhánh 2–4 và 4–5 nằm ở giới hạn.",
+      ],
+    },
+    {
+      heading: "Lỗi hội tụ thường gặp và checklist",
+      points: [
+        "Trước khi giải: đủ bù Q quanh trạm LCC; ANMN ≥ 7°; VSC một đầu Vdc, một đầu P; SMAX, MAXQ hợp lý. Sau khi giải: psspy.solved() = 0, điện áp nút trong 0,95–1,05 pu, đọc Vdc, Pdc, Q hút bằng các hàm a2trmdcconvreal, dc2dat, avscdcconvreal, rồi lưu case và xuất báo cáo.",
+        "Mô phỏng động sau trào lưu: gắn mô hình DC (add_ttdcline_model, add_vsdcline_model, add_mtdcline_model) rồi chạy theo trình tự CONG → CONL → ORDR → FACT → TYSL → DYRE → STRT → RUN.",
+        "Bài tập đề xuất: chạy FNSL và lập bảng điện áp, dòng nhánh; quét SETVL 300 → 800 MW, vẽ Q hút và điện áp nút 2; chuyển VSC nút 4 sang điều khiển điện áp AC; đảo chiều VSC; chạy OPF và đối chiếu DETAIL.log. Nộp script PSSPY, bảng hoặc đồ thị và nhận xét.",
+      ],
+      table: {
+        caption: "Triệu chứng và cách khắc phục (tr. 51)",
+        columns: ["Triệu chứng", "Nguyên nhân / khắc phục"],
+        rows: [
+          ["Không hội tụ khi thêm LCC", "ANMN = 0: đặt γ ≥ 7°; thiếu bù Q: thêm tụ"],
+          ["Điện áp nút trạm rất thấp", "LCC hút Q lớn: tăng tụ, bộ lọc"],
+          ["Không đạt SETVL", "Chạm DCVMIN, giới hạn góc hoặc nấc: nới giới hạn"],
+          ["VSC báo lỗi dữ liệu", "Hai đầu cùng loại điều khiển: đặt một đầu Vdc, một đầu P"],
+          ["Vòng lặp DC quá nhiều", "Tăng CCCITMX, chỉnh CCCACC"],
+        ],
+      },
+    },
+  ]),
+
+  phuong("1.2", "Tổng quan về truyền tải điện một chiều HVDC", "tr. 7–13", [
+    {
+      heading: "Back-to-back qua ví dụ bếp từ",
+      points: [
+        "Phân loại HVDC theo đường dòng trở về (kim loại, đất hoặc biển, không có), theo số cực (đơn cực, lưỡng cực, ba cực) và theo công nghệ (LCC thyristor, VSC IGBT).",
+        "Một bếp từ có đúng cấu trúc của trạm back-to-back: cầu điốt chỉnh lưu lưới 220 V, 50 Hz thành DC, tụ DC-link lọc và giữ điện áp, nghịch lưu IGBT tạo dòng xoay chiều 20–100 kHz cấp cho cuộn dây. Hai bộ biến đổi dùng chung khâu một chiều, không có đường dây DC, hai phía khác tần số.",
+        "Cuộn dây bếp từ dùng dây Litz (nhiều sợi nhỏ bọc cách điện, bện đổi vị trí) vì ở tần số cao hiệu ứng bề mặt và hiệu ứng lân cận làm điện trở xoay chiều tăng mạnh. Cùng hiện tượng này là một lý do đường dây HVDC dùng hết tiết diện dây dẫn tốt hơn đường dây AC.",
+        "Khác biệt với trạm B2B thật chỉ ở cấp công suất (MW thay cho kW) và tần số hai phía (hai lưới 50/60 Hz thay cho 50 Hz và hàng chục kHz).",
+      ],
+    },
+  ]),
+
+  phuong("2.3", SIM_SOURCE, "tr. 9", [
+    {
+      heading: "Nghiên cứu sóng hài và chất lượng điện năng",
+      points: [
+        "LCC 12 xung sinh sóng hài đặc trưng bậc 11, 13, 23, 25…, cần bộ lọc AC, DC và bù Q lớn tại trạm; dòng hài bơm vào lưới phải nằm trong giới hạn cho phép.",
+        "VSC, MMC nhiều mức sinh ít sóng hài hơn nhiều, bộ lọc nhỏ gọn hoặc gần như không cần, nhưng phải chú ý sóng hài tần số cao do đóng cắt.",
+        "Nghiên cứu gồm phân tích phổ hài, thiết kế bộ lọc và kiểm tra theo IEEE 519, IEC 61000, dùng quét tần số (frequency scan) và mô phỏng EMT.",
+      ],
+    },
+  ]),
+
+  phuong("3.1", SIM_SOURCE, "tr. 10–12", [
+    {
+      heading: "Tương tác điều khiển, lưới yếu và kiểm chứng HIL",
+      points: [
+        "Chỉnh định các vòng điều khiển: dòng DC, điện áp DC, P/Q, PLL và cân bằng năng lượng MMC. Tương tác điều khiển có thể xảy ra giữa các trạm HVDC gần nhau, với lưới yếu (mất ổn định vòng điều khiển), hoặc với tua-bin gió và thiết bị điện tử công suất khác (dao động dưới đồng bộ SSO, SSCI, SSTI).",
+        "Lưới yếu khi SCR < 3, rất yếu khi SCR < 2. LCC ở lưới yếu dễ sự cố chuyển mạch và khó phục hồi; VSC tốt hơn nhưng vẫn cần phân tích ổn định theo trở kháng để tránh cộng hưởng.",
+        "Công cụ: phân tích tín hiệu nhỏ (trị riêng), quét trở kháng theo tần số, kiểm chứng bằng EMT ở nhiều mức SCR.",
+        "Mô phỏng thời gian thực (bước khoảng 1–50 µs trên RTDS, OPAL-RT, Typhoon HIL) cho phép nối tủ điều khiển, bảo vệ thật vào lưới ảo (CHIL) hoặc nối thiết bị công suất thật qua bộ khuếch đại (PHIL). Đây là bước kiểm chứng tủ điều khiển HVDC trong thử nghiệm xuất xưởng (FAT), trước khi đóng điện.",
+      ],
+      formulas: [String.raw`\mathrm{SCR} = \frac{S_{sc}}{P_{dc}}`],
+    },
+  ]),
+
+  phuong("3.2", SIM_SOURCE, "tr. 5, 13", [
+    {
+      heading: "Ngắn mạch và sự cố phía DC theo công nghệ",
+      points: [
+        "Phía AC: LCC đóng góp dòng ngắn mạch hạn chế nhưng rất nhạy với sụt áp, dễ sự cố chuyển mạch; VSC giới hạn dòng sự cố ở khoảng 1,0–1,1 pu nhờ van và điều khiển chặn rất nhanh. Kết quả ngắn mạch dùng để chỉnh định bảo vệ và chọn thiết bị (khả năng cắt, dao cách ly).",
+        "Phía DC: LCC tự giới hạn dòng sự cố nhờ điều khiển góc (cưỡng bức chậm kích, force retard). VSC nửa cầu không chặn được vì điốt tự do vẫn dẫn, nên cần máy cắt DC hoặc MMC cầu đủ.",
+        "Các vùng bảo vệ: vùng AC, vùng van và bộ biến đổi, thanh cái DC, đường dây hoặc cáp DC. Lưới DC nhiều đầu cực cần phối hợp bảo vệ chọn lọc và cắt sự cố trong vài mili giây.",
+        "Công cụ: PSS/E (ASCC) hoặc PowerFactory cho ngắn mạch AC; EMT (PSCAD) cho quá độ dòng sự cố DC và phối hợp bảo vệ; mô phỏng thời gian thực để kiểm chứng rơ-le.",
       ],
     },
   ]),

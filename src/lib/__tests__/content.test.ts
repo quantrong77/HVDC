@@ -124,6 +124,17 @@ describe("Tài liệu bổ sung", () => {
     }
   });
 
+  it("tài liệu TS. Phạm Quang Phương 2026 phủ tính toán, mô phỏng và PSS/E ở các bài liên quan", () => {
+    const by = (id: string) => getSupplements(id).filter((s) => /Phạm Quang Phương/.test(s.author));
+    for (const id of ["1.1", "1.2", "2.2", "2.3", "3.1", "3.2", "4.2"]) expect(by(id).length, id).toBeGreaterThan(0);
+    const psse = by("4.2").flatMap((s) => s.sections);
+    const lcc = psse.find((s) => /Two-Terminal/.test(s.heading))!.table!;
+    expect(lcc.rows.find((r) => r[0] === "ANMX / ANMN")![2]).toMatch(/7°/);
+    expect(psse.find((s) => /VSC DC Line/.test(s.heading))!.points.join(" ")).toMatch(/DCSET/);
+    const facts = by("2.2").flatMap((s) => s.sections).find((s) => /UPFC/.test(s.heading))!.table!;
+    expect(facts.rows.map((r) => r[0])).toEqual(expect.arrayContaining(["TCSC", "SSSC", "UPFC", "IPFC"]));
+  });
+
   it("Basslink được ghi đúng là LCC (hiệu chỉnh lỗi trong slide gốc)", () => {
     const table = getSupplements("4.2")[0].sections[0].table!;
     const basslink = table.rows.find((r) => r[0] === "Basslink")!;

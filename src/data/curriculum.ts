@@ -455,6 +455,18 @@ export const CURRICULUM_LEVELS: LearningLevel[] = [
           "Tài liệu Trạm 220kV Thái Nguyên dùng để tham chiếu quy trình thao tác và tổ chức vận hành trạm. Các kịch bản sự cố HVDC trong bài là tình huống mô phỏng phục vụ đào tạo.",
         ],
         labLink: { href: "#vi-curve", label: "Mô phỏng sụt áp AC trên đặc tính V-I" },
+        practice: [
+          {
+            href: "/simulator#firing-wave",
+            title: "Tab 1: tương tự ví dụ 2 PSS/E, tăng công suất LCC",
+            task: "Cầu 12 xung, V_LL = 210 kV, α = 15°. Tăng Id 1 → 1,2 → 1,4 kA (như tăng SETVL 500 → 700 MW) và ghi Q, μ, Vd. Lặp lại với Xc = 1 Ω (giá trị case 7 nút) và Xc = 10 Ω để thấy vì sao Xc quyết định lượng Q hút.",
+          },
+          {
+            href: "/simulator#vsc",
+            title: "Điều khiển VSC: tương tự ví dụ 3 và 4 PSS/E",
+            task: "Trạm 1 đặt P, trạm 2 giữ Vdc như cặp TYPE = 2 / TYPE = 1 của case 7 nút. Đặt P1 từ +0,2 sang −0,2 pu (đổi dấu DCSET) rồi thay Q1, Q2: công suất đảo chiều, Vdc giữ cực tính, Q điều khiển độc lập với P.",
+          },
+        ],
       },
       {
         id: "4.3",
