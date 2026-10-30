@@ -442,6 +442,18 @@ export const CURRICULUM_LEVELS: LearningLevel[] = [
         ],
         formula: "Q ≈ P·tan φ ; cos φ ≈ [cos α + cos(α+μ)]/2",
         formulaTex: String.raw`Q \approx P\tan\varphi, \qquad \cos\varphi \approx \frac{\cos\alpha + \cos(\alpha+\mu)}{2}`,
+        practice: [
+          {
+            href: "/simulator#ops",
+            title: "Vận hành LCC A ↔ B: trình tự khởi động",
+            task: "Bấm Deblock với 300 MW và đọc nhật ký: α hai trạm đặt 90°, deblock nghịch lưu trước, chỉnh lưu sau, tăng dòng tới Imin rồi tăng công suất theo dốc. Đối chiếu với thứ tự khởi động trong ý chính của bài.",
+          },
+          {
+            href: "/simulator#ops",
+            title: "Vận hành LCC A ↔ B: OLTC và nhóm lọc",
+            task: "Chạy ×20 và quan sát thanh OLTC dưới MBA kéo α chỉnh lưu về dải 12,5–17,5°. Sau đó bật chế độ tay, đặt nấc lệch đi 4 nấc và cắt một nhóm lọc: ghi lại α, Q bộ chuyển đổi, Qnet và điện áp thanh cái.",
+          },
+        ],
       },
       {
         id: "4.2",
@@ -460,6 +472,11 @@ export const CURRICULUM_LEVELS: LearningLevel[] = [
             href: "/simulator#firing-wave",
             title: "Tab 1: tương tự ví dụ 2 PSS/E, tăng công suất LCC",
             task: "Cầu 12 xung, V_LL = 210 kV, α = 15°. Tăng Id 1 → 1,2 → 1,4 kA (như tăng SETVL 500 → 700 MW) và ghi Q, μ, Vd. Lặp lại với Xc = 1 Ω (giá trị case 7 nút) và Xc = 10 Ω để thấy vì sao Xc quyết định lượng Q hút.",
+          },
+          {
+            href: "/simulator#ops",
+            title: "Vận hành LCC A ↔ B: sụt áp nghịch lưu và sự cố DC",
+            task: "Ở chế độ ổn định, chèn E1 phía lưới nghịch lưu 30 % trong 400 ms, rồi chèn E3 chạm đất đường dây DC. Ghi lại γ nhỏ nhất, số lần CF, thời gian khử ion và quá trình khởi động lại trong nhật ký SCADA.",
           },
           {
             href: "/simulator#vsc",
@@ -494,6 +511,11 @@ export const CURRICULUM_LEVELS: LearningLevel[] = [
             href: "/simulator#firing-char",
             title: "Tab 2: dải γ bình thường và Gamma tăng cường",
             task: "Đặt γ nghịch lưu lần lượt 19° và 23°, hạ dần điện áp AC phía nghịch lưu. So sánh điện áp DC và khoảng sụt áp còn chịu được trước khi chuyển chế độ điều khiển.",
+          },
+          {
+            href: "/simulator#ops",
+            title: "Vận hành LCC A ↔ B: đảo chiều công suất",
+            task: "Bấm Đảo chiều khi đang mang tải và theo nhật ký: giảm về Pmin, đổi vai trò hai trạm, điện áp DC đổi cực tính trong khi Id vẫn dương, rồi tăng tải theo chiều mới. Liên hệ trình tự đảo chiều của Basslink (khử ion 2 phút, cách nhau 2 giờ).",
           },
           {
             href: "/simulator#firing-dyn",

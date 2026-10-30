@@ -3,7 +3,7 @@
  * và mục liên quan (bài học, phòng lab khác). Dùng chung cho trang Phòng lab và trang bài học.
  */
 
-export type LabId = "firing" | "waveform" | "vi-curve" | "vsc" | "sld" | "planner";
+export type LabId = "firing" | "waveform" | "vi-curve" | "ops" | "vsc" | "sld" | "planner";
 
 export interface LabExperiment {
   task: string;
@@ -83,6 +83,27 @@ export const LAB_GUIDES: Record<LabId, LabGuide> = {
     lessons: ["3.1", "4.2", "2.1", "0.6", "4.3"],
     relatedLabs: ["firing", "waveform", "vsc"],
   },
+  ops: {
+    id: "ops",
+    title: "Vận hành liên kết LCC A ↔ B",
+    goal: "Tập thao tác vận hành một liên kết LCC hai trạm: deblock, tăng giảm công suất theo dốc, OLTC và đóng cắt nhóm lọc, đảo chiều công suất, và quan sát phản ứng khi có sụt áp lưới hay sự cố đường dây DC.",
+    steps: [
+      "Chọn công suất đặt, chiều truyền và tốc độ dốc, rồi bấm Deblock. Trình tự: hai trạm đặt α = 90°, deblock nghịch lưu trước, chỉnh lưu sau, tăng dòng tới Imin rồi tăng công suất theo dốc.",
+      "Theo dõi sơ đồ một sợi động: chấm chạy cho biết chiều và mức công suất, viền cầu cho biết vai trò (xanh lá chỉnh lưu, xanh dương nghịch lưu, đỏ sự cố chuyển mạch), ô vuông dưới khối lọc là nhóm lọc đang đóng, chấm trên thanh OLTC là vị trí nấc.",
+      "Khung minh họa vẽ lại dạng sóng một cầu 6 xung và thước góc α, μ, γ của từng trạm từ điểm làm việc hiện tại.",
+      "Chèn sự kiện E1–E6 ở bảng điều khiển; nhật ký kiểu SCADA ghi từng bước và xuất được CSV. Tab Thông số cho sửa tham số và lưu, nạp cấu hình JSON.",
+      "Đặt tốc độ ×20 khi chờ OLTC và nhóm lọc tự điều chỉnh (mỗi giây xét một lần), đưa về ×1 trước khi chèn sụt áp để quan sát quá độ.",
+    ],
+    experiments: [
+      { task: "Deblock với 300 MW, chiều A → B, tốc độ ×20; chờ ổn định.", expect: "Nghịch lưu giữ γ = γđm 17° (điều khiển góc tắt), OLTC chỉnh lưu đưa α về dải 12,5–17,5°, Ud hai đầu bằng nhau." },
+      { task: "Tốc độ ×1, chèn E1 phía lưới B (nghịch lưu) 30 % trong 400 ms.", expect: "μ nghịch lưu tăng, γ tụt dưới γcrit: cầu B chuyển đỏ, bộ đếm CF tăng; điều khiển góc tắt kéo γ về khoảng 12° trong lúc sụt áp và về 17° khi hết sự cố." },
+      { task: "Bấm Đảo chiều khi đang mang tải.", expect: "Công suất giảm về Pmin, đổi vai trò hai trạm, điện áp DC đổi cực tính trong khi Id vẫn dương, rồi tăng tải theo chiều mới. So với Đảo chiều nhanh (minh họa) để thấy vì sao phải có trình tự." },
+      { task: "Chèn E3 (chạm đất đường dây DC).", expect: "Dòng bị cưỡng bức về 0, chờ khử ion rồi tự khởi động lại với 10 % công suất." },
+      { task: "Bật chế độ tay OLTC/lọc, cắt bớt nhóm lọc ở trạm chỉnh lưu.", expect: "Qnet của trạm tăng, điện áp thanh cái AC giảm; đối chiếu Q bộ chuyển đổi trong bảng với Q ≈ P·tan φ." },
+    ],
+    lessons: ["4.1", "4.3", "3.1", "4.2"],
+    relatedLabs: ["vi-curve", "firing"],
+  },
   vsc: {
     id: "vsc",
     title: "Điều khiển VSC-HVDC: P, Q và điện áp DC",
@@ -142,7 +163,7 @@ export const LAB_GUIDES: Record<LabId, LabGuide> = {
   },
 };
 
-export const LAB_ORDER: LabId[] = ["firing", "waveform", "vi-curve", "vsc", "sld", "planner"];
+export const LAB_ORDER: LabId[] = ["firing", "waveform", "vi-curve", "ops", "vsc", "sld", "planner"];
 
 /** Các phòng lab có liên quan đến một bài học */
 export function labsForLesson(lessonId: string): LabGuide[] {

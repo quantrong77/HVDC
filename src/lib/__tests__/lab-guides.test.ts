@@ -25,3 +25,22 @@ describe("Hướng dẫn phòng lab", () => {
     expect(labsForLesson("2.1").map((g) => g.id)).toEqual(["firing", "waveform", "vi-curve"]);
   });
 });
+
+describe("Phòng lab vận hành LCC A ↔ B", () => {
+  it("trang mô phỏng nhúng có trong public/labs và hỗ trợ chế độ nhúng", async () => {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const html = fs.readFileSync(path.join(process.cwd(), "public", "labs", "hvdc-lcc-ops.html"), "utf8");
+    expect(html).toMatch(/has\("embed"\)/);
+    expect(html).toMatch(/window\.hvdcOffscreen/);
+    expect(html).toMatch(/ceaBeta\(PARAMS\.gammaN/);
+  });
+
+  it("được bài 4.1, 4.2, 4.3 dẫn tới qua thẻ thực hành", () => {
+    for (const id of ["4.1", "4.2", "4.3"]) {
+      const lesson = ALL_LESSONS.find((l) => l.id === id)!;
+      expect(lesson.practice?.some((p) => p.href === "/simulator#ops"), id).toBe(true);
+    }
+    expect(labsForLesson("4.1").map((g) => g.id)).toContain("ops");
+  });
+});

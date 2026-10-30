@@ -6,13 +6,14 @@ import SingleLineDiagram from "@/components/simulator/SingleLineDiagram";
 import VscHvdcLab from "@/components/simulator/VscHvdcLab";
 import HvdcPlanner from "@/components/simulator/HvdcPlanner";
 import FiringAngleLab from "@/components/simulator/FiringAngleLab";
+import LccOpsLab from "@/components/simulator/LccOpsLab";
 import LabGuidePanel from "@/components/simulator/LabGuidePanel";
 import { LabId } from "@/data/lab-guides";
 import { ExternalLink } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Phòng lab mô phỏng | Nghiên Cứu HVDC",
-  description: "Mô phỏng tương tác: góc kích và điều chế, cầu Thyristor LCC, đặc tính V-I, điều khiển VSC-HVDC, sơ đồ đơn tuyến trạm và công cụ thiết kế sơ bộ tuyến HVDC.",
+  description: "Mô phỏng tương tác: góc kích và điều chế, cầu Thyristor LCC, đặc tính V-I, vận hành liên kết LCC hai trạm, điều khiển VSC-HVDC, sơ đồ đơn tuyến trạm và công cụ thiết kế sơ bộ tuyến HVDC.",
 };
 
 const FiringLabWithAnchors = () => <FiringAngleLab anchors />;
@@ -21,6 +22,7 @@ const LABS: { id: LabId; title: string; lesson: string; Component: React.Compone
   { id: "firing", title: "Góc kích, trùng dẫn và điều chế", lesson: "Cấp độ 0, bài 0.2 đến 0.8", Component: FiringLabWithAnchors },
   { id: "waveform", title: "Cầu Thyristor LCC: dạng sóng và góc kích", lesson: "Bài 2.1 và 2.3", Component: WaveformCanvas },
   { id: "vi-curve", title: "Đặc tính V-I và điểm làm việc", lesson: "Bài 3.1", Component: VICharacteristic },
+  { id: "ops", title: "Vận hành liên kết LCC A ↔ B", lesson: "Bài 3.1, 4.1, 4.2 và 4.3", Component: LccOpsLab },
   { id: "vsc", title: "Điều khiển VSC-HVDC: P, Q và điện áp DC", lesson: "Bài 2.2 và 3.1", Component: VscHvdcLab },
   { id: "sld", title: "Sơ đồ đơn tuyến trạm biến đổi", lesson: "Bài 1.2 và 1.3", Component: SingleLineDiagram },
   { id: "planner", title: "Thiết kế sơ bộ tuyến HVDC", lesson: "Bài 1.1, 1.2 và 2.2", Component: HvdcPlanner },
@@ -51,7 +53,7 @@ export default function SimulatorPage() {
       <header className="max-w-3xl">
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white">Phòng lab mô phỏng HVDC</h1>
         <p className="mt-3 text-slate-300 leading-relaxed">
-          Sáu công cụ dùng chung với các bài học. Mọi số liệu được tính trực tiếp theo công thức và bảng tra trong tài liệu đào tạo khi bạn kéo thanh trượt.
+          Bảy công cụ dùng chung với các bài học. Mọi số liệu được tính trực tiếp theo công thức và bảng tra trong tài liệu đào tạo khi bạn kéo thanh trượt.
         </p>
         <nav aria-label="Các phòng lab" className="mt-5 flex flex-wrap gap-2">
           {LABS.map((lab) => (

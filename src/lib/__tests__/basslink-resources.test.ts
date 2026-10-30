@@ -10,7 +10,7 @@ describe("Bài 4.3: case study Basslink", () => {
   it("có thực hành dẫn tới phòng lab góc kích, có kiến thức nền Cấp độ 0 và tài liệu bổ sung", () => {
     const lesson = ALL_LESSONS.find((l) => l.id === "4.3")!;
     expect(lesson.level).toBe(4);
-    for (const p of lesson.practice!) expect(p.href).toMatch(/^\/simulator#firing-(wave|char|dyn)$/);
+    for (const p of lesson.practice!) expect(p.href).toMatch(/^\/simulator#(firing-(wave|char|dyn)|ops)$/);
     expect(foundationsFor("4.3").length).toBeGreaterThanOrEqual(3);
     expect(labsForLesson("4.3").map((g) => g.id)).toContain("firing");
     const sources = getSupplements("4.3").map((s) => s.source);
