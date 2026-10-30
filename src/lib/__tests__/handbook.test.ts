@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import { parseHandbook, slugify } from "@/lib/handbook";
+import { HANDBOOK_FIGURES } from "@/data/handbook-figures";
+import { LICENSE_URL } from "@/data/lesson-figures";
 
 const md = fs.readFileSync(path.join(process.cwd(), "src", "content", "so-tay-hvdc.md"), "utf8");
 const hb = parseHandbook(md);
@@ -52,5 +54,31 @@ describe("Sổ tay HVDC", () => {
     // Nhánh "Có" của câu 3 dẫn sang câu 4, ba nhánh còn lại dẫn tới kết luận
     const yes = decision.edges.filter((e) => e.label === "Có").map((e) => decision.nodes[e.to]);
     expect(yes.filter((n) => !n.decision).map((n) => n.label)).toEqual(["Ưu tiên VSC", "Ưu tiên VSC", "Xem xét LCC"]);
+  });
+});
+
+describe("Hình minh họa của Sổ tay", () => {
+  const all = Object.values(HANDBOOK_FIGURES).flat();
+
+  it("mỗi nhóm hình gắn với một mục có thật trong sổ tay", () => {
+    const ids = new Set(hb.toc.map((t) => t.id));
+    for (const id of Object.keys(HANDBOOK_FIGURES)) expect(ids.has(id), id).toBe(true);
+    expect(Object.keys(HANDBOOK_FIGURES).length).toBeGreaterThanOrEqual(10);
+  });
+
+  it("file tồn tại, có tác giả, giấy phép mở; ảnh ngoài giáo trình có tên file Commons", () => {
+    for (const f of all) {
+      const file = path.join(process.cwd(), "public", f.dir ?? "level0", f.file);
+      expect(fs.existsSync(file), f.file).toBe(true);
+      expect(Object.keys(LICENSE_URL)).toContain(f.license);
+      expect(f.author.length).toBeGreaterThan(1);
+      expect(f.caption.length).toBeGreaterThan(40);
+      if (!f.file.startsWith("gt/")) expect(f.commons).toMatch(/\.(svg|png|jpe?g|gif)$/i);
+    }
+  });
+
+  it("không có ảnh nào trong public/handbook bị bỏ quên", () => {
+    const used = new Set(all.filter((f) => f.dir === "handbook").map((f) => f.file));
+    for (const file of fs.readdirSync(path.join(process.cwd(), "public", "handbook"))) expect(used.has(file), file).toBe(true);
   });
 });

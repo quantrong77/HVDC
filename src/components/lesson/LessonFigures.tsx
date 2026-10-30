@@ -5,7 +5,7 @@ import { ExternalLink, ImageIcon, Maximize2, X } from "lucide-react";
 import { LICENSE_URL, LessonFigure, commonsUrl } from "@/data/lesson-figures";
 
 // Ảnh tĩnh trong public/ không tự nhận basePath (GitHub Pages phục vụ dưới /HVDC)
-const src = (file: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/level0/${file}`;
+const src = (f: LessonFigure) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/${f.dir ?? "level0"}/${f.file}`;
 
 function Credit({ f }: { f: LessonFigure }) {
   // Hình của giáo trình khóa học: chỉ cần ghi số hình để đối chiếu
@@ -36,7 +36,7 @@ function Frame({ f, className = "" }: { f: LessonFigure; className?: string }) {
   return (
     <span className={`block rounded-lg overflow-hidden border border-slate-800 ${className}`} style={f.photo ? undefined : { background: "#fff" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src(f.file)} alt={f.title} loading="lazy" decoding="async" className={`block w-full ${f.photo ? "object-cover" : "object-contain p-2"} max-h-[230px]`} />
+      <img src={src(f)} alt={f.title} loading="lazy" decoding="async" className={`block w-full ${f.photo ? "object-cover" : "object-contain p-2"} max-h-[230px]`} />
     </span>
   );
 }
@@ -72,7 +72,7 @@ function Lightbox({ f, onClose }: { f: LessonFigure; onClose: () => void }) {
         </button>
         <span className="block rounded-lg overflow-hidden mt-8" style={f.photo ? undefined : { background: "#fff" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={src(f.file)} alt={f.title} className={`block mx-auto max-h-[68vh] w-auto max-w-full object-contain ${f.photo ? "" : "p-3"}`} />
+          <img src={src(f)} alt={f.title} className={`block mx-auto max-h-[68vh] w-auto max-w-full object-contain ${f.photo ? "" : "p-3"}`} />
         </span>
         <figcaption className="mt-4 space-y-1.5">
           <p className="text-base font-semibold text-white">{f.title}</p>
@@ -88,7 +88,7 @@ function Lightbox({ f, onClose }: { f: LessonFigure; onClose: () => void }) {
  * Hình minh họa của bài. `variant="aside"`: cột phải dính theo khi cuộn (màn hình rộng);
  * `variant="strip"`: dải ảnh vuốt ngang ngay dưới ý chính (màn hình hẹp).
  */
-export default function LessonFigures({ figures, variant }: { figures: LessonFigure[]; variant: "aside" | "strip" }) {
+export default function LessonFigures({ figures, variant }: { figures: LessonFigure[]; variant: "aside" | "strip" | "inline" }) {
   const [open, setOpen] = useState<LessonFigure | null>(null);
   if (figures.length === 0) return null;
 
@@ -119,7 +119,12 @@ export default function LessonFigures({ figures, variant }: { figures: LessonFig
 
   return (
     <>
-      {variant === "aside" ? (
+      {variant === "inline" ? (
+        // Chèn giữa văn bản (trang Sổ tay): lưới 1–2 cột, không tiêu đề riêng
+        <ul aria-label="Hình minh họa" className={`my-5 grid gap-3 ${figures.length > 1 ? "sm:grid-cols-2" : "max-w-md"}`}>
+          {figures.map((f) => card(f, "relative"))}
+        </ul>
+      ) : variant === "aside" ? (
         <aside aria-label="Hình minh họa" className="hidden xl:block">
           <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1 pb-4 space-y-3">
             {heading}

@@ -1,6 +1,8 @@
 import React from "react";
 import { ArrowDown, ArrowRight, BookOpen, ExternalLink } from "lucide-react";
 import { Flowchart, Handbook, HandbookBlock } from "@/lib/handbook";
+import { handbookFiguresFor } from "@/data/handbook-figures";
+import LessonFigures from "@/components/lesson/LessonFigures";
 
 /* ---------- Nội dung trong dòng: đậm, nghiêng, liên kết, trích dẫn [n], ký hiệu loại yếu tố ---------- */
 
@@ -221,6 +223,15 @@ function Block({ block, inRefs }: { block: HandbookBlock; inRefs: boolean }) {
   }
 }
 
+/** Neo của mục chứa khối thứ i (tiêu đề cấp 2 hoặc 3 gần nhất phía trên) */
+function sectionOf(blocks: HandbookBlock[], i: number): string | null {
+  for (let k = i; k >= 0; k--) {
+    const b = blocks[k];
+    if (b.type === "heading" && b.level > 1) return b.id;
+  }
+  return null;
+}
+
 export default function HandbookView({ handbook }: { handbook: Handbook }) {
   const { meta, blocks, toc } = handbook;
   const refsAt = blocks.findIndex((b) => b.type === "heading" && b.text === "Tài liệu tham khảo");
@@ -254,9 +265,19 @@ export default function HandbookView({ handbook }: { handbook: Handbook }) {
 
       <div className="mt-6 grid gap-10 xl:grid-cols-[minmax(0,1fr)_260px]">
         <article className="min-w-0 max-w-4xl">
-          {blocks.map((b, i) => (
-            <Block key={i} block={b} inRefs={refsAt >= 0 && i > refsAt} />
-          ))}
+          {blocks.map((b, i) => {
+            // Hình của một mục đặt cuối mục, ngay trước tiêu đề kế tiếp
+            const next = blocks[i + 1];
+            const sectionEnd = !next || (next.type === "heading" && next.level <= 3);
+            const owner = sectionEnd ? sectionOf(blocks, i) : null;
+            const figs = owner ? handbookFiguresFor(owner) : [];
+            return (
+              <React.Fragment key={i}>
+                <Block block={b} inRefs={refsAt >= 0 && i > refsAt} />
+                {figs.length > 0 && <LessonFigures figures={figs} variant="inline" />}
+              </React.Fragment>
+            );
+          })}
         </article>
 
         <nav aria-label="Mục lục sổ tay" className="hidden xl:block">

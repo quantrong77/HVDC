@@ -18,7 +18,8 @@ export const LICENSE_URL: Record<FigureLicense, string | null> = {
 };
 
 export interface LessonFigure {
-  file: string; // trong public/level0/
+  file: string; // trong public/<dir>/
+  dir?: string; // thư mục trong public/, mặc định "level0"
   title: string;
   caption: string;
   author: string;
